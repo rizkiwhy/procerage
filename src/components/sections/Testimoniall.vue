@@ -1,24 +1,30 @@
 <template>
   <section
-    id="keunggulan">
-        <!-- :src="require('../../assets/wave(9).svg')" -->
-        <!-- height="110vh" -->
-        <!-- gradient="to top, secondary, secondary" -->
-         <!-- <template>
+    id="testimonial">
+    <!-- <template>
   <v-parallax
     dark
     src="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg"
   > -->
     <v-img
-        class="fill-height primary">
-        <!-- <div class="text-center mb-5"> -->
-          <!-- <h1 class="text-h5 mb-4 mt-16 text-center font-weight-bold text-uppercase primary--text">Keunggulan</h1> -->
-        <div class="text-center mt-16">
-          <h1 class="text-h3 font-weight-medium text-center mb-4 secondary--text">Keunggulan</h1>
-        </div>
-          <!-- <h1 class="text-uppercase text-h5 font-weight-bold mt-16 mb-2 white--text text-center">Keunggulan</h1> -->
-        <!-- </div> -->
-        <v-container class="my-10">
+        class="fill-height"
+        height="100vh">
+
+    <!-- <v-img
+        class="fill-height bottom-gradient"> -->
+    
+        <!-- :src="require('../../assets/wave.svg')" -->
+<!-- <v-row no-gutters>
+      <v-col
+        md="12"
+      > -->
+         <!-- <v-col cols="12" sm="12"> -->
+        <v-container 
+      class="mb-16"
+        >
+          <div class="text-center mt-16">
+            <h1 class="text-h3 font-weight-medium text-center mb-4 secondary--text">Testimonial</h1>
+          </div>
           <v-row>
             <v-col
               v-for="(testimonial, i) in testimonials"
@@ -46,7 +52,7 @@
                       <span class="text-h6 font-weight-light">Twitter</span>
                     </v-card-title> -->
 
-                    <v-card-text class="text-h5 font-weight-bold white--text">
+                    <v-card-text class="text-h5 font-weight-bold">
                       <sup>
                       <v-icon>mdi-format-quote-open-outline</v-icon>
                       </sup>
@@ -90,49 +96,46 @@
               </div>
             </v-col>
           </v-row>
+          <!-- <v-card class="px-2">
+                <carousel-3d :height="280" :width="400" :border="1" :autoplay="true" :autoplay-timeout='3000'>
+
+                    <slide v-for="(slide, i) in slides" :index="i" :key="i">
+                        <img v-bind:src="slide.src" />
+                    </slide>
+                </carousel-3d>
+          </v-card> -->
         </v-container>
+        <!-- </v-col> -->
+    <!-- </v-img> -->
     </v-img>
-    
+  <!-- </v-parallax>
+    </template> -->
   </section>
 </template>
-
 <script>
-  export default {
-
-    data: () => ({
-      testimonials: [
+export default {
+    data() {
+        return {
+            testimonials: [
                 "Turns out semicolon-less style is easier and safer in TS because most gotcha edge cases are type invalid as well asdasd.",
                 "Turns out semicolon-less style is easier and safer in TS because most gotcha edge cases are type invalid as well asdasd.",
                 "Turns out semicolon-less style is easier and safer in TS because most gotcha edge cases are type invalid as well asdasd.",
             ],
-      features: [
-        {
-          title: 'Pixel Perfect Design',
-          icon: 'mdi-fountain-pen-tip',
-        },
-        {
-          title: 'Retina Ready',
-          icon: 'mdi-cellphone',
-        },
-        {
-          color: 'primary',
-          dark: true,
-          title: 'Easily Customizable',
-          icon: 'mdi-pencil-box-outline',
-        },
-        {
-          title: 'Image Parallax',
-          icon: 'mdi-image-size-select-actual',
-        },
-        {
-          title: 'Seo Optimized',
-          icon: 'mdi-ice-pop',
-        },
-        {
-          title: '24/7 Support',
-          icon: 'mdi-help-circle-outline',
-        },
-      ],
-    }),
-  }
+            slides: [
+                {src: require('../../assets/01.jpg')},
+                {src: require('../../assets/02.jpg')},
+                {src: require('../../assets/03.jpg')},
+                {src: require('../../assets/04.jpg')},
+                {src: require('../../assets/05.jpg')},
+                {src: require('../../assets/06.jpg')},
+            ]
+        }
+    }
+}
 </script>
+<style>
+.carousel-3d-slide {
+    height: 100% !important;
+}
+
+</style>

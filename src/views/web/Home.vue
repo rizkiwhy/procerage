@@ -18,11 +18,20 @@
             :src="require('../../assets/wave(31).svg')"
             class="fill-height bottom-gradient" />
         <Keunggulan />
-        <!-- <v-img
+        <v-img
+            gradient="to bottom, #ffd54f, #2196F3"
             :src="require('../../assets/wave(24).svg')"
-            height="34vh" /> -->
+            height="34vh" />
         <Testimonial />
+        <v-img
+            gradient="to top, #ffecb3, #2196F3"
+            :src="require('../../assets/wave(24).svg')"
+            height="34vh" />
         <BeritaTerkini />
+        <v-img
+            gradient="to bottom, #ffecb3, #2196F3"
+            :src="require('../../assets/wave(24).svg')"
+            height="34vh" />
         <!-- <v-img
             gradient="to bottom, #FFECB3, transparent"
             :src="require('../../assets/wave(30).svg')"
