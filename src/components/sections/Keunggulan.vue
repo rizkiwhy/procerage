@@ -1,14 +1,16 @@
 <template>
   <section
     id="keunggulan">
-        <!-- gradient="to top, transparent, teal" -->
         <!-- :src="require('../../assets/wave(9).svg')" -->
         <!-- height="110vh" -->
+        <!-- gradient="to top, secondary, secondary" -->
     <v-img
-        class="fill-height bottom-gradient">
+        class="fill-height senary">
         <!-- <div class="text-center mb-5"> -->
-          <h1 class="text-h5 mb-4 mt-16 text-center font-weight-bold text-uppercase teal--text">Keunggulan</h1>
-
+          <!-- <h1 class="text-h5 mb-4 mt-16 text-center font-weight-bold text-uppercase primary--text">Keunggulan</h1> -->
+        <div class="text-center mt-16">
+          <h1 class="text-h3 font-weight-medium text-center mb-4 primary--text">Keunggulan</h1>
+        </div>
           <!-- <h1 class="text-uppercase text-h5 font-weight-bold mt-16 mb-2 white--text text-center">Keunggulan</h1> -->
         <!-- </div> -->
         <v-container class="my-10">
@@ -33,7 +35,7 @@
                     <v-list-item three-line>
                       <v-list-item-avatar>
                         <v-btn
-                          color="secondary"
+                          color="accent"
                           fab
                           dark
                           small
@@ -47,7 +49,7 @@
                         <!-- <div class="text-overline mb-4">
                           OVERLINE
                         </div> -->
-                        <v-list-item-title class="text-subtitle-1 mb-1 accent--text">
+                        <v-list-item-title class="text-subtitle-1 mb-1 primary--text">
                           {{feature.title}}
                         </v-list-item-title>
                         <!-- <v-list-item-subtitle> -->
@@ -75,6 +77,7 @@
           </v-row>
         </v-container>
     </v-img>
+    
   </section>
 </template>
 

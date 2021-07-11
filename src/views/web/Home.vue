@@ -1,12 +1,32 @@
 <template>
     <div>
-        <Beranda /> <!--4-->
-        <Keunggulan /> <!---->
-        <Sertifikasi /> <!--7-->
-        <Asesor /> <!--5-->
-        <Testimonial /> <!--0-->
-        <Galeri /> <!--2-->
-        <Berita /> <!--8-->
+        <Beranda />
+        <v-img
+            gradient="to top, white, transparent"
+            :src="require('../../assets/wave(22).svg')"
+            height="34vh" />
+        <Sertifikasi />
+        <v-img
+            gradient="to bottom, white, transparent"
+            :src="require('../../assets/wave(23).svg')"
+            height="34vh" />
+        <Asesor />
+
+        <v-img
+            height="34vh"
+            gradient="to bottom, #e3f2fd, #ffd54f"
+            :src="require('../../assets/wave(31).svg')"
+            class="fill-height bottom-gradient" />
+        <Keunggulan />
+        <!-- <v-img
+            :src="require('../../assets/wave(24).svg')"
+            height="34vh" /> -->
+        <Testimonial />
+        <BeritaTerkini />
+        <!-- <v-img
+            gradient="to bottom, #FFECB3, transparent"
+            :src="require('../../assets/wave(30).svg')"
+            height="34vh" /> -->
         <TentangKami />
         <Footer />
     </div>
@@ -19,7 +39,7 @@ import Sertifikasi from "@/components/sections/Sertifikasi.vue";
 import Asesor from "@/components/sections/Asesor.vue";
 import Testimonial from "@/components/sections/Testimonial.vue";
 import Galeri from "@/components/sections/Galeri.vue";
-import Berita from "@/components/sections/Berita.vue";
+import BeritaTerkini from "@/components/sections/BeritaTerkini.vue";
 import TentangKami from "@/components/sections/TentangKami.vue";
 import Footer from '@/components/Footer.vue';
 
@@ -31,7 +51,7 @@ export default {
         Asesor,
         Testimonial,
         Galeri,
-        Berita,
+        BeritaTerkini,
         TentangKami,
         Footer
     }

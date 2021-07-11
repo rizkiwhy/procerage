@@ -20,16 +20,16 @@
             width="100%"
           >
           <h1 class="text-h5 font-weight-regular mb-4 text-left secondary--text">WE LOVE MAKING THINGS SIMPLE AND AMAZING </h1>
-          <h1 class="text-h3 font-weight-medium mb-4 text-left teal--text">WELCOME TO LSP SMKN11BDG</h1>
+          <h1 class="text-h3 font-weight-medium mb-4 text-left primary--text">WELCOME TO LSP SMKN11BDG</h1>
           <p class="text-body-1 grey--text">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae nobis neque aspernatur in quas iure id aliquid, esse debitis, quibusdam mollitia! Quia ea expedita magnam totam, earum omnis et perspiciatis?
           </p>
           <v-btn
-            color="teal"
+            color="primary"
             depressed
             rounded
             min-width="164"
-            class="font-weight-bold white--text py-1"
+            class="font-weight-bold white--text py-1 mt-1"
           >
           Discover More
           </v-btn>
@@ -40,7 +40,7 @@
             color="accent"
             depressed
             min-width="164"
-            class="font-weight-bold white--text py-1"
+            class="font-weight-bold white--text py-1 mt-1"
           >
           Get Started Now
           </v-btn>

@@ -29,7 +29,7 @@
               :to="item.route"
               :key="item.text" 
               :class="isScrolling?'white--text':'primary--text'" 
-              :active-class="isScrolling?'secondary--text':'secondary--text'">
+              active-class="secondary--text">
               <span class="text-capitalize">
                 {{item.text}}
               </span>

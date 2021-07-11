@@ -1,13 +1,16 @@
 <template>
   <section
     id="asesor"
-    class="overflow-hidden"
+    class="tertiary"
   >
-  <div class="text-center mb-12">
-              <h1 class="text-uppercase text-h5 font-weight-bold mt-16 mb-2 teal--text text-center">Asesor</h1>
-            </div>
-  <v-col cols="12" sm="12">
-        <v-container>
+        <v-container
+        
+        >
+
+  <div class="text-center mt-16">
+    <h1 class="text-h3 font-weight-medium text-center mb-4 secondary--text">Asesor</h1>
+  </div>
+  <!-- <v-col cols="12" sm="12"> -->
           <!-- <v-card class="px-2"> -->
             <!-- <no-ssr placeholder="loading..."> -->
                 <carousel-3d :height="430" :width="350" :border="1" :autoplay="true" :autoplay-timeout='3000'>
@@ -15,9 +18,9 @@
                     <slide v-for="(slide, i) in asesor" :index="i" :key="i">
                         <!-- <img v-bind:src="slide.foto" /> -->
                         <v-card
-                      color="white"
                       height="430"
                       width="350"
+                      elevation="10"
                     >
                         <v-img
                           class="elevation-6"
@@ -28,20 +31,20 @@
                         ></v-img>
                         <v-list-item-content class="mx-2">
                           <v-list class="pa-0">
-                            <v-list-item-title class="text-h6 mx-2 teal--text">
+                            <v-list-item-title class="text-h6 mx-2 primary--text">
                               {{slide.nama}}
                             </v-list-item-title>
                           </v-list>
-                          <v-list class="px-2 py-0 text-caption grey--text">
-                            <v-icon>mdi-teach</v-icon>
+                          <v-list class="px-2 py-0 text-caption primary--text">
+                            <v-icon color="accent">mdi-teach</v-icon>
                             {{slide.jenis}}
                           </v-list>
-                          <v-list class="px-2 py-0 text-caption grey--text">
-                            <v-icon>mdi-school-outline</v-icon>
+                          <v-list class="px-2 py-0 text-caption primary--text">
+                            <v-icon color="secondary">mdi-school-outline</v-icon>
                             {{slide.pendidikan}}
                           </v-list>
                           <v-list class="px-2 py-0 text-caption grey--text">
-                            <v-icon>mdi-comment-quote-outline</v-icon>
+                            <v-icon color="accent">mdi-comment-quote-outline</v-icon>
                             {{slide.text}}
                           </v-list>
                         </v-list-item-content>
@@ -50,21 +53,22 @@
                 </carousel-3d>
             <!-- </no-ssr> -->
           <!-- </v-card> -->
-        </v-container>
-        </v-col>
+  <!-- </v-col> -->
+    <!-- gradient="to top, white, transparent" -->
+  
     <!-- <v-row no-gutters>
       <v-col
         md="12"
       >
         <v-img
           height="100vh"
-          class="teal"
+          class="primary"
         >
             <div class="text-center mb-12">
               <h1 class="text-uppercase text-h5 font-weight-bold mt-16 mb-2 white--text text-center">Asesor</h1>
             </div>
               <v-sheet
-                class="mx-auto teal"
+                class="mx-auto primary"
               >
                 <v-slide-group
                   center-active
@@ -88,7 +92,7 @@
                         ></v-img>
                         <v-list-item-content class="mx-2">
                           <v-list class="pa-0">
-                            <v-list-item-title class="text-h6 mx-2 teal--text">
+                            <v-list-item-title class="text-h6 mx-2 primary--text">
                               {{n.nama}}
                             </v-list-item-title>
                           </v-list>
@@ -112,6 +116,7 @@
         </v-img>
       </v-col>
     </v-row> -->
+        </v-container>
   </section>
 </template>
 <script>

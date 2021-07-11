@@ -2,9 +2,9 @@
   <section
     id="tentangkami">
     <v-img
-        height="100vh"
-        :src="require('../../assets/wave(6).svg')"
-        class="fill-height bottom-gradient">
+        height="79vh"
+        class="fill-height bottom-gradient primary">
     </v-img>
+        <!-- :src="require('../../assets/wave(6).svg')" -->
   </section>
 </template>

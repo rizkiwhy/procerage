@@ -1,7 +1,7 @@
 <template>
   <v-footer
     id="home-footer"
-    color="teal"
+    color="primary"
     dark
     min-height="72"
   >

@@ -8,27 +8,29 @@ Vue.component('slide', Slide)
 Vue.use(Vuetify);
 
 export default new Vuetify({
-    icons: {
-        iconfont: 'mdi', // default - only for display purposes
-        values: {
-            product: 'mdi-dropbox',
-            support: 'mdi-lifebuoy',
-            steam: 'mdi-steam',
-            pc: 'mdi-desktop-classic',
-            xbox: 'mdi-xbox',
-            playstation: 'mdi-playstation',
-            switch: 'mdi-nintendo-switch',
-        },
+  icons: {
+    iconfont: 'mdi', // default - only for display purposes
+    values: {
+      product: 'mdi-dropbox',
+      support: 'mdi-lifebuoy',
+      steam: 'mdi-steam',
+      pc: 'mdi-desktop-classic',
+      xbox: 'mdi-xbox',
+      playstation: 'mdi-playstation',
+      switch: 'mdi-nintendo-switch',
     },
-    theme: {
-        themes: {
-          light: {
-            primary: colors.teal, // #E53935
-            secondary: colors.amber, // #FFCDD2
-            tertiary: colors.deepPurple, // #FFCDD2
-            quaternary: colors.teal.lighten5,
-            accent: colors.pink, // #3F51B5
-          },
-        },
+  },
+  theme: {
+    themes: {
+      light: {
+        primary: colors.blue,
+        secondary: colors.amber,
+        tertiary: colors.blue.lighten5,
+        quaternary: colors.amber.lighten4,
+        quinary: colors.blue.lighten2,
+        senary: colors.amber.lighten2,
+        accent: colors.pink,
       },
+    },
+  },
 });
