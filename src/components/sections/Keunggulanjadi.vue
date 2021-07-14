@@ -1,32 +1,29 @@
 <template>
   <section
-    id="keunggulan"
-    class="senary"
-  >
-    <v-row no-gutters>
-      <v-col
-        md="12"
-      >
-        <!-- <v-img
-          height="100vh"
-        > -->
-          <!-- :src="require('../../assets/wave(21).svg')" -->
-        <v-container class="py-16">
-          <!-- <v-img class="d-none d-lg-block" :src="require('@/assets/001-drawkit-content-man-colour.svg')"/> -->
-          <v-responsive
-            class="d-flex align-center mx-auto"
-            height="100%"
-            max-width="1185"
-            width="100%"
-          >
-          <h1 class="text-h3 font-weight-medium mb-16 text-center primary--text">Keunggulan</h1>
+    id="keunggulan">
+        <!-- :src="require('../../assets/wave(9).svg')" -->
+        <!-- height="110vh" -->
+        <!-- gradient="to top, secondary, secondary" -->
+    <v-img
+        class="fill-height senary">
+        <!-- <div class="text-center mb-5"> -->
+          <!-- <h1 class="text-h5 mb-4 mt-16 text-center font-weight-bold text-uppercase primary--text">Keunggulan</h1> -->
+        <div class="text-center mt-16">
+          <h1 class="text-h3 font-weight-medium text-center mb-4 primary--text">Keunggulan</h1>
+        </div>
+          <!-- <h1 class="text-uppercase text-h5 font-weight-bold mt-16 mb-2 white--text text-center">Keunggulan</h1> -->
+        <!-- </div> -->
+        <v-container class="my-10">
           <v-row>
             <v-col
               v-for="(feature, i) in features"
               :key="i"
               cols="12"
-              md="4"
+              md="6"
             >
+              <div
+                class="pt-2"
+              >
                 <template>
                   <v-card
                     class="mx-auto"
@@ -75,15 +72,15 @@
                     </v-card-actions> -->
                   </v-card>
                 </template>
+              </div>
             </v-col>
           </v-row>
-          </v-responsive>
         </v-container>
-        <!-- </v-img> -->
-      </v-col>
-    </v-row>
+    </v-img>
+    
   </section>
 </template>
+
 <script>
   export default {
 

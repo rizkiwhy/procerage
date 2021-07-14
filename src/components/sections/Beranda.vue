@@ -12,7 +12,9 @@
           :src="require('../../assets/wave(21).svg')"
         >
         <v-container class="fill-height px-16 py-12">
-          <v-img class="d-none d-lg-block" :src="require('@/assets/001-drawkit-content-man-colour.svg')"/>
+          <v-img class="d-none d-lg-block" 
+            max-width="250"
+            :src="require('../../assets/001-drawkit-content-man-colour.svg')"/>
           <v-responsive
             class="d-flex align-center mx-auto"
             height="100%"

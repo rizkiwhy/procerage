@@ -26,7 +26,7 @@ export default new Vuetify({
         primary: colors.blue,
         secondary: colors.amber,
         tertiary: colors.blue.lighten5,
-        quaternary: colors.amber.lighten4,
+        quaternary: colors.amber.lighten5,
         quinary: colors.blue.lighten2,
         senary: colors.amber.lighten2,
         accent: colors.pink,
