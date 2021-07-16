@@ -19,7 +19,7 @@
             max-width="1185"
             width="100%"
           >
-          <h1 class="text-h3 font-weight-medium mb-16 text-center primary--text">Sertifikasi</h1>
+          <h1 class="text-h4 font-weight-medium mb-16 text-center primary--text">Sertifikasi</h1>
           <v-tabs vertical slider-color="accent">
             <template v-for="feature in features" >
 
@@ -44,7 +44,9 @@
                       cols="12"
                       md="6"
                     >
-                      <v-img width="500" :src="require('@/assets/001-drawkit-content-man-colour.svg')"/>
+                      <v-img 
+                      
+                       :src="require('@/assets/001-drawkit-content-man-colour.svg')"/>
                     </v-col>
                     <v-col
                       cols="12"

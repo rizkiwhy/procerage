@@ -19,7 +19,7 @@
             max-width="1185"
             width="100%"
           >
-          <h1 class="text-h3 font-weight-medium mb-16 text-center primary--text">Keunggulan</h1>
+          <h1 class="text-h4 font-weight-medium mb-16 text-center primary--text">Keunggulan</h1>
           <v-row>
             <v-col
               v-for="(feature, i) in features"

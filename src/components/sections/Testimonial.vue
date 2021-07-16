@@ -16,7 +16,7 @@
             max-width="1185"
             width="100%"
           >
-          <h1 class="text-h3 font-weight-medium mb-16 text-center secondary--text">Testimonial</h1>
+          <h1 class="text-h4 font-weight-medium mb-16 text-center secondary--text">Testimonial</h1>
           <carousel-3d :height="232" :width="350" :border="1" :autoplay="true" :autoplay-timeout='3000'>
             <slide v-for="(slide, i) in testimonials" :index="i" :key="i">
               <template>

@@ -19,7 +19,7 @@
             max-width="1185"
             width="100%"
           >
-          <h1 class="text-h3 font-weight-medium mb-16 text-center secondary--text">Asesor</h1>
+          <h1 class="text-h4 font-weight-medium mb-16 text-center secondary--text">Asesor</h1>
           <v-row>
             <v-col cols="12" md="3"
                 v-for="(slide, i) in asesor" :index="i" :key="i"
@@ -37,7 +37,7 @@
                     alt=""
                     :src="slide.foto"
                   ></v-img>
-              <v-card-title class="primary--text">{{slide.nama}}</v-card-title>
+              <v-card-title class="text-h6 primary--text">{{slide.nama}}</v-card-title>
                 <v-card-text>
                   <v-row
                     align="center"

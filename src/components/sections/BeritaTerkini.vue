@@ -15,14 +15,14 @@
             max-width="1185"
             width="100%"
           >
-          <h1 class="text-h3 font-weight-medium mb-16 text-center primary--text">Berita Terkini</h1>
+          <h1 class="text-h4 font-weight-medium mb-16 text-center primary--text">Berita Terkini</h1>
           <v-carousel
             :show-arrows="false"
             hide-delimiters
             cycle
             hide-delimiter-background
             height="350"
-            interval="50000"
+            interval="5000"
             show-arrows-on-hover
           >
             <!-- <template v-slot:prev="{ on, attrs }">
