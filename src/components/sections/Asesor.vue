@@ -21,7 +21,7 @@
           >
           <h1 class="text-h4 font-weight-medium mb-16 text-center secondary--text">Asesor</h1>
           <v-row>
-            <v-col cols="12" md="3"
+            <v-col cols="12" md="3" sm="6"
                 v-for="(slide, i) in asesor" :index="i" :key="i"
             >
             <template>

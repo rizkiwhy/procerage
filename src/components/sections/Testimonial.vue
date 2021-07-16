@@ -8,7 +8,7 @@
         md="12"
       >
           <!-- :src="require('../../assets/wave(21).svg')" -->
-        <v-container class="py-16">
+        <v-container class="py-12">
           <!-- <v-img class="d-none d-lg-block" :src="require('@/assets/001-drawkit-content-man-colour.svg')"/> -->
           <v-responsive
             class="d-flex align-center mx-auto"

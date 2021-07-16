@@ -11,7 +11,7 @@
           height="100vh"
         > -->
           <!-- :src="require('../../assets/wave(21).svg')" -->
-        <v-container class="py-16">
+        <v-container class="px-8 py-12">
           <!-- <v-img class="d-none d-lg-block" :src="require('@/assets/001-drawkit-content-man-colour.svg')"/> -->
           <v-responsive
             class="d-flex align-center mx-auto"
@@ -26,6 +26,7 @@
               :key="i"
               cols="12"
               md="4"
+              sm="6"
             >
                 <template>
                   <v-card

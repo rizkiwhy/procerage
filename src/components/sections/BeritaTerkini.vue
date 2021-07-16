@@ -21,7 +21,6 @@
             hide-delimiters
             cycle
             hide-delimiter-background
-            height="350"
             interval="5000"
             show-arrows-on-hover
           >
@@ -48,7 +47,7 @@
             >
               <v-sheet
                 color="transparent"
-                height="100%"
+                height="50%"
               >
               <v-row>
                 <v-col offset-md="2" cols="12" md="4" class="transparent">
@@ -66,7 +65,7 @@
                           <v-expand-transition class="">
                             <div
                               v-if="hover"
-                              class="d-flex d-sm-none transition-fast-in-fast-out primary darken-2 opacity-09 v-card--reveal text-h2 white--text"
+                              class="d-flex d-md-none transition-fast-in-fast-out primary darken-2 opacity-09 v-card--reveal text-h6 white--text"
                               style="height: 100%;"
                             >
                               <v-btn
@@ -82,19 +81,19 @@
                           </v-expand-transition>
                         </v-img>
                         <v-card-text
-                        class="d-flex d-sm-none pa-0 primary white--text"
+                        class="d-flex d-md-none pa-0 primary white--text"
+                        style="height: 38.4%;"
                         >
-                          <span class="text-h5 pa-5">
-                            QW cooking utensils
+                          <span class="text-h6 pa-5">
+                            AS cooking utensils
                             {{ slide.title }}
                           </span>
                             <v-expand-transition>
                             <div
                               v-if="hover"
-                              class="d-flex d-sm-none transition-fast-in-fast-out white opacity-1 v-card--reveal text-h2 accent--text"
-                              style="height: 38.4%;"
+                              class="d-flex d-md-none transition-fast-in-fast-out white opacity-1 v-card--reveal text-h6 accent--text"
                             >
-                            <span class="text-h5 pa-5">
+                            <span class="text-h6 pa-5">
                             {{ slide.text }}
                           </span>
                             </div>
@@ -104,10 +103,10 @@
                     </v-hover>
                   </template>
                 </v-col>
-                <v-col cols="12" md="4" class="transparent pa-8">
+                <v-col cols="12" md="4" class="transparent ma-2 d-none d-md-block">
                   <v-row>
 
-                  <span class="text-h5 accent--text">
+                  <span class="text-h6 accent--text">
                     QW cooking utensils
                     {{ slide.title }}
                   </span>
@@ -117,16 +116,16 @@
                   <span class="text-subtitle-1">
                     {{ slide.text }}
                     <v-btn
-                    outlined
-                    rounded
-                    x-small
+                      outlined
+                      rounded
+                      x-small
 
-                color="accent"
-              >Selengkapnya
-              <v-icon>
-                mdi-chevron-right
-              </v-icon>
-              </v-btn>
+                  color="accent"
+                >Selengkapnya
+                <v-icon>
+                  mdi-chevron-right
+                </v-icon>
+                </v-btn>
                   </span>
                   </v-row>
 
