@@ -1,22 +1,21 @@
 <template>
     <div>
         <Beranda />
-        <v-img
+        <!-- <v-img
             gradient="to top, white, transparent"
             :src="require('../../assets/wave(22).svg')"
             height="34vh" />
-        <Sertifikasi />
-        <v-img
+        <Sertifikasi /> -->
+        <!-- <v-img
             gradient="to bottom, white, transparent"
             :src="require('../../assets/wave(23).svg')"
-            height="34vh" />
+            height="34vh" /> -->
         <Asesor />
-
-        <v-img
+        <!-- <v-img
             height="34vh"
             gradient="to bottom, #e3f2fd, #ffd54f"
             :src="require('../../assets/wave(31).svg')"
-            class="fill-height bottom-gradient" />
+            class="fill-height bottom-gradient" /> -->
         <Keunggulan />
         <v-img
             gradient="to bottom, #ffd54f, #2196F3"
