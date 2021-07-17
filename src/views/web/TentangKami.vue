@@ -1,7 +1,7 @@
 <template>
   <div class="tentangkami">
-    <Beranda />
-    <!-- <Galeri /> -->
+    <!-- <Beranda /> -->
+    <Galeri />
     <TentangKami />
     <Footer />
   </div>
