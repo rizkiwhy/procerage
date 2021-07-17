@@ -4,8 +4,8 @@
         <!-- <v-img
             gradient="to top, white, transparent"
             :src="require('../../assets/wave(22).svg')"
-            height="34vh" />
-        <Sertifikasi /> -->
+            height="34vh" /> -->
+        <Sertifikasi />
         <!-- <v-img
             gradient="to bottom, white, transparent"
             :src="require('../../assets/wave(23).svg')"
@@ -17,20 +17,20 @@
             :src="require('../../assets/wave(31).svg')"
             class="fill-height bottom-gradient" /> -->
         <Keunggulan />
-        <v-img
+        <!-- <v-img
             gradient="to bottom, #ffd54f, #2196F3"
             :src="require('../../assets/wave(24).svg')"
-            height="34vh" />
+            height="34vh" /> -->
         <Testimonial />
-        <v-img
+        <!-- <v-img
             gradient="to top, #ffecb3, #2196F3"
             :src="require('../../assets/wave(24).svg')"
-            height="34vh" />
+            height="34vh" /> -->
         <BeritaTerkini />
-        <v-img
+        <!-- <v-img
             gradient="to bottom, #ffecb3, #2196F3"
             :src="require('../../assets/wave(24).svg')"
-            height="34vh" />
+            height="34vh" /> -->
         <!-- <v-img
             gradient="to bottom, #FFECB3, transparent"
             :src="require('../../assets/wave(30).svg')"

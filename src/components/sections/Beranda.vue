@@ -11,16 +11,18 @@
           height="100vh"
           :src="require('../../assets/wave(21).svg')"
         >
-        <v-container class="fill-height px-16 py-12">
-          <v-img class="d-none d-lg-block" :src="require('@/assets/001-drawkit-content-man-colour.svg')"/>
+        <v-container class="fill-height px-8 py-12">
+          <v-img class="d-none d-lg-block" 
+            max-width="250"
+            :src="require('../../assets/001-drawkit-content-man-colour.svg')"/>
           <v-responsive
             class="d-flex align-center mx-auto"
             height="100%"
             max-width="700"
             width="100%"
           >
-          <h1 class="text-h5 font-weight-regular mb-4 text-left secondary--text">WE LOVE MAKING THINGS SIMPLE AND AMAZING </h1>
-          <h1 class="text-h3 font-weight-medium mb-4 text-left primary--text">WELCOME TO LSP SMKN11BDG</h1>
+          <h1 class="text-h6 font-weight-regular mb-4 text-left secondary--text">WE LOVE MAKING THINGS SIMPLE AND AMAZING </h1>
+          <h1 class="text-h4 font-weight-medium mb-4 text-left primary--text">Welcome to LSP SMKN11BDG</h1>
           <p class="text-body-1 grey--text">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae nobis neque aspernatur in quas iure id aliquid, esse debitis, quibusdam mollitia! Quia ea expedita magnam totam, earum omnis et perspiciatis?
           </p>

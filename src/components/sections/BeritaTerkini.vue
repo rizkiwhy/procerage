@@ -1,187 +1,187 @@
 <template>
   <section
     id="beritaterkini"
-    class="overflow-hidden quaternary"
+    class="senary"
   >
-      <!-- <v-parallax
-            dark
-            :src="require('@/assets/light.jpg')"
-        > -->
     <v-row no-gutters>
       <v-col
         md="12"
       >
-          <!-- :src="require('../../assets/wave(7).svg')" -->
-        <!-- <v-img
-          height="140vh"
-        > -->
-        <v-container>
-        <div class="text-center mt-16">
-          <h1 class="text-h3 font-weight-medium text-center mb-4 primary--text">Berita Terkini</h1>
-        </div>
-        <template>
-
-        <v-responsive
-          class="mx-auto"
-          max-width="1350"
-        >
-          <v-container fluid>
-            <v-row>
-              <v-col
-                v-for="card in cards"
-                :key="card.title"
-                cols="12"
-                sm="4"
-                md="3"
-              >
-              <v-hover>
-                <template v-slot:default="{ hover }">
-                <v-card class="text-center senary" hover>
-                  <!-- x-large  -->
-                  <v-icon
-                    class="mt-7"
-                    color="accent" 
-                    size="56">
-                    {{card.icon}}
-                  </v-icon>
-                  <v-list-item-content class="mx-2">
-                    <v-list-item-title class="text-h5 mb-2 primary--text">
-                      {{card.title}}
-                    </v-list-item-title>
-                    <div v-text="card.text" class="mb-5 grey--text"/>
-                  </v-list-item-content>
-                  <v-fade-transition>
-                    <v-overlay
-                      v-if="hover"
-                      absolute
-                      color="accent"
-                    >
-                      <v-btn
-                        rounded
-                        color="primary"
-                        depressed
-                        min-width="164"
-                        class="font-weight-bold white--text py-1"
-                      >
-                      See More Info
-                      </v-btn>
-                    </v-overlay>
-                  </v-fade-transition>
-                </v-card>
-                </template>
-              </v-hover>
-              </v-col>
-              <v-col
-                class="text-center"
-                cols="12"
-              >
-                <!-- {{ new Date().getFullYear() }} — <strong>Vuetify</strong> -->
-                <v-btn
-                  rounded
-                  elevation="2"
-                  outlined
-                  color="primary"
-                >
-                Discover more
-                </v-btn>
-              </v-col>
-            </v-row>
-          </v-container>
-        </v-responsive>
-        </template>
-        </v-container>
-
-        <!-- </v-img> -->
-      </v-col>
-      <!-- <v-col
-        md="6"
-      >
-        <v-img
-          :src="require('@/assets/welcome.png')"
-          height="100vh"
-        />
-      </v-col> -->
-
-      <!-- <v-col
-        class="align-content-space-between layout wrap"
-        cols="12"
-        md="6"
-        :pa-5="$vuetify.breakpoint.smAndDown"
-      >
-        <base-bubble-1
-          style="transform: rotate(180deg) translateY(25%)"
-        />
-
-        <v-row
-          align="center"
-          justify="center"
-        >
-          <v-col
-            cols="10"
-            md="6"
+          <!-- :src="require('../../assets/wave(21).svg')" -->
+        <v-container class="py-16">
+          <v-responsive
+            class="d-flex align-center mx-auto"
+            height="100%"
+            max-width="1185"
+            width="100%"
           >
-            <base-heading>Welcome!</base-heading>
-            <base-text>
-              Lorem ipsum dolor sit amet, consectetur ad
-              ipiscin elit. Etiam vulputate augue vel felis gra
-              vida porta. Lorem ipsum dolor sit amet, cons
-              ectetur adipiscing elit.<br>
-              Lorem ipsum dolor sit amet, consectetur ad
-              ipiscin elit. Etiam vulputate augue vel felis gra
-              vida porta. Lorem ipsum dolor sit amet, cons
-              ectetur adipiscing elit.
-            </base-text>
-            <base-btn class="mt-4">
-              Learn More!
-            </base-btn>
-          </v-col>
-        </v-row>
+          <h1 class="text-h4 font-weight-medium mb-16 text-center primary--text">Berita Terkini</h1>
+          <v-carousel
+            :show-arrows="false"
+            hide-delimiters
+            cycle
+            hide-delimiter-background
+            interval="5000"
+            show-arrows-on-hover
+          >
+            <!-- <template v-slot:prev="{ on, attrs }">
+              <v-btn
+              rounded
+                color="secondary"
+                v-bind="attrs"
+                v-on="on"
+              >Prev</v-btn>
+            </template>
+            <template v-slot:next="{ on, attrs }">
+              <v-btn
+              rounded
 
-        <base-bubble-2
-          style="transform: rotate(180deg) translate(-200px, -15%)"
-        />
-      </v-col> -->
+                color="primary"
+                v-bind="attrs"
+                v-on="on"
+              >Next</v-btn>
+            </template> -->
+            <v-carousel-item
+              v-for="(slide, i) in cards"
+              :key="i"
+            >
+              <v-sheet
+                color="transparent"
+                height="50%"
+              >
+              <v-row>
+                <v-col offset-md="2" cols="12" md="4" class="transparent">
+                  <template>
+                    <v-hover v-slot="{ hover }">
+                      <v-card
+                        class="mx-auto"
+                        color="grey lighten-4"
+                        max-width="600"
+                      >
+                        <v-img
+                          :aspect-ratio="16/9"
+                          src="https://cdn.vuetifyjs.com/images/cards/kitchen.png"
+                        >
+                          <v-expand-transition class="">
+                            <div
+                              v-if="hover"
+                              class="d-flex d-md-none transition-fast-in-fast-out primary darken-2 opacity-09 v-card--reveal text-h6 white--text"
+                              style="height: 100%;"
+                            >
+                              <v-btn
+                                rounded
+                                color="accent"
+                                depressed
+                                min-width="164"
+                                class="font-weight-bold white--text py-1 mt-1"
+                              >
+                              Read More
+                              </v-btn>
+                            </div>
+                          </v-expand-transition>
+                        </v-img>
+                        <v-card-text
+                        class="d-flex d-md-none pa-0 primary white--text"
+                        style="height: 38.4%;"
+                        >
+                          <span class="text-h6 pa-5">
+                            AS cooking utensils
+                            {{ slide.title }}
+                          </span>
+                            <v-expand-transition>
+                            <div
+                              v-if="hover"
+                              class="d-flex d-md-none transition-fast-in-fast-out white opacity-1 v-card--reveal text-h6 accent--text"
+                            >
+                            <span class="text-h6 pa-5">
+                            {{ slide.text }}
+                          </span>
+                            </div>
+                          </v-expand-transition>
+                        </v-card-text>
+                      </v-card>
+                    </v-hover>
+                  </template>
+                </v-col>
+                <v-col cols="12" md="4" class="transparent ma-2 d-none d-md-block">
+                  <v-row>
+
+                  <span class="text-h6 accent--text">
+                    QW cooking utensils
+                    {{ slide.title }}
+                  </span>
+                  </v-row>
+                  <v-row>
+
+                  <span class="text-subtitle-1">
+                    {{ slide.text }}
+                    <v-btn
+                      outlined
+                      rounded
+                      x-small
+
+                  color="accent"
+                >Selengkapnya
+                <v-icon>
+                  mdi-chevron-right
+                </v-icon>
+                </v-btn>
+                  </span>
+                  </v-row>
+
+                </v-col>
+              </v-row>
+              </v-sheet>
+            </v-carousel-item>
+          </v-carousel>
+          </v-responsive>
+        </v-container>
+      </v-col>
     </v-row>
-      <!-- </v-parallax> -->
   </section>
 </template>
 <script>
-  export default {
-    data: () => ({
-      cards: [
+export default {
+  data: () => ({
+    length: 3,
+    window: 0,
+    cards: [
         {
           icon: 'mdi-keyboard-outline',
-          title: 'Trendy Design',
+          title: 'Efficiently unleash media information without cross-media value',
           text: 'Efficiently unleash media information without cross-media value. Quickly maximize value timely deliverables schemas.',
         },
         {
           icon: 'mdi-camera-outline',
-          title: 'Photography',
+          title: 'Efficiently unleash media information without cross-media value',
           text: 'Efficiently unleash media information without cross-media value. Quickly maximize value timely deliverables schemas.',
         },
         {
           icon: 'mdi-pencil-outline',
-          title: 'Brand Making',
+          title: 'Efficiently unleash media information without cross-media value',
           text: 'Efficiently unleash media information without cross-media value. Quickly maximize value timely deliverables schemas.',
         },
         {
           icon: 'mdi-puzzle-outline',
-          title: '24/7 Support',
+          title: 'Efficiently unleash media information without cross-media value',
           text: 'Efficiently unleash media information without cross-media value. Quickly maximize value timely deliverables schemas.',
         },
       ],
-    }),
-    props: {
-      dark: Boolean,
-      callout: String,
-      color: {
-        type: String,
-        default: 'primary',
-      },
-      icon: String,
-      subtitle: String,
-      text: String,
-      title: String,
-    },
-  }
+  })
+}
 </script>
+<style>
+.v-card--reveal {
+  align-items: center;
+  bottom: 0;
+  justify-content: center;
+  position: absolute;
+  width: 100%;
+}
+.opacity-1 {
+  opacity: 1;
+}
+.opacity-09 {
+  opacity: .9;
+}
+</style>

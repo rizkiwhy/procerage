@@ -6,7 +6,8 @@
         v-scroll="onScroll"
         :color="isScrolling?'primary':'transparent'">
         <v-app-bar-nav-icon 
-            class="d-none d-sm-flex d-md-none !isScrolling?'primary--text':'white--text'"
+            class="d-none d-sm-flex d-md-none "
+            :class="!isScrolling?'primary--text':'white--text'"
             @click.stop="drawer = !drawer"/>
         <!-- <v-toolbar-title> -->
             <v-list-item>

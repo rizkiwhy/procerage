@@ -1,44 +1,64 @@
 <template>
   <section
-    id="sertifikasi">
-        <!-- :src="require('../../assets/wave(8).svg')" -->
-        <div class="text-center mt-16">
-          <h1 class="text-h3 font-weight-medium text-center mb-4 primary--text">Sertifikasi</h1>
-        </div>
-        <v-container>
+    id="sertifikasi"
+    class=""
+  >
+    <v-row no-gutters>
+      <v-col
+        md="12"
+      >
+        <!-- <v-img
+          height="100vh"
+        > -->
+
+        <v-container class="py-16">
+          <!-- <v-img class="d-none d-lg-block" :src="require('@/assets/001-drawkit-content-man-colour.svg')"/> -->
+          <v-responsive
+            class="d-flex align-center mx-auto"
+            height="100%"
+            max-width="1185"
+            width="100%"
+          >
+          <h1 class="text-h4 font-weight-medium mb-16 text-center primary--text">Sertifikasi</h1>
           <v-tabs vertical slider-color="accent">
             <template v-for="feature in features" >
 
-              <v-tab active-class="secondary--text" :key="feature" class="primary--text">
+              <v-tab active-class="secondary--text" :key="feature.title" 
+              
+              class="primary--text ">
                 <v-icon left>
                   mdi-account
                 </v-icon>
                 <span class="d-none d-sm-flex">
-                Option 1
+                Teknik Komputer dan Jaringan
                 </span>
               </v-tab>
 
-              <v-tab-item :key="feature" >
-                <v-card flat>
-                  <v-row>
+              <v-tab-item :key="feature.title" >
+                <v-card flat
+                >
+                  <v-row 
+                  
+                  >
                     <v-col
                       cols="12"
                       md="6"
                     >
-                      <v-img width="300" class="d-none d-lg-block mx-auto" :src="require('@/assets/001-drawkit-content-man-colour.svg')"/>
+                      <v-img 
+                      
+                       :src="require('@/assets/001-drawkit-content-man-colour.svg')"/>
                     </v-col>
                     <v-col
                       cols="12"
                       md="6"
                     >
                     <template>
-                      <v-row justify="center">
-                        <v-expansion-panels accordion v-model="panel" class="mt-4">
+                      <!-- <v-row justify="center"> -->
+                        <v-expansion-panels accordion class="mt-4">
                           <v-expansion-panel
-                            active-class="accent--text"
                             v-for="(item,i) in 5"
                             :key="i"
-                            class="quaternary"
+                            class="senary"
                           >
                             <v-expansion-panel-header>Item</v-expansion-panel-header>
                             <v-expansion-panel-content>
@@ -46,26 +66,27 @@
                             </v-expansion-panel-content>
                           </v-expansion-panel>
                         </v-expansion-panels>
-                      </v-row>
+                      <!-- </v-row> -->
                     </template>
                     </v-col>
                   </v-row>
-                  <v-card-text>
-                  </v-card-text>
+                  <!-- <v-card-text>
+                  </v-card-text> -->
                 </v-card>
               </v-tab-item>
             </template>
           </v-tabs>
+          </v-responsive>
         </v-container>
-    
+        <!-- </v-img> -->
+      </v-col>
+    </v-row>
   </section>
 </template>
 <script>
-  export default {
-
-    data: () => ({
-      panel: [0, 1],
-      features: [
+export default {
+  data: () => ({
+    features: [
         {
           title: 'Pixel Perfect Design',
           icon: 'mdi-fountain-pen-tip',
@@ -93,6 +114,6 @@
           icon: 'mdi-help-circle-outline',
         },
       ],
-    }),
-  }
+  })
+}
 </script>
