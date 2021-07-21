@@ -36,6 +36,7 @@
                     width="350"
                     alt=""
                     :src="slide.foto"
+                    :lazy-src="slide.foto"
                   ></v-img>
               <v-card-title class="text-h6 primary--text">{{slide.nama}}</v-card-title>
                 <v-card-text>

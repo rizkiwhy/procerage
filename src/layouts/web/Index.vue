@@ -21,7 +21,7 @@
         <!-- </v-toolbar-title> -->
         <v-spacer></v-spacer>
         <v-tabs
-          class="d-none d-lg-block"
+          class="d-none d-md-block"
           :color="isScrolling?'accent':'accent'"
           right
         >
@@ -57,7 +57,7 @@
             </v-card>
         </v-dialog>
     </v-app-bar>
-    <v-navigation-drawer v-model="drawer" color="primary" app dark class="d-none d-sm-flex d-md-none">
+    <v-navigation-drawer v-model="drawer" color="primary" app dark class="d-md-none">
       <!-- <v-list-item class="pa-1 teal darken-1">
         <v-list-item-avatar>
           <v-icon>mdi-application-cog</v-icon>

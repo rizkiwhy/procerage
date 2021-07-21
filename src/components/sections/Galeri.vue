@@ -5,12 +5,12 @@
           <v-responsive
             class="d-flex align-center mx-auto"
             height="100%"
-            max-width="1200"
+            max-width="1000"
             width="100%"
           >
-          <h1 class="text-h4 font-weight-medium mb-16 text-center secondary--text">Tentang Kami</h1>
+          <!-- <h1 class="text-h4 font-weight-medium mt-16 mb-10 text-center secondary--text">Tentang Kami</h1> -->
 
-          <v-row justify="space-around">
+          <v-row justify="space-around" class="mt-10">
             <v-col :cols="slide.width ==='379'?'4':
                    slide.width === '776'?'8':'6'"
               v-for="(slide, i) in gambar" :index="i" :key="i">

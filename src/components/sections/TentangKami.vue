@@ -15,7 +15,7 @@
           <v-responsive
             class="d-flex align-center mx-auto"
             height="100%"
-            max-width="1185"
+            max-width="1000"
             width="100%"
           >
           <h1 class="text-h4 font-weight-medium mb-16 text-center secondary--text">Contact Information</h1>
@@ -42,7 +42,7 @@
                   :href="feature.link"
                   target="_blank"
                   >
-                <v-list-item-avatar>
+                <v-list-item-avatar class="align-self-start">
                   <v-btn
                     color="accent"
                     fab
@@ -56,17 +56,6 @@
                 </v-list-item-avatar>
                 <v-list-item-content class="white--text text-subtitle-1">
                   {{feature.title}}
-                  <!-- <div class="text-overline mb-4">
-                    OVERLINE
-                  </div> -->
-                  <!-- <v-list-item-title class="text-subtitle-1 mb-1 secondary--text">
-                    {{feature.title}}
-                  </v-list-item-title> -->
-                  <!-- <v-list-item-subtitle> -->
-                    <!-- <span class="h6 secondary--text"> -->
-                    <!-- Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis illum veniam cum dolores ratione commodi beatae quas maxime, laboriosam excepturi solut!  -->
-                    <!-- </span> -->
-                  <!-- </v-list-item-subtitle> -->
                 </v-list-item-content>
 
               </v-list-item>

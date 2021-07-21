@@ -9,7 +9,7 @@
       >
         <v-img
           height="100vh"
-          :src="require('../../assets/wave(21).svg')"
+          :src="require('../../assets/wave (16).svg')"
         >
         <v-container class="fill-height px-8 py-12">
           <v-img class="d-none d-lg-block" 
