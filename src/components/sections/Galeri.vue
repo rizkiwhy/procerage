@@ -86,31 +86,31 @@
       gambar : [
         {
           width: "776",
-          foto: require('../../assets/christina-wocintechchat-com-faEfWCdOKIg-unsplash.jpg'),
+          foto: require('../../assets/ezgif.com-gif-maker.webp'),
         },
         {
           width: "379",
-          foto: require('../../assets/priscilla-du-preez-nNMBa7Y1Ymk-unsplash.jpg'),
+          foto: require('../../assets/ezgif.com-gif-maker.webp'),
         },
         {
           width: "379",
-          foto: require('../../assets/redd-NKeg7ovhJpM-unsplash.jpg'),
+          foto: require('../../assets/ezgif.com-gif-maker.webp'),
         },
         {
           width: "379",
-          foto: require('../../assets/redd-PTRzqc_h1r4-unsplash.jpg'),
+          foto: require('../../assets/ezgif.com-gif-maker.webp'),
         },
         {
           width: "379",
-          foto: require('../../assets/avel-chuklanov-DUmFLtMeAbQ-unsplash.jpg'),
+          foto: require('../../assets/ezgif.com-gif-maker.webp'),
         },
         {
           width: "568,5",
-          foto: require('../../assets/campaign-creators-gMsnXqILjp4-unsplash.jpg'),
+          foto: require('../../assets/ezgif.com-gif-maker.webp'),
         },
         {
           width: "568,5",
-          foto: require('../../assets/charles-deluvio-rRWiVQzLm7k-unsplash.jpg'),
+          foto: require('../../assets/ezgif.com-gif-maker.webp'),
         },
       ],
     }),
