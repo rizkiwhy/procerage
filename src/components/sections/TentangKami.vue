@@ -7,7 +7,7 @@
       <v-col
         md="12"
       >
-        <v-container class="py-16 px-8">
+        <v-container class="py-16">
           
           <!-- <v-img class="d-none d-lg-block" 
             max-width="250"
@@ -15,7 +15,6 @@
           <v-responsive
             class="d-flex align-center mx-auto"
             height="100%"
-            max-width="1000"
             width="100%"
           >
           <h1 class="text-h4 font-weight-medium mb-16 text-center secondary--text">Contact Information</h1>
@@ -54,7 +53,7 @@
                     <v-icon color="secondary">{{feature.icon}}</v-icon>
                   </v-btn>
                 </v-list-item-avatar>
-                <v-list-item-content class="white--text text-subtitle-1">
+                <v-list-item-content class="pa-0 white--text text-subtitle-1">
                   {{feature.title}}
                 </v-list-item-content>
 
