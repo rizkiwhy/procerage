@@ -1,6 +1,6 @@
 <template>
   <section
-    id="galeri">
+    id="blog">
     <v-container class="py-16 px-8">
           <v-responsive
             class="d-flex align-center mx-auto"
@@ -8,72 +8,11 @@
             max-width="1000"
             width="100%"
           >
-          <!-- <h1 class="text-h4 font-weight-medium mt-16 mb-10 text-center secondary--text">Tentang Kami</h1> -->
-          <!-- <v-row
-            class="mb-6"
-            no-gutters
-            justify="space-between"
-          >
-            <v-col md="4">
-              <v-card
-                class="pa-2"
-                outlined
-                tile
-              >
-                <v-chip-group
-                mandatory
-                active-class="primary--text"
-              >
-                <v-chip
-                  v-for="tag in tags"
-                  :key="tag"
-                >
-                  {{ tag }}
-                </v-chip>
-              </v-chip-group>
-              </v-card>
-            </v-col>
-            <v-col
-              md="4"
-            >
-              <v-card
-                class="pa-2"
-                outlined
-                tile
-              >
-                <template>
-                <div class="text-center">
-                  <v-menu offset-y>
-                    <template v-slot:activator="{ on, attrs }">
-                      <v-btn
-                        color="primary"
-                        dark
-                        v-bind="attrs"
-                        v-on="on"
-                      >
-                        Dropdown
-                      </v-btn>
-                    </template>
-                    <v-list>
-                      <v-list-item
-                        v-for="(item, index) in items"
-                        :key="index"
-                      >
-                        <v-list-item-title>{{ item.title }}</v-list-item-title>
-                      </v-list-item>
-                    </v-list>
-                  </v-menu>
-                </div>
-              </template>
-              </v-card>
-            </v-col>
-          </v-row> -->
           <v-row class="pt-10">
             <v-col
               cols="auto"
               class="mr-auto"
             >
-                <!-- .col-auto .mr-auto -->
               <v-chip-group
                 mandatory
                 active-class="secondary--text"
@@ -87,35 +26,28 @@
                 </v-chip>
               </v-chip-group>
             </v-col>
-            <v-col cols="auto">
-                <!-- .col-auto -->
-                <template>
-                <div class="text-center">
-                  <v-menu offset-y>
-                    <template v-slot:activator="{ on, attrs }">
-                      <v-btn
-                        color="primary"
-                        dark
-                        v-bind="attrs"
-                        v-on="on"
-                      >
-                        Dropdown
-                      </v-btn>
-                    </template>
-                    <v-list
-                      class="senary"
-                    >
-                      <v-list-item
-                        v-for="(item, index) in items"
-                        :key="index"
-                        :href="item.link"
-                      >
-                        <v-list-item-title class="accent--text">{{ item.title }}</v-list-item-title>
-                      </v-list-item>
-                    </v-list>
-                  </v-menu>
-                </div>
-              </template>
+            <v-col 
+              cols="12"
+              md="3"
+              >
+              <v-text-field
+                dense
+                color="secondary"
+                label="Search"
+                outlined
+                rounded />
+            </v-col>
+            <v-col 
+              cols="12"
+              md="2">
+                <v-select
+                  :items="items"
+                  label="Filter"
+                  dense
+                  rounded
+                  outlined
+                  color="secondary"
+                />
             </v-col>
           </v-row>
           <v-row justify="space-between" class="mt-10">
@@ -173,46 +105,6 @@
                 </v-hover>
               </template>
             </v-col>
-            <!-- <v-col>
-                <v-col >
-                  <v-card width="300" class="ma-1" height="100%">
-                    <v-img
-                      src="https://cdn.pixabay.com/photo/2020/07/12/07/47/bee-5396362_1280.jpg"
-                    />
-                  </v-card>
-                </v-col>
-                <v-col class="ma-1">
-                  <v-card width="300" class="ma-1" height="100%">
-                    <v-img
-                      :src="require('../../assets/avel-chuklanov-DUmFLtMeAbQ-unsplash.jpg')"
-                    />
-                  </v-card>
-                </v-col>
-            </v-col>
-            <v-col>
-              <v-col class="ma-1">
-                <v-card width="300" class="ma-1" height="100%">
-                  <v-img
-                    src="https://cdn.pixabay.com/photo/2020/07/12/07/47/bee-5396362_1280.jpg"
-                  />
-                </v-card>
-              </v-col>
-            </v-col>
-            <v-card width="300" class="ma-1" height="100%">
-              <v-img
-                :src="require('../../assets/campaign-creators-gMsnXqILjp4-unsplash.jpg')"
-              />
-            </v-card>
-            <v-card width="300" class="ma-1">
-              <v-img
-                :src="require('../../assets/annie-spratt-MChSQHxGZrQ-unsplash.jpg')"
-              />
-            </v-card>
-            <v-card width="300" class="ma-1" height="100%">
-              <v-img
-                :src="require('../../assets/christina-wocintechchat-com-faEfWCdOKIg-unsplash.jpg')"
-              />
-            </v-card> -->
           </v-row>
           </v-responsive>
     </v-container>
@@ -221,12 +113,7 @@
 <script>
   export default {
     data: () => ({
-      items: [
-        { title: 'Click Me', link: '#' },
-        { title: 'Click Me', link: '#' },
-        { title: 'Click Me', link: '#' },
-        { title: 'Click Me', link: '#' },
-      ],
+      items: ['Foo', 'Bar', 'Fizz', 'Buzz'],
       tags: [
         'Semua',
         'Berita',
