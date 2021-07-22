@@ -32,6 +32,7 @@
         </template> -->
         <v-btn-toggle
             group
+            class="d-none d-md-block"
           >
             <template v-for="item in items" >
               <v-btn :key="item" :color="isScrolling?'white':'primary'" text :href="item.route">{{item.text}}</v-btn>
