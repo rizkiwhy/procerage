@@ -42,7 +42,7 @@
                   :href="feature.link"
                   target="_blank"
                   >
-                <v-list-item-avatar class="align-stretch">
+                <v-list-item-avatar>
                   <v-btn
                     color="accent"
                     fab

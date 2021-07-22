@@ -55,7 +55,7 @@
                     cols="11"
                     class="ma-0 py-0"
                   >
-                    <div class="text-caption font-weight-bold">
+                    <div class="text-caption font-weight-medium">
                       {{slide.jenis}}
                     </div>
                   </v-col>
@@ -76,7 +76,7 @@
                     class="ma-0 py-0"
                     >
 
-                  <div class="text-caption font-weight-bold">
+                  <div class="text-caption font-weight-medium">
                     {{slide.pendidikan}}
                   </div>
                     </v-col>

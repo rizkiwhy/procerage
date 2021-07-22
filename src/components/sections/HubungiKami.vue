@@ -22,7 +22,7 @@
           <v-row>
             <v-col cols="12" sm="6" md="6" lg="6">
               <v-text-field
-                color="secondary"
+                append-icon="mdi-identifier"
                 label="Nama Lengkap"
                 outlined
                 rounded />
@@ -30,7 +30,7 @@
 
             <v-col cols="12" sm="6" md="6" lg="6">
               <v-text-field
-                color="secondary"
+                append-icon="mdi-email"
                 label="Email"
                 outlined
                 rounded />
@@ -39,7 +39,7 @@
             <v-row>
             <v-col cols="12" sm="6" md="6" lg="6">
               <v-text-field
-                color="secondary"
+                append-icon="mdi-phone"
                 label="No. Telepon"
                 outlined
                 rounded />
@@ -47,7 +47,7 @@
 
             <v-col cols="12" sm="6" md="6" lg="6">
               <v-text-field
-                color="secondary"
+                append-icon="mdi-text-subject"
                 label="Subjek"
                 outlined
                 rounded />
@@ -56,11 +56,21 @@
             <v-row>
               <v-col cols="12">
                 <v-textarea
-                  color="secondary"
+                  append-icon="mdi-comment-text-multiple-outline"
                   outlined
                   rounded
                   label="Pesan"
                 />
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="12" offset-xl="6" offset-lg="6" offset-md="6" offset-sm="6" xl="6" lg="6" md="6" sm="6" >
+                <v-btn
+                  x-large
+                  block
+                  color="primary"
+                  rounded
+                >Submit</v-btn>
               </v-col>
             </v-row>
 
