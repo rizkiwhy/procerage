@@ -32,10 +32,10 @@
         </template> -->
         <v-btn-toggle
             group
-            class="d-none d-md-block"
+            class="d-none d-md-flex"
           >
             <template v-for="item in items" >
-              <v-btn :key="item" :color="isScrolling?'white':'primary'" text :href="item.route">{{item.text}}</v-btn>
+              <v-btn :key="item.route" :color="isScrolling?'white':'primary'" text :href="item.route">{{item.text}}</v-btn>
             </template>
           </v-btn-toggle>
         <!-- <v-tabs
