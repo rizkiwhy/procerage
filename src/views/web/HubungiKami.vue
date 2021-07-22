@@ -1,18 +1,18 @@
 <template>
   <div class="hubungikami">
-    <Beranda />
+    <HubungiKami />
     <TentangKami />
     <Footer />
   </div>
 </template>
 <script>
-import Beranda from "@/components/sections/Beranda.vue";
+import HubungiKami from "@/components/sections/HubungiKami.vue";
 import TentangKami from "@/components/sections/TentangKami.vue";
 import Footer from '@/components/Footer.vue';
 
 export default {
     components: {
-        Beranda,
+        HubungiKami,
         TentangKami,
         Footer
     }

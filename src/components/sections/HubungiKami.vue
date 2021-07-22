@@ -1,7 +1,6 @@
 <template>
   <section
-    id="tentangkami"
-    class="primary"
+    id="hubungikami"
   >
   <v-row no-gutters>
       <v-col
@@ -18,50 +17,52 @@
             height="100%"
             width="100%"
           >
-          <h1 class="text-h4 font-weight-medium mb-16 text-center secondary--text">Informasi Kontak</h1>
-          <v-row>
-            <v-col cols="12" sm="12" md="5">
-              <v-card
-                elevation="0"
-                class="d-flex justify-center transparent">
-
-              <iframe 
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3961.0029431347148!2d107.55660431436716!3d-6.890249569338691!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68e6bd6aaaaaab%3A0xf843088e2b5bf838!2sSMK%20Negeri%2011%20Bandung!5e0!3m2!1sen!2sid!4v1626397212583!5m2!1sen!2sid" 
-              width="360" 
-              height="360" 
-              style="border:0;" 
-              allowfullscreen="true" 
-              loading="lazy" 
-              />
-              </v-card>
-            </v-col>
-
-            <v-col cols="12" sm="12" md="7">
-              <v-list-item v-for="(feature, i) in features"
-                  :key="i"
-                  :href="feature.link"
-                  target="_blank"
-                  >
-                <v-list-item-avatar class="align-stretch">
-                  <v-btn
-                    color="accent"
-                    fab
-                    dark
-                    x-small
-                    bottom
-                    left
-                  >
-                    <v-icon color="secondary">{{feature.icon}}</v-icon>
-                  </v-btn>
-                </v-list-item-avatar>
-                <v-list-item-content class="pa-0 white--text text-subtitle-1">
-                  {{feature.title}}
-                </v-list-item-content>
-
-              </v-list-item>
-            </v-col>
+          <h1 class="text-h4 font-weight-medium mb-16 text-center secondary--text">Hubungi Kami</h1>
           
+          <v-row>
+            <v-col cols="12" sm="6" md="6" lg="6">
+              <v-text-field
+                color="secondary"
+                label="Nama Lengkap"
+                outlined
+                rounded />
+            </v-col>
+
+            <v-col cols="12" sm="6" md="6" lg="6">
+              <v-text-field
+                color="secondary"
+                label="Email"
+                outlined
+                rounded />
+            </v-col>
           </v-row>
+            <v-row>
+            <v-col cols="12" sm="6" md="6" lg="6">
+              <v-text-field
+                color="secondary"
+                label="No. Telepon"
+                outlined
+                rounded />
+            </v-col>
+
+            <v-col cols="12" sm="6" md="6" lg="6">
+              <v-text-field
+                color="secondary"
+                label="Subjek"
+                outlined
+                rounded />
+            </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="12">
+                <v-textarea
+                  color="secondary"
+                  outlined
+                  rounded
+                  label="Pesan"
+                />
+              </v-col>
+            </v-row>
 
           <!-- <h1 class="text-h6 font-weight-regular mb-4 text-left secondary--text">Jl. Budi Jl. Raya Cilember, Sukaraja, <br> Kec. Cicendo, Kota Bandung, Jawa Barat 40153</h1> -->
           <!-- <p class="text-body-1 grey--text">

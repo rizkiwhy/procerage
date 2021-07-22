@@ -20,7 +20,24 @@
             </v-list-item>
         <!-- </v-toolbar-title> -->
         <v-spacer></v-spacer>
-        <v-tabs
+        <!-- <template v-for="item in items" >
+        <v-btn text 
+            class="mr-2 d-none d-lg-block" 
+            :key="item.text"
+            :href="item.route"
+            :color="!isScrolling?'teal':'white'"
+            >
+            <span class="pt-3">{{item.text}}</span>
+        </v-btn>
+        </template> -->
+        <v-btn-toggle
+            group
+          >
+            <template v-for="item in items" >
+              <v-btn :key="item" :color="isScrolling?'white':'primary'" text :href="item.route">{{item.text}}</v-btn>
+            </template>
+          </v-btn-toggle>
+        <!-- <v-tabs
           class="d-none d-md-block"
           :color="isScrolling?'accent':'accent'"
           right
@@ -36,7 +53,7 @@
               </span>
             </v-tab>
           </template>
-        </v-tabs>
+        </v-tabs> -->
         <v-dialog persistent v-model="dialogLogout" max-width="500px">
             <v-card>
                 <v-card-title class="text-xs-body-2 justify-center"
@@ -144,7 +161,7 @@ export default {
     toggle_exclusive: undefined,
     items: [
         { icon: 'mdi-home-outline', text: 'Beranda', route:'/' },
-        { icon: 'mdi-office-building-marker-outline', text: 'Tentang Kami' , route:'tentang-kami'},
+        { icon: 'mdi-office-building-marker-outline', text: 'Tentang Kami' , route:'/tentang-kami'},
         { icon: 'mdi-certificate-outline', text: 'Sertifikasi', route:'/sertifikasi' },
         { icon: 'mdi-newspaper', text: 'Blog', route:'/blog' },
         { icon: 'mdi-phone-classic', text: 'Hubungi Kami', route:'/hubungi-kami' },

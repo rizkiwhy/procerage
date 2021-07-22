@@ -4,6 +4,7 @@
     <v-container class="py-16 px-8">
           <v-responsive
             class="d-flex align-center mx-auto"
+            max-width="1000"
             height="100%"
             width="100%"
           >
@@ -14,7 +15,7 @@
             >
               <v-chip-group
                 mandatory
-                active-class="secondary--text"
+                active-class="accent--text secondary"
               >
                 <v-chip
                 class="white--text"
@@ -95,7 +96,7 @@
                           cols="12"
                           class="ma-0 py-0"
                         >
-                          <div class="text-body-1 font-weight-bold">
+                          <div class="text-body-1 py-2 font-weight-bold">
                             {{slide.text}}
                           </div>
                         </v-col>
@@ -170,7 +171,7 @@
                         </v-row>
                         <v-row
                           align="center"
-                          class="mx-0"
+                          class="mx-0 mb-1"
                         >
                         <v-col
                           class="ma-0 pa-0 align-self-baseline"
@@ -206,8 +207,7 @@
                                 dense
                                 half-increments
                                 hover
-                                size="18"
-                              ></v-rating>
+                                size="18"/>
                             </div>
                           </template>
                           </v-col>
@@ -227,7 +227,7 @@
                               cols="12"
                               class="ma-0 py-0"
                             >
-                              <div class="text-body-1 font-weight-bold">
+                              <div class="text-body-1 py-2 font-weight-bold">
                                 {{slide.text}}
                               </div>
                             </v-col>
@@ -302,7 +302,7 @@
                             </v-row>
                             <v-row
                               align="center"
-                              class="mx-0"
+                              class="mx-0 mb-1"
                             >
                             <v-col
                               class="ma-0 pa-0 align-self-baseline"
@@ -374,7 +374,7 @@
         {
           nama: 'John Doe 1',
           harga: '250000',
-          rating: '1',
+          rating: 1,
           pertemuan: '15x Pertemuan',
           modul: '7 Modul',
           foto: 'https://cdn.vuetifyjs.com/images/cards/kitchen.png',
@@ -386,7 +386,7 @@
         {
           nama: 'John Doe 1',
           harga: '250000',
-          rating: '1',
+          rating: 1,
           pertemuan: '15x Pertemuan',
           modul: '7 Modul',
           foto: 'https://cdn.vuetifyjs.com/images/cards/kitchen.png',
@@ -398,7 +398,7 @@
         {
           nama: 'John Doe 1',
           harga: '250000',
-          rating: '1',
+          rating: 1,
           pertemuan: '15x Pertemuan',
           modul: '7 Modul',
           foto: 'https://cdn.vuetifyjs.com/images/cards/kitchen.png',
@@ -410,7 +410,7 @@
         {
           nama: 'John Doe 1',
           harga: '250000',
-          rating: '1',
+          rating: 1,
           pertemuan: '15x Pertemuan',
           modul: '7 Modul',
           foto: 'https://cdn.vuetifyjs.com/images/cards/kitchen.png',
@@ -422,7 +422,7 @@
         {
           nama: 'John Doe 1',
           harga: '250000',
-          rating: '1',
+          rating: 1,
           pertemuan: '15x Pertemuan',
           modul: '7 Modul',
           foto: 'https://cdn.vuetifyjs.com/images/cards/kitchen.png',
@@ -434,7 +434,7 @@
         {
           nama: 'John Doe 1',
           harga: '250000',
-          rating: '1',
+          rating: 1,
           pertemuan: '15x Pertemuan',
           modul: '7 Modul',
           foto: 'https://cdn.vuetifyjs.com/images/cards/kitchen.png',
@@ -446,7 +446,7 @@
         {
           nama: 'John Doe 1',
           harga: '250000',
-          rating: '1',
+          rating: 1,
           pertemuan: '15x Pertemuan',
           modul: '7 Modul',
           foto: 'https://cdn.vuetifyjs.com/images/cards/kitchen.png',
@@ -458,7 +458,7 @@
         {
           nama: 'John Doe 1',
           harga: '250000',
-          rating: '1',
+          rating: 1,
           pertemuan: '15x Pertemuan',
           modul: '7 Modul',
           foto: 'https://cdn.vuetifyjs.com/images/cards/kitchen.png',
@@ -470,7 +470,7 @@
         {
           nama: 'John Doe 1',
           harga: '250000',
-          rating: '1',
+          rating: 1,
           pertemuan: '15x Pertemuan',
           modul: '7 Modul',
           foto: 'https://cdn.vuetifyjs.com/images/cards/kitchen.png',
@@ -482,7 +482,7 @@
         {
           nama: 'John Doe 1',
           harga: '250000',
-          rating: '1',
+          rating: 1,
           pertemuan: '15x Pertemuan',
           modul: '7 Modul',
           foto: 'https://cdn.vuetifyjs.com/images/cards/kitchen.png',
@@ -494,7 +494,7 @@
         {
           nama: 'John Doe 1',
           harga: '250000',
-          rating: '1',
+          rating: 1,
           pertemuan: '15x Pertemuan',
           modul: '7 Modul',
           foto: 'https://cdn.vuetifyjs.com/images/cards/kitchen.png',
@@ -506,7 +506,7 @@
         {
           nama: 'John Doe 1',
           harga: '250000',
-          rating: '1',
+          rating: 3.1,
           pertemuan: '15x Pertemuan',
           modul: '7 Modul',
           foto: 'https://cdn.vuetifyjs.com/images/cards/kitchen.png',

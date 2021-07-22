@@ -11,7 +11,7 @@
           <v-responsive
             class="d-flex align-center ma-auto"
             height="100%"
-            max-width="800"
+            max-width="1000"
             width="100%"
           >
           <h1 class="text-h4 font-weight-medium mb-5 text-center primary--text">Visi</h1>

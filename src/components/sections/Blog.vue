@@ -15,7 +15,7 @@
             >
               <v-chip-group
                 mandatory
-                active-class="secondary--text"
+                active-class="accent--text secondary"
               >
                 <v-chip
                 class="primary--text"

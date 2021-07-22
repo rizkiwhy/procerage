@@ -9,13 +9,13 @@
       >
           <!-- :src="require('../../assets/wave(21).svg')" -->
         <v-container class="py-16">
+          <h1 class="text-h4 font-weight-medium mb-16 text-center primary--text">Berita Terkini</h1>
           <v-responsive
             class="d-flex align-center mx-auto"
-            height="100%"
-            max-width="1185"
+            max-width="1000"
+            max-height="500"
             width="100%"
           >
-          <h1 class="text-h4 font-weight-medium mb-16 text-center primary--text">Berita Terkini</h1>
           <v-carousel
             :show-arrows="false"
             hide-delimiters
@@ -23,6 +23,7 @@
             hide-delimiter-background
             interval="5000"
             show-arrows-on-hover
+            max-width="1000"
           >
             <!-- <template v-slot:prev="{ on, attrs }">
               <v-btn
@@ -47,10 +48,9 @@
             >
               <v-sheet
                 color="transparent"
-                height="50%"
               >
               <v-row>
-                <v-col offset-md="2" cols="12" md="4" class="transparent">
+                <v-col cols="12" md="6" class="transparent">
                   <template>
                     <v-hover v-slot="{ hover }">
                       <v-card
@@ -82,8 +82,8 @@
                         </v-img>
                         <v-card-text
                         class="d-flex d-md-none pa-0 primary white--text"
-                        style="height: 38.4%;"
                         >
+                        <!-- style="height: 38.4%;" -->
                           <span class="text-h6 pa-5">
                             AS cooking utensils
                             {{ slide.title }}
@@ -103,25 +103,24 @@
                     </v-hover>
                   </template>
                 </v-col>
-                <v-col cols="12" md="4" class="transparent ma-2 d-none d-md-block">
+                <v-col cols="12" md="5" class="transparent ma-2 d-none d-md-block">
                   <v-row>
 
-                  <span class="text-h6 accent--text">
+                  <span class="text-h5 accent--text">
                     QW cooking utensils
                     {{ slide.title }}
                   </span>
                   </v-row>
                   <v-row>
 
-                  <span class="text-subtitle-1">
+                  <span class="text-h6">
                     {{ slide.text }}
                     <v-btn
                       outlined
                       rounded
                       x-small
-
-                  color="accent"
-                >Selengkapnya
+                      color="accent">
+                    Selengkapnya
                 <v-icon>
                   mdi-chevron-right
                 </v-icon>

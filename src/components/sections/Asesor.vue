@@ -16,7 +16,7 @@
           <v-responsive
             class="d-flex align-center mx-auto"
             height="100%"
-            max-width="1185"
+            max-width="1000"
             width="100%"
           >
           <h1 class="text-h4 font-weight-medium mb-16 text-center secondary--text">Asesor</h1>
