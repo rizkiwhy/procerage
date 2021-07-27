@@ -204,7 +204,7 @@ import axios from "axios";
 
 export default {
   data: () => ({
-    url: "http://192.168.43.221:3000/api/v1",
+    url: "http://localshost:3000/api/v1",
     step: 1,
     show1: false,
     show2: false,

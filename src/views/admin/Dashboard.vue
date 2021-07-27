@@ -150,7 +150,7 @@ export default {
   },
   data: () => ({
     search: "",
-    url: "http://192.168.43.221:3000/api/v1",
+    url: "http://localshost:3000/api/v1",
     dialog: false,
     dialogDelete: false,
     headers: [
