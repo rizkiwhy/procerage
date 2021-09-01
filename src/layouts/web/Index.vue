@@ -2,14 +2,15 @@
   <v-app>
     <v-app-bar 
         fixed
-        flat dark
+        flat 
+        dark
         v-scroll="onScroll"
         :color="isScrolling?'primary':'transparent'">
         <v-app-bar-nav-icon 
             class="d-none d-sm-flex d-md-none "
             :class="!isScrolling?'primary--text':'white--text'"
             @click.stop="drawer = !drawer"/>
-        <!-- <v-toolbar-title> -->
+        <v-toolbar-title>
             <v-list-item>
                 <v-img src="@/assets/11.png" alt="admin" max-width="25"/>
                 <div :class="!isScrolling?'primary--text':'white--text'">
@@ -18,26 +19,44 @@
                     </span>
                 </div>
             </v-list-item>
-        <!-- </v-toolbar-title> -->
+        </v-toolbar-title>
         <v-spacer></v-spacer>
-        <!-- <template v-for="item in items" >
+        <template v-for="item in items" >
         <v-btn text 
             class="mr-2 d-none d-lg-block" 
             :key="item.text"
             :href="item.route"
-            :color="!isScrolling?'teal':'white'"
+            :color="!isScrolling?'primary':'white'"
             >
             <span class="pt-3">{{item.text}}</span>
         </v-btn>
-        </template> -->
-        <v-btn-toggle
+        </template>
+        <!-- <v-btn-toggle
             group
             class="d-none d-md-flex"
           >
             <template v-for="item in items" >
-              <v-btn :key="item.route" :color="isScrolling?'white':'primary'" text :href="item.route">{{item.text}}</v-btn>
+              <v-btn 
+                text 
+                :key="item.route" 
+                :color="isScrolling?'white':'primary'" 
+                :href="item.route">
+                  <span class="pt-3">{{item.text}}</span>
+              </v-btn>
             </template>
-          </v-btn-toggle>
+          </v-btn-toggle> -->
+          <!-- <template v-for="item in items">
+            <v-btn 
+                text 
+                v-if="getItem('token') === null"
+                class="mr-2 d-none d-lg-block" 
+                :key="item.text"
+                :href="item.route"
+                :color="!isScrolling?'primary':'white'"
+                >
+                <span class="pt-3">{{item.text}}</span>
+            </v-btn>
+          </template> -->
         <!-- <v-tabs
           class="d-none d-md-block"
           :color="isScrolling?'accent':'accent'"
@@ -76,7 +95,7 @@
         </v-dialog>
     </v-app-bar>
     <v-navigation-drawer v-model="drawer" color="primary" app dark class="d-md-none">
-      <!-- <v-list-item class="pa-1 teal darken-1">
+      <!-- <v-list-item class="pa-1 primary darken-1">
         <v-list-item-avatar>
           <v-icon>mdi-application-cog</v-icon>
         </v-list-item-avatar>
@@ -114,7 +133,6 @@
     </v-navigation-drawer>
 
     <v-main>
-      <router-view />
       <v-snackbar
         :color="snackbar.color"
         v-model="snackbar.active"
@@ -131,8 +149,10 @@
           </v-btn>
         </template>
       </v-snackbar>
+      <router-view />
       
     </v-main>
+    
     <v-bottom-navigation
         background-color="primary"
         dark

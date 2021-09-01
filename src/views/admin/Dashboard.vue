@@ -2,6 +2,32 @@
   <!-- <hello-world /> -->
 
   <v-container>
+    <!-- <template>
+      <div class="text-center ma-2">
+        <v-btn
+          dark
+          @click="snackbar = true"
+        >
+          Open Snackbar
+        </v-btn>
+        <v-snackbar
+          v-model="snackbar"
+        >
+          {{ text }}
+
+          <template v-slot:action="{ attrs }">
+            <v-btn
+              color="pink"
+              text
+              v-bind="attrs"
+              @click="snackbar = false"
+            >
+              Close
+            </v-btn>
+          </template>
+        </v-snackbar>
+      </div>
+    </template> -->
     <v-card-title>
       Nutrition
       <v-spacer></v-spacer>
@@ -25,9 +51,13 @@
           <v-toolbar-title>My CRUD</v-toolbar-title>
           <v-divider class="mx-4" inset vertical></v-divider>
           <v-spacer></v-spacer>
+          <v-btn color="accent" dark rounded class="mb-2" @click="showAlert">
+            New Item
+            <v-icon right dark> mdi-plus-circle-outline </v-icon>
+          </v-btn>
           <v-dialog persistent v-model="dialog" max-width="500px">
             <template v-slot:activator="{ on, attrs }">
-              <v-btn color="teal" dark rounded class="mb-2" v-bind="attrs" v-on="on">
+              <v-btn color="primary" dark rounded class="mb-2" v-bind="attrs" v-on="on">
                 New Item
                 <v-icon right dark> mdi-plus-circle-outline </v-icon>
               </v-btn>
@@ -70,16 +100,22 @@
                         label="Protein (g)"
                       ></v-text-field>
                     </v-col>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-text-field
+                        v-model="editedItem._id"
+                        label="_id"
+                      ></v-text-field>
+                    </v-col>
                   </v-row>
                 </v-container>
               </v-card-text>
 
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="red" rounded dark @click="close">
+                <v-btn color="error" rounded dark @click="close">
                   Cancel <v-icon right dark> mdi-cancel</v-icon></v-btn
                 >
-                <v-btn color="teal" rounded dark @click="save">
+                <v-btn color="success" rounded dark @click="save">
                   Save <v-icon right dark> mdi-content-save-outline </v-icon></v-btn
                 >
               </v-card-actions>
@@ -92,11 +128,11 @@
               >
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="red" dark rounded @click="closeDelete"
+                <v-btn color="error" dark rounded @click="closeDelete"
                   >Cancel
                   <v-icon right dark>mdi-cancel</v-icon>
                 </v-btn>
-                <v-btn color="teal" dark rounded @click="deleteItemConfirm"
+                <v-btn color="success" dark rounded @click="deleteItemConfirm"
                   >Yes
                   <v-icon dark right> mdi-trash-can-outline </v-icon>
                 </v-btn>
@@ -107,22 +143,23 @@
         </v-toolbar>
       </template>
       <template v-slot:[`item.actions`]="{ item }">
-        <v-btn @click="editItem(item)" class="mx-1" fab x-small dark color="amber">
+        <v-btn @click="editItem(item)" class="mx-1" fab x-small dark color="warning">
           <v-icon> mdi-pencil </v-icon>
         </v-btn>
-        <v-btn @click="deleteItem(item)" class="mx-1" fab x-small dark color="red">
+        <v-btn @click="deleteItem(item)" class="mx-1" fab x-small dark color="error">
           <v-icon> mdi-delete </v-icon>
         </v-btn>
       </template>
       <template v-slot:no-data>
-        <v-btn color="teal" @click="initialize" dark> Reset </v-btn>
+        <v-btn color="primary" @click="initialize" dark> Reset </v-btn>
       </template>
     </v-data-table>
+    <template>
+
     <v-snackbar
       :color="snackbar.color"
       v-model="snackbar.active"
       :timeout="snackbar.timeout"
-      absolute
       right
       top
     >
@@ -134,11 +171,39 @@
         </v-btn>
       </template>
     </v-snackbar>
+    </template>
+    <!-- <template>
+      <div class="text-center ma-2">
+        <v-btn
+          dark
+          @click="snackbar = true"
+        >
+          Open Snackbar
+        </v-btn>
+        <v-snackbar
+          v-model="snackbar"
+        >
+          {{ text }}
+
+          <template v-slot:action="{ attrs }">
+            <v-btn
+              color="pink"
+              text
+              v-bind="attrs"
+              @click="snackbar = false"
+            >
+              Close
+            </v-btn>
+          </template>
+        </v-snackbar>
+      </div>
+    </template> -->
   </v-container>
 </template>
 
 <script>
 let token = localStorage.getItem("token");
+const Swal = require('sweetalert2')
 
 import axios from "axios";
 
@@ -149,8 +214,11 @@ export default {
     // HelloWorld,
   },
   data: () => ({
+    // snackbar: false,
+    // text: `Hello, I'm a snackbar`,
     search: "",
-    url: "http://103.14.20.210:18081/api/v1",
+    // url: "http://103.14.20.210:18081/api/v1",
+    url: "http://localhost:3000/api/v1",
     dialog: false,
     dialogDelete: false,
     headers: [
@@ -208,6 +276,14 @@ export default {
   },
 
   methods: {
+    showAlert() {
+      Swal.fire({
+        title: 'Error!',
+        text: 'Do you want to continue',
+        icon: 'error',
+        confirmButtonText: 'Cool'
+      })
+    },
     initialize() {
       axios
         .get(`${this.url}/desserts`, {
@@ -243,11 +319,19 @@ export default {
           },
         })
         .then((response) => {
-          this.snackbar = {
-            active: true,
-            text: response.data.message,
-            color: "green",
-          };
+          if (response.data.status === "success") {
+            this.snackbar = {
+              active: true,
+              text: response.data.message,
+              color: "success",
+            };
+          } else if (response.data.status === "error") {
+            this.snackbar = {
+              active: true,
+              text: response.data.message,
+              color: "error",
+            };
+          }
           this.initialize();
         })
         .catch((error) => console.log(error));
@@ -279,12 +363,20 @@ export default {
             },
           })
           .then((response) => {
-            this.snackbar = {
-              active: true,
-              text: response.data.message,
-              color: "green",
-            };
-            this.initialize();
+            if (response.data.status === "success") {
+              this.snackbar = {
+                active: true,
+                text: response.data.message,
+                color: "success",
+              }
+            } else if (response.data.status === "error") {
+              this.snackbar = {
+                active: true,
+                text: response.data.message,
+                color: "error",
+              }
+            }
+            this.initialize()
           })
           .catch((error) => console.log(error));
       } else {
@@ -295,12 +387,20 @@ export default {
             },
           })
           .then((response) => {
-            this.snackbar = {
-              active: true,
-              text: response.data.message,
-              color: "green",
-            };
-            this.initialize();
+            if (response.data.status === "success") {
+              this.snackbar = {
+                active: true,
+                text: response.data.message,
+                color: "success",
+              }
+            } else if (response.data.status === "error") {
+              this.snackbar = {
+                active: true,
+                text: response.data.message,
+                color: "error",
+              }
+            }
+            this.initialize()
           })
           .catch((error) => console.error(error));
       }

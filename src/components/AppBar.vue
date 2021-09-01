@@ -8,7 +8,7 @@
         <v-toolbar-title>
             <v-list-item class="px-2 pt-1">
                 <v-img src="../../src/assets/11.png" alt="admin" max-width="25"/>
-                <div :class="!isScrolling?'teal--text':'white--text'">
+                <div :class="!isScrolling?'primary--text':'white--text'">
                     <span class="font-weight-bold mx-5">LSP SMKN11BDG</span>
                 </div>
             </v-list-item>
@@ -16,7 +16,7 @@
         <v-spacer></v-spacer>
         <v-btn
             text
-            :class="!isScrolling?'teal--text':'white--text'"
+            :class="!isScrolling?'primary--text':'white--text'"
             @click="logout"
             @click.stop="dialog = true"
             v-if="getItem('token') !== null">
@@ -29,7 +29,7 @@
             class="mr-2 d-none d-lg-block" 
             :key="item.text"
             :href="item.route"
-            :color="!isScrolling?'teal':'white'"
+            :color="!isScrolling?'primary':'white'"
             >
             <span class="pt-3">{{item.text}}</span>
         </v-btn>
@@ -41,11 +41,11 @@
                 >
                 <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="red" dark rounded @click="closeLogout"
+                <v-btn color="accent" dark rounded @click="closeLogout"
                     >Cancel
                     <v-icon right dark>mdi-cancel</v-icon>
                 </v-btn>
-                <v-btn color="teal" dark rounded @click="logoutConfirm"
+                <v-btn color="primary" dark rounded @click="logoutConfirm"
                     >Yes
                     <v-icon dark right> mdi-logout-variant </v-icon>
                 </v-btn>

@@ -23,13 +23,16 @@ export default new Vuetify({
   theme: {
     themes: {
       light: {
-        primary: colors.blue,
+        primary: colors.lightBlue.darken3,
         secondary: colors.amber,
         tertiary: colors.blue.lighten5,
         quaternary: colors.amber.lighten5,
         quinary: colors.blue.lighten2,
         senary: colors.amber.lighten2,
         accent: colors.pink,
+        success: colors.green.darken3,
+        warning: colors.amber.darken3,
+        error: colors.red.darken3,
       },
     },
   },

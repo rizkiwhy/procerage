@@ -2,25 +2,27 @@
   <v-app>
     <v-app-bar 
         fixed
-        flat dark app
+        flat 
+        dark
+        app
         v-scroll="onScroll"
-        :color="!isScrolling? 'transparent' : 'teal'">
+        :color="isScrolling? 'primary' : 'transparent'">
         <v-app-bar-nav-icon 
-            :class="!isScrolling?'teal--text':'white--text'"
+            :class="!isScrolling?'primary--text':'white--text'"
             @click.stop="drawer = !drawer" 
             v-if="getItem('token') !== null"/>
-        <v-toolbar-title>
+          <v-toolbar-title>
             <v-list-item class="px-2 pt-1">
-                <v-img src="@/assets/11.png" alt="admin" max-width="25"/>
-                <div :class="!isScrolling?'teal--text':'white--text'">
-                    <span class="font-weight-bold mx-5">LSP SMKN11BDG</span>
-                </div>
+              <v-img src="@/assets/11.png" alt="admin" max-width="25"/>
+              <div :class="!isScrolling?'primary--text':'white--text'">
+                  <span class="font-weight-bold mx-5">LSP SMKN11BDG</span>
+              </div>
             </v-list-item>
-        </v-toolbar-title>
+          </v-toolbar-title>
         <v-spacer></v-spacer>
         <v-btn
             text
-            :class="!isScrolling?'teal--text':'white--text'"
+            :class="!isScrolling?'primary--text':'white--text'"
             @click="logout"
             @click.stop="dialog = true"
             v-if="getItem('token') !== null">
@@ -28,15 +30,16 @@
         <v-icon>mdi-logout-variant</v-icon>
         </v-btn>
         <template v-for="item in menu">
-        <v-btn text 
-            v-if="getItem('token') === null"
-            class="mr-2 d-none d-lg-block" 
-            :key="item.text"
-            :href="item.route"
-            :color="!isScrolling?'teal':'white'"
-            >
-            <span class="pt-3">{{item.text}}</span>
-        </v-btn>
+          <v-btn 
+              text 
+              v-if="getItem('token') === null"
+              class="mr-2 d-none d-lg-block" 
+              :key="item.text"
+              :href="item.route"
+              :color="!isScrolling?'primary':'white'"
+              >
+              <span class="pt-3">{{item.text}}</span>
+          </v-btn>
         </template>
         <v-dialog persistent v-model="dialogLogout" max-width="500px">
             <v-card>
@@ -45,11 +48,11 @@
                 >
                 <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="red" dark rounded @click="closeLogout"
+                <v-btn color="error" dark rounded @click="closeLogout"
                     >Cancel
                     <v-icon right dark>mdi-cancel</v-icon>
                 </v-btn>
-                <v-btn color="teal" dark rounded @click="logoutConfirm"
+                <v-btn color="success" dark rounded @click="logoutConfirm"
                     >Yes
                     <v-icon dark right> mdi-logout-variant </v-icon>
                 </v-btn>
@@ -58,8 +61,8 @@
             </v-card>
         </v-dialog>
     </v-app-bar>
-    <v-navigation-drawer v-model="drawer" color="teal" dark app v-if="getItem('token') !== null">
-      <v-list-item class="pa-1 teal darken-1">
+    <v-navigation-drawer v-model="drawer" color="primary" dark app v-if="getItem('token') !== null">
+      <v-list-item class="pa-1 primary darken-1">
         <v-list-item-avatar>
           <v-icon>mdi-application-cog</v-icon>
         </v-list-item-avatar>
@@ -129,23 +132,21 @@
     </v-navigation-drawer>
 
     <v-main>
-      <router-view />
       <v-snackbar
         :color="snackbar.color"
         v-model="snackbar.active"
         :timeout="snackbar.timeout"
-        absolute
         right
         top
       >
         {{ snackbar.text }}
-
         <template v-slot:action="{ attrs }">
           <v-btn small color="white" text v-bind="attrs" @click="snackbar.active = false">
             <v-icon>mdi-close</v-icon>
           </v-btn>
         </template>
       </v-snackbar>
+      <router-view />
     </v-main>
     
   </v-app>
@@ -154,11 +155,14 @@
 <script>
 import PopUp from '@/components/Popup.vue'
 import { getItem, removeItem } from "@/util/localStorage"
+import axios from 'axios';
+const Swal = require('sweetalert2')
 
 export default {
   name: "App",
 
   data: () => ({
+    url: "http://localhost:3000/api/v1",
     items: [
             { icon: 'mdi-home', text: 'Dashboard' , route:'/dashboard'},
             {
@@ -187,20 +191,22 @@ export default {
             { icon: 'mdi-chart-pie', text: 'Analytics', route:'/chart' },
             { icon: 'mdi-magnify', text: 'Search', route:'/recherches' },
         ],
-        drawer: false,
+        drawer: true,
         group: null,
         isScrolling: false,
         user: {
-            name: getItem('name'),
-            email: getItem('email')  
+          name:'',
+          email:''
+            // name: getItem('name'),
+            // email: getItem('email')  
         },
         dialogLogout: false,
         menu: [
-            { text: 'Beranda', route: '/#beranda'},
-            { text: 'Profil', route: '/#profil'},
-            { text: 'Skenario', route: '/#skenario'},
-            { text: 'Asesor', route: '/#asesor'},
-            { text: 'Sertifikasi', route: '/#sertifikasi'},
+            { icon: 'mdi-home-outline', text: 'Beranda', route:'/' },
+            { icon: 'mdi-office-building-marker-outline', text: 'Tentang Kami' , route:'/tentang-kami'},
+            { icon: 'mdi-certificate-outline', text: 'Sertifikasi', route:'/sertifikasi' },
+            { icon: 'mdi-newspaper', text: 'Blog', route:'/blog' },
+            { icon: 'mdi-phone-classic', text: 'Hubungi Kami', route:'/hubungi-kami' },
         ],
     snackbar: {
       active: false,
@@ -214,35 +220,68 @@ export default {
   },
   watch: {
         group () {
-            this.drawer = false
+            this.drawer = true
         },
     },
-    methods: {
-        logout() {
-            this.dialogLogout = true;
-        },
-        closeLogout() {
-            this.dialogLogout = false;
-        },
-        onScroll () {
-            const offset = window.pageYOffset
-            this.isScrolling = offset > 50
-            this.showLogo = offset > 200
-        },
-        logoutConfirm() {
-            removeItem('token')
-            removeItem('name')
-            removeItem('email')
-            // localStorage.clear();
-            this.$router.push("/login");
-            this.closeLogout();
-            this.snackbar = {
-                active: true,
-                text: "You're logout now",
-                color: "green",
-            };
-        },
-        getItem,
-    }
+  created() {
+    this.initialize();
+  },
+  methods: {
+    initialize() {
+      axios
+        .get(`${this.url}/auth/${localStorage.getItem('_id')}`, {
+          headers: {
+            Authorization: getItem("token"),
+          },
+        })
+        .then((response) => {
+          console.log(response.data.data.name)
+          this.user.name = response.data.data.name
+          this.user.email = response.data.data.email
+        })
+        .catch((error) => console.log(error));
+      },
+    logout() {
+      this.dialogLogout = true;
+    },
+    closeLogout() {
+      this.dialogLogout = false;
+    },
+    onScroll () {
+      const offset = window.pageYOffset
+      this.isScrolling = offset > 50
+      this.showLogo = offset > 200
+    },
+    logoutConfirm() {
+        removeItem('token')
+        removeItem('name')
+        removeItem('email')
+        // localStorage.clear();
+        this.$router.push("/login");
+        this.closeLogout();
+        // this.snackbar = {
+        //     active: true,
+        //     text: "You're logout now",
+        //     color: "success",
+        // };
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          // didOpen: (toast) => {
+          //   toast.addEventListener('mouseenter', Swal.stopTimer)
+          //   toast.addEventListener('mouseleave', Swal.resumeTimer)
+          // }
+        })
+
+        Toast.fire({
+          icon: 'success',
+          title: 'Signed out successfully'
+        })
+    },
+    getItem,
+  }
 };
 </script>

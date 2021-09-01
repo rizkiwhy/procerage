@@ -1,6 +1,6 @@
 <template>
-    <v-navigation-drawer v-model="drawer" color="teal" dark app v-if="getItem('token') !== null">
-      <v-list-item class="pa-1 teal darken-1">
+    <v-navigation-drawer v-model="drawer" color="primary" dark app v-if="getItem('token') !== null">
+      <v-list-item class="pa-1 primary darken-1">
         <v-list-item-avatar>
           <v-icon>mdi-application-cog</v-icon>
         </v-list-item-avatar>

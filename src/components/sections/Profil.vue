@@ -48,18 +48,18 @@
               <v-row>
                 <v-col cols="12" md="8">
                   <v-card-text class="mt-16">
-                    <h1 class="text-center display-1 teal--text text--">
+                    <h1 class="text-center display-1 primary--text text--">
                       Sign in to App
                     </h1>
                     <div class="text-center mt-3">
-                      <v-btn icon class="mx-2" rounded color="teal" outlined>
+                      <v-btn icon class="mx-2" rounded color="primary" outlined>
                         <v-icon>mdi-facebook</v-icon>
                       </v-btn>
 
-                      <v-btn icon class="mx-2" rounded color="teal" outlined>
+                      <v-btn icon class="mx-2" rounded color="primary" outlined>
                         <v-icon>mdi-google-plus</v-icon>
                       </v-btn>
-                      <v-btn icon class="mx-2" rounded color="teal" outlined>
+                      <v-btn icon class="mx-2" rounded color="primary" outlined>
                         <v-icon>mdi-linkedin</v-icon>
                       </v-btn>
                     </div>
@@ -71,7 +71,7 @@
                           name="Email"
                           prepend-icon="mdi-email"
                           type="text"
-                          color="teal"
+                          color="primary"
                           class="mx-3"
                           v-model="loginForm.email"
                           @keyup.enter="login"
@@ -84,7 +84,7 @@
                           :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
                           :type="show1 ? 'text' : 'password'"
                           @click:append="show1 = !show1"
-                          color="teal"
+                          color="primary"
                           class="mx-3"
                           v-model="loginForm.password"
                           @keyup.enter="login"
@@ -92,7 +92,7 @@
                         />
                       </v-container>
                       <div class="text-center mt-1">
-                        <v-btn rounded color="teal " dark @click="login"
+                        <v-btn rounded color="primary " dark @click="login"
                           >SIGN IN
                           <v-icon right dark> mdi-login-variant </v-icon>
                         </v-btn>
@@ -101,7 +101,7 @@
                     <h3 class="text-center mt-1 mb-16">Forgot your password?</h3>
                   </v-card-text>
                 </v-col>
-                <v-col cols="12" md="4" class="teal">
+                <v-col cols="12" md="4" class="primary">
                   <v-container class="fill-height" fluid>
                     <v-card-text class="white--text">
                       <v-row align="center" justify="center">
@@ -125,7 +125,7 @@
             </v-window-item>
             <v-window-item :value="2">
               <v-row class="fill-height">
-                <v-col cols="12" md="4" class="teal">
+                <v-col cols="12" md="4" class="primary">
                   <v-container class="fill-height" fluid>
                     <v-card-text class="white--text">
                       <v-row align="center" justify="center">
@@ -148,17 +148,17 @@
 
                 <v-col cols="12" md="8">
                   <v-card-text class="mt-11">
-                    <h1 class="text-center display-1 teal--text text--">
+                    <h1 class="text-center display-1 primary--text text--">
                       Create Account
                     </h1>
                     <div class="text-center mt-3">
-                      <v-btn icon class="mx-2" rounded color="teal" outlined>
+                      <v-btn icon class="mx-2" rounded color="primary" outlined>
                         <v-icon>mdi-facebook</v-icon>
                       </v-btn>
-                      <v-btn icon class="mx-2" rounded color="teal" outlined>
+                      <v-btn icon class="mx-2" rounded color="primary" outlined>
                         <v-icon>mdi-google-plus</v-icon>
                       </v-btn>
-                      <v-btn icon class="mx-2" rounded color="teal" outlined>
+                      <v-btn icon class="mx-2" rounded color="primary" outlined>
                         <v-icon>mdi-linkedin</v-icon>
                       </v-btn>
                     </div>
@@ -170,7 +170,7 @@
                           name="Name"
                           prepend-icon="mdi-account"
                           type="text"
-                          color="teal"
+                          color="primary"
                           class="mx-3"
                           v-model="registerForm.name"
                           @keyup.enter="register"
@@ -181,7 +181,7 @@
                           name="Email"
                           prepend-icon="mdi-email"
                           type="text"
-                          color="teal"
+                          color="primary"
                           class="mx-3"
                           v-model="registerForm.email"
                           @keyup.enter="register"
@@ -194,7 +194,7 @@
                           :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
                           :type="show2 ? 'text' : 'password'"
                           @click:append="show2 = !show2"
-                          color="teal"
+                          color="primary"
                           class="mx-3"
                           v-model="registerForm.password"
                           @keyup.enter="register"
@@ -202,7 +202,7 @@
                         />
                       </v-container>
                       <div class="text-center mt-1">
-                        <v-btn rounded color="teal " dark @click="register"
+                        <v-btn rounded color="primary " dark @click="register"
                           >SIGN UP
                           <v-icon right dark> mdi-login-variant </v-icon>
                         </v-btn>
