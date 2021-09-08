@@ -51,10 +51,10 @@
           <v-toolbar-title>My CRUD</v-toolbar-title>
           <v-divider class="mx-4" inset vertical></v-divider>
           <v-spacer></v-spacer>
-          <v-btn color="accent" dark rounded class="mb-2" @click="showAlert">
+          <!-- <v-btn color="accent" dark rounded class="mb-2" @click="showAlert">
             New Item
             <v-icon right dark> mdi-plus-circle-outline </v-icon>
-          </v-btn>
+          </v-btn> -->
           <v-dialog persistent v-model="dialog" max-width="500px">
             <template v-slot:activator="{ on, attrs }">
               <v-btn color="primary" dark rounded class="mb-2" v-bind="attrs" v-on="on">
@@ -100,12 +100,12 @@
                         label="Protein (g)"
                       ></v-text-field>
                     </v-col>
-                    <v-col cols="12" sm="6" md="4">
+                    <!-- <v-col cols="12" sm="6" md="4">
                       <v-text-field
                         v-model="editedItem._id"
                         label="_id"
                       ></v-text-field>
-                    </v-col>
+                    </v-col> -->
                   </v-row>
                 </v-container>
               </v-card-text>
@@ -156,7 +156,7 @@
     </v-data-table>
     <template>
 
-    <v-snackbar
+    <!-- <v-snackbar
       :color="snackbar.color"
       v-model="snackbar.active"
       :timeout="snackbar.timeout"
@@ -170,7 +170,7 @@
           <v-icon>mdi-close</v-icon>
         </v-btn>
       </template>
-    </v-snackbar>
+    </v-snackbar> -->
     </template>
     <!-- <template>
       <div class="text-center ma-2">
@@ -202,10 +202,21 @@
 </template>
 
 <script>
+import axios from "axios";
 let token = localStorage.getItem("token");
 const Swal = require('sweetalert2')
-
-import axios from "axios";
+const Toast = Swal.mixin({
+  showCloseButton: true,
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    toast.addEventListener('mouseenter', Swal.stopTimer)
+    toast.addEventListener('mouseleave', Swal.resumeTimer)
+  }
+})
 
 export default {
   name: "Home",
@@ -248,12 +259,12 @@ export default {
       carbs: 0,
       protein: 0,
     },
-    snackbar: {
-      active: false,
-      text: "",
-      timeout: 5000,
-      color: "",
-    },
+    // snackbar: {
+    //   active: false,
+    //   text: "",
+    //   timeout: 5000,
+    //   color: "",
+    // },
   }),
 
   computed: {
@@ -276,14 +287,6 @@ export default {
   },
 
   methods: {
-    showAlert() {
-      Swal.fire({
-        title: 'Error!',
-        text: 'Do you want to continue',
-        icon: 'error',
-        confirmButtonText: 'Cool'
-      })
-    },
     initialize() {
       axios
         .get(`${this.url}/desserts`, {
@@ -320,17 +323,25 @@ export default {
         })
         .then((response) => {
           if (response.data.status === "success") {
-            this.snackbar = {
-              active: true,
-              text: response.data.message,
-              color: "success",
-            };
+            Toast.fire({
+              icon: response.data.status,
+              title: response.data.message
+            })
+            // this.snackbar = {
+            //   active: true,
+            //   text: response.data.message,
+            //   color: "success",
+            // };
           } else if (response.data.status === "error") {
-            this.snackbar = {
-              active: true,
-              text: response.data.message,
-              color: "error",
-            };
+            Toast.fire({
+              icon: response.data.status,
+              title: response.data.message
+            })
+            // this.snackbar = {
+            //   active: true,
+            //   text: response.data.message,
+            //   color: "error",
+            // };
           }
           this.initialize();
         })
@@ -364,17 +375,25 @@ export default {
           })
           .then((response) => {
             if (response.data.status === "success") {
-              this.snackbar = {
-                active: true,
-                text: response.data.message,
-                color: "success",
-              }
+              Toast.fire({
+                icon: response.data.status,
+                title: response.data.message
+              })
+              // this.snackbar = {
+              //   active: true,
+              //   text: response.data.message,
+              //   color: "success",
+              // }
             } else if (response.data.status === "error") {
-              this.snackbar = {
-                active: true,
-                text: response.data.message,
-                color: "error",
-              }
+              Toast.fire({
+                icon: response.data.status,
+                title: response.data.message
+              })
+              // this.snackbar = {
+              //   active: true,
+              //   text: response.data.message,
+              //   color: "error",
+              // }
             }
             this.initialize()
           })
@@ -388,17 +407,25 @@ export default {
           })
           .then((response) => {
             if (response.data.status === "success") {
-              this.snackbar = {
-                active: true,
-                text: response.data.message,
-                color: "success",
-              }
+              Toast.fire({
+                icon: response.data.status,
+                title: response.data.message
+              })
+              // this.snackbar = {
+              //   active: true,
+              //   text: response.data.message,
+              //   color: "success",
+              // }
             } else if (response.data.status === "error") {
-              this.snackbar = {
-                active: true,
-                text: response.data.message,
-                color: "error",
-              }
+              Toast.fire({
+                icon: response.data.status,
+                title: response.data.message
+              })
+              // this.snackbar = {
+              //   active: true,
+              //   text: response.data.message,
+              //   color: "error",
+              // }
             }
             this.initialize()
           })

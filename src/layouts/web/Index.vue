@@ -133,7 +133,7 @@
     </v-navigation-drawer>
 
     <v-main>
-      <v-snackbar
+      <!-- <v-snackbar
         :color="snackbar.color"
         v-model="snackbar.active"
         :timeout="snackbar.timeout"
@@ -148,7 +148,7 @@
             <v-icon>mdi-close</v-icon>
           </v-btn>
         </template>
-      </v-snackbar>
+      </v-snackbar> -->
       <router-view />
       
     </v-main>
@@ -195,12 +195,12 @@ export default {
             email: getItem('email')  
         },
         dialogLogout: false,
-    snackbar: {
-      active: false,
-      text: "",
-      timeout: 5000,
-      color: "",
-    },
+    // snackbar: {
+    //   active: false,
+    //   text: "",
+    //   timeout: 5000,
+    //   color: "",
+    // },
   }),
   components:{
     PopUp
@@ -229,11 +229,11 @@ export default {
             // localStorage.clear();
             this.$router.push("/login");
             this.closeLogout();
-            this.snackbar = {
-                active: true,
-                text: "You're logout now",
-                color: "green",
-            };
+            // this.snackbar = {
+            //     active: true,
+            //     text: "You're logout now",
+            //     color: "green",
+            // };
         },
         getItem,
     }

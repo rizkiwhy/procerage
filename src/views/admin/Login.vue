@@ -178,7 +178,7 @@
         </v-card>
       </v-col>
     </v-row>
-    <v-snackbar
+    <!-- <v-snackbar
       :color="snackbar.color"
       v-model="snackbar.active"
       :timeout="snackbar.timeout"
@@ -191,7 +191,7 @@
           <v-icon>mdi-close</v-icon>
         </v-btn>
       </template>
-    </v-snackbar>
+    </v-snackbar> -->
   </v-container>
 
 </template>
@@ -200,6 +200,19 @@
 import axios from "axios";
 
 const Swal = require('sweetalert2')
+const Toast = Swal.mixin({
+  showCloseButton: true,
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    toast.addEventListener('mouseenter', Swal.stopTimer)
+    toast.addEventListener('mouseleave', Swal.resumeTimer)
+  }
+})
+
 
 export default {
   data: () => ({
@@ -217,12 +230,12 @@ export default {
       email: "",
       password: "",
     },
-    snackbar: {
-      active: false,
-      text: "",
-      timeout: 5000,
-      color: "",
-    },
+    // snackbar: {
+    //   active: false,
+    //   text: "",
+    //   timeout: 5000,
+    //   color: "",
+    // },
     rules: {
       required: value => !!value || 'Required.',
       min: v => v.length >= 6 || 'Min 6 characters',
@@ -233,7 +246,14 @@ export default {
       },
     },
   }),
+  created() {
+    this.initialize()
+    // location.reload()
+  },
   methods: {
+    initialize() {
+      // console.log(localStorage.getItem('token'))
+    },
     toLoginForm(){
       this.step = --this.step
       this.registerForm = {
@@ -253,46 +273,24 @@ export default {
       axios
         .post(`${this.url}/auth/login`, this.loginForm)
         .then((response) => {
-          if (response.data.status === "error") {
-            this.snackbar = {
-              timeout: 5000,
-              active: true,
-              text: response.data.message,
-              color: "error",
-            };
-          } else if (response.data.status === "success") {
-            let newToken = response.data.token;
-            window.token = newToken;
-            localStorage.setItem("token", newToken);
-            localStorage.setItem("_id", response.data.user._id);
-            localStorage.setItem("name", response.data.user.name);
-            localStorage.setItem("email", response.data.user.email);
-            localStorage.setItem("password", "");
-            // console.log(localStorage.getItem('_id'))
-            this.$router.push("/dashboard");
-            // this.snackbar = {
-            //   timeout: 5000,
-            //   active: true,
-            //   text: response.data.message,
-            //   color: "success",
-            // };
-            const Toast = Swal.mixin({
-              toast: true,
-              position: 'top-end',
-              showConfirmButton: false,
-              timer: 3000,
-              timerProgressBar: true,
-              // didOpen: (toast) => {
-              //   toast.addEventListener('mouseenter', Swal.stopTimer)
-              //   toast.addEventListener('mouseleave', Swal.resumeTimer)
-              // }
-            })
-
-            Toast.fire({
-              icon: 'success',
-              title: 'Signed in successfully'
-            })
+          Toast.fire({
+            icon: response.data.status,
+            title: response.data.message
+          })
+          // console.log(localStorage.getItem("token"))
+          if (response.data.status === "success") {
+            // console.log(response.data)
+            let newToken = response.data.token
+            window.token = newToken
+            localStorage.setItem("token", newToken)
+            localStorage.setItem("_id", response.data.user._id)
+            // localStorage.setItem("name", response.data.user.name)
+            // localStorage.setItem("email", response.data.user.email)
+            // localStorage.setItem("password", "");
+            this.$router.push("/dashboard")
+            // console.log(localStorage.getItem("_id"))
           }
+          // location.reload()
         })
         .catch((error) => console.error(error));
     },
@@ -300,19 +298,13 @@ export default {
       axios
         .post(`${this.url}/auth/register`, this.registerForm)
         .then((response) => {
-          if (response.data.status === "error") {
-            this.snackbar = {
-              active: true,
-              text: response.data.message,
-              color: "error",
-            };
-          } else if (response.data.status === "success") {
+          // console.log(response.data.status)
+          Toast.fire({
+            icon: response.data.status,
+            title: response.data.message
+          })
+          if (response.data.status === "success") {
             this.step = --this.step;
-            this.snackbar = {
-              active: true,
-              text: response.data.message,
-              color: "success",
-            };
             this.registerForm = {
               name: "",
               email: "",

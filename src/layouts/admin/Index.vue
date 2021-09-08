@@ -132,7 +132,7 @@
     </v-navigation-drawer>
 
     <v-main>
-      <v-snackbar
+      <!-- <v-snackbar
         :color="snackbar.color"
         v-model="snackbar.active"
         :timeout="snackbar.timeout"
@@ -145,7 +145,7 @@
             <v-icon>mdi-close</v-icon>
           </v-btn>
         </template>
-      </v-snackbar>
+      </v-snackbar> -->
       <router-view />
     </v-main>
     
@@ -156,7 +156,20 @@
 import PopUp from '@/components/Popup.vue'
 import { getItem, removeItem } from "@/util/localStorage"
 import axios from 'axios';
+
 const Swal = require('sweetalert2')
+const Toast = Swal.mixin({
+  showCloseButton: true,
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    toast.addEventListener('mouseenter', Swal.stopTimer)
+    toast.addEventListener('mouseleave', Swal.resumeTimer)
+  }
+})
 
 export default {
   name: "App",
@@ -195,10 +208,8 @@ export default {
         group: null,
         isScrolling: false,
         user: {
-          name:'',
-          email:''
-            // name: getItem('name'),
-            // email: getItem('email')  
+          name: getItem('name'),
+          email: getItem('email')
         },
         dialogLogout: false,
         menu: [
@@ -208,12 +219,6 @@ export default {
             { icon: 'mdi-newspaper', text: 'Blog', route:'/blog' },
             { icon: 'mdi-phone-classic', text: 'Hubungi Kami', route:'/hubungi-kami' },
         ],
-    snackbar: {
-      active: false,
-      text: "",
-      timeout: 5000,
-      color: "",
-    },
   }),
   components:{
     PopUp
@@ -224,23 +229,25 @@ export default {
         },
     },
   created() {
-    this.initialize();
+    if (localStorage.getItem('token') !== null) {
+      this.initialize();
+    }
   },
   methods: {
     initialize() {
       axios
-        .get(`${this.url}/auth/${localStorage.getItem('_id')}`, {
+        .get(`${this.url}/auth`, {
           headers: {
             Authorization: getItem("token"),
           },
         })
         .then((response) => {
-          console.log(response.data.data.name)
-          this.user.name = response.data.data.name
-          this.user.email = response.data.data.email
+          this.user.name = response.data.user.name
+          // console.log(this.user.name)
+          this.user.email = response.data.user.email
         })
         .catch((error) => console.log(error));
-      },
+    },
     logout() {
       this.dialogLogout = true;
     },
@@ -253,33 +260,34 @@ export default {
       this.showLogo = offset > 200
     },
     logoutConfirm() {
-        removeItem('token')
-        removeItem('name')
-        removeItem('email')
-        // localStorage.clear();
-        this.$router.push("/login");
-        this.closeLogout();
-        // this.snackbar = {
-        //     active: true,
-        //     text: "You're logout now",
-        //     color: "success",
-        // };
-        const Toast = Swal.mixin({
-          toast: true,
-          position: 'top-end',
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-          // didOpen: (toast) => {
-          //   toast.addEventListener('mouseenter', Swal.stopTimer)
-          //   toast.addEventListener('mouseleave', Swal.resumeTimer)
-          // }
-        })
-
+      axios.post(`${this.url}/auth/logout/${localStorage.getItem('_id')}`)
+        // this.req.headers('authorization') = ''
+        removeItem("token")
+      // console.log(getItem("token"))
+        // console.log(getItem("token"))
+        removeItem("_id")
+        removeItem("name")
+        removeItem("email")
+        localStorage.clear()
+        this.deleteAllCookies()
+        this.$router.push("/login")
+        this.closeLogout()
+        
         Toast.fire({
           icon: 'success',
           title: 'Signed out successfully'
         })
+        // location.reload()
+    },
+    deleteAllCookies() {
+      var cookies = document.cookie.split(";");
+
+      for (var i = 0; i < cookies.length; i++) {
+        var cookie = cookies[i];
+        var eqPos = cookie.indexOf("=");
+        var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+        document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+      }
     },
     getItem,
   }

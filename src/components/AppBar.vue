@@ -98,11 +98,11 @@ export default {
             localStorage.clear();
             this.$router.push("/login");
             this.closeLogout();
-            this.snackbar = {
-                active: true,
-                text: "You're logout now",
-                color: "green",
-            };
+            // this.snackbar = {
+            //     active: true,
+            //     text: "You're logout now",
+            //     color: "green",
+            // };
         },
         getItem,
     }
