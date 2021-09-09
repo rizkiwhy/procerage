@@ -33,7 +33,12 @@ const routes = [
         path: '/hubungi-kami',
         name: 'HubungiKami',
         component: () => import('@/views/web/HubungiKami.vue') ,
-      }
+      },
+      {
+        path: '/login',
+        name: 'Login',
+        component: () => import('@/views/web/Login.vue') ,
+      },
     ],
   },
   {
@@ -41,38 +46,13 @@ const routes = [
     component: () => import('@/layouts/admin/Index.vue'),
     children: [
       {
-        path: '/login',
-        name: 'Login',
-        component: () => import('@/views/admin/Login.vue') ,
-      },
-      {
         path: '/dashboard',
         name: 'Dashboard',
         component: () => import('@/views/admin/Dashboard.vue') ,
+        meta: { requiresAuth: true },
       }
     ],
   }
-  // {
-  //   path: '/',
-  //   name: 'Home',
-  //   component: () => import('../views/Home.vue'),
-  // },
-  // {
-  //   path: '/about',
-  //   name: 'About',
-  //   component: () => import('../views/About.vue')
-  // },
-  // {
-  //   path: '/login',
-  //   name: 'Login',
-  //   component: () => import('../views/Login.vue')
-  // },
-  // {
-  //   path: '/dashboard',
-  //   name: 'Dashboard',
-  //   component: () => import('../views/Dashboard.vue'),
-  //   meta: { requiresAuth: true },
-  // },
 ]
 
 const router = new VueRouter({
