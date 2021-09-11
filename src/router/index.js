@@ -50,6 +50,18 @@ const routes = [
         name: 'Dashboard',
         component: () => import('@/views/admin/Dashboard.vue') ,
         meta: { requiresAuth: true },
+      },
+      {
+        path: '/type',
+        name: 'Type',
+        component: () => import('@/views/admin/Type.vue') ,
+        meta: { requiresAuth: true },
+      },
+      {
+        path: '/mark',
+        name: 'Mark',
+        component: () => import('@/views/admin/Mark.vue') ,
+        meta: { requiresAuth: true },
       }
     ],
   }
@@ -58,7 +70,10 @@ const routes = [
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
-  routes
+  routes,
+  scrollBehavior (to, from, savedPosition) {
+    return { x: 0, y: 0 }
+  },
 })
 
 router.beforeEach((to, from, next) => {

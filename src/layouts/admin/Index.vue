@@ -185,8 +185,8 @@ export default {
                 text: 'Orders',
                 model: false,
                 children: [
-            { icon: 'mdi-style', text: 'Type', route:'/Type' },
-            { icon: 'mdi-atm', text: 'Mark', route:'/Mark' },
+            { icon: 'mdi-style', text: 'Type', route:'/type' },
+            { icon: 'mdi-atm', text: 'Mark', route:'/mark' },
                 ],
             },
             {

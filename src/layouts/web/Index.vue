@@ -21,15 +21,22 @@
             </v-list-item>
         </v-toolbar-title>
         <v-spacer></v-spacer>
-        <template v-for="item in items" >
-        <v-btn text 
+        <template v-for="item in items">
+          <div id="nav" :key="item.text">
+          <router-link :to="item.route" @click="topFunction" >
+            <span id="test">
+              {{item.text}}
+            </span>
+          </router-link>
+          </div>
+        <!-- <v-btn text 
             class="mr-2 d-none d-lg-block" 
             :key="item.text"
             :href="item.route"
             :color="!isScrolling?'primary':'white'"
             >
             <span class="pt-3">{{item.text}}</span>
-        </v-btn>
+        </v-btn> -->
         </template>
         <!-- <v-btn-toggle
             group
@@ -172,6 +179,15 @@
 </template>
 
 <script>
+window.onscroll = function() {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    // mybutton.style.display = "block";
+    test.style.color = "#000000"
+  } else {
+    test.style.color = "#0277BD"
+    // mybutton.style.display = "none";
+  }
+}
 import PopUp from '@/components/Popup.vue'
 import { getItem, removeItem } from "@/util/localStorage"
 
@@ -210,7 +226,21 @@ export default {
             this.drawer = true
         },
     },
+      
     methods: {
+        scrollFunction() {
+          if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            // mybutton.style.display = "block";
+            test.style.color = "#000000"
+          } else {
+            test.style.color = "#0277BD"
+            // mybutton.style.display = "none";
+          }
+        },
+        topFunction() {
+          document.body.scrollTop = 0;
+          document.documentElement.scrollTop = 0;
+        },
         logout() {
             this.dialogLogout = true;
         },
@@ -239,3 +269,26 @@ export default {
     }
 };
 </script>
+<style>
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* text-align: center; */
+  color: #2c3e50;
+}
+
+#nav {
+  padding: 30px;
+}
+
+#nav a {
+  text-decoration: none;
+  font-weight: bold;
+  color: #FFC107;
+}
+
+#nav a.router-link-exact-active {
+  color: #E91E63;
+}
+</style>

@@ -17,7 +17,7 @@
             height="100%"
             width="100%"
           >
-          <h1 class="text-h4 font-weight-medium mb-16 text-center secondary--text">Hubungi Kami</h1>
+          <h1 class="text-h4 font-weight-medium mb-16 text-center primary--text">Hubungi Kami</h1>
           
           <v-row>
             <v-col cols="12" sm="6" md="6" lg="6">
