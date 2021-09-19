@@ -10,7 +10,7 @@
         <v-card-title>
           <span class="headline">Profile</span>
         </v-card-title>
-         <v-form class="px-3" ref="form">
+        <v-form class="px-3" ref="form">
         <v-card-text>
           <v-text-field
             label="Name"
@@ -61,7 +61,7 @@
             </v-icon>
           </v-btn>
         </v-card-actions>
-         </v-form>
+        </v-form>
       </v-card>
     </v-dialog>
   </v-row>
@@ -110,7 +110,7 @@ export default {
         })
         .then((response) => {
           this.profileForm.name = response.data.user.name
-          console.log(response.data.user)
+          // console.log(response.data.user)
           this.profileForm.email = response.data.user.email
         })
         .catch((error) => console.log(error));
@@ -119,6 +119,10 @@ export default {
       this.dialog = false;
     },
     save() {
+      if (this.profileForm.password === "") {
+        delete this.profileForm.password;
+        // console.log(this.profileForm)
+      }
       axios
         .put(`${this.url}/auth/${localStorage.getItem('_id')}`, this.profileForm, {
           headers: {
@@ -126,6 +130,10 @@ export default {
           },
         })
         .then((response) => {
+            // if (this.profileForm.password !== "") {
+              
+            // }
+            // console.log(this.profileForm.password === "")
 
             const status = response.data.status
             let confirmButtonColor
@@ -141,10 +149,10 @@ export default {
             }).then((result) => {
               if (result.isConfirmed && status === 'success') {
                 location.reload()
-                removeItem("name")
-                removeItem("email")
-                localStorage.setItem("name", response.data.user.name)
-                localStorage.setItem("email", response.data.user.email)
+                // removeItem("name")
+                // removeItem("email")
+                // localStorage.setItem("name", response.data.user.name)
+                // localStorage.setItem("email", response.data.user.email)
               } else {
                 this.initialize()
                 this.profileForm.password = ''

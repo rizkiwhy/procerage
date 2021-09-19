@@ -4,6 +4,7 @@
         fixed
         flat 
         dark
+        class="d-none d-md-block"
         v-scroll="onScroll"
         :color="isScrolling?'primary':'transparent'">
         <v-app-bar-nav-icon 
@@ -179,15 +180,15 @@
 </template>
 
 <script>
-window.onscroll = function() {
-  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-    // mybutton.style.display = "block";
-    test.style.color = "#000000"
-  } else {
-    test.style.color = "#0277BD"
-    // mybutton.style.display = "none";
-  }
-}
+// window.onscroll = function() {
+//   if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+//     // mybutton.style.display = "block";
+//     test.style.color = "#000000"
+//   } else {
+//     test.style.color = "#0277BD"
+//     // mybutton.style.display = "none";
+//   }
+// }
 import PopUp from '@/components/Popup.vue'
 import { getItem, removeItem } from "@/util/localStorage"
 

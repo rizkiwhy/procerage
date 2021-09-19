@@ -42,7 +42,7 @@ const routes = [
     ],
   },
   {
-    path: '/',
+    path: 'admin',
     component: () => import('@/layouts/admin/Index.vue'),
     children: [
       {
@@ -52,15 +52,15 @@ const routes = [
         meta: { requiresAuth: true },
       },
       {
-        path: '/type',
-        name: 'Type',
-        component: () => import('@/views/admin/Type.vue') ,
+        path: '/expertise',
+        name: 'Expertise',
+        component: () => import('@/views/admin/Expertise.vue') ,
         meta: { requiresAuth: true },
       },
       {
-        path: '/mark',
-        name: 'Mark',
-        component: () => import('@/views/admin/Mark.vue') ,
+        path: '/certification',
+        name: 'Certification',
+        component: () => import('@/views/admin/Certification.vue') ,
         meta: { requiresAuth: true },
       }
     ],

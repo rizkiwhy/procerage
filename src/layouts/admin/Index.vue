@@ -181,12 +181,12 @@ export default {
             {
                 icon: 'mdi-chevron-up',
                 'icon-alt': 'mdi-chevron-down',
-                'icon-ctr': 'mdi-cart-arrow-right',
-                text: 'Orders',
+                'icon-ctr': 'mdi-database-settings',
+                text: 'Master Data',
                 model: false,
                 children: [
-            { icon: 'mdi-style', text: 'Type', route:'/type' },
-            { icon: 'mdi-atm', text: 'Mark', route:'/mark' },
+            { icon: 'mdi-view-dashboard', text: 'Expertise', route:'/expertise' },
+            { icon: 'mdi-certificate-outline', text: 'Certification', route:'/certification' },
                 ],
             },
             {
@@ -242,7 +242,10 @@ export default {
           },
         })
         .then((response) => {
-          this.user.name = response.data.user.name
+          const words = response.data.user.name.split(" ");
+          // console.log(words)
+
+          this.user.name = words[0]
           // console.log(this.user.name)
           this.user.email = response.data.user.email
         })
