@@ -1,8 +1,7 @@
 <template>
-
-  <v-container>
+  <v-container class="test">
     <v-card-title>
-      Nutrition
+      Master Data
       <v-spacer></v-spacer>
       <v-text-field
         v-model="search"
@@ -14,20 +13,24 @@
     </v-card-title>
     <v-data-table
       :headers="headers"
-      :items="desserts"
-      
+      :items="expertises"
       class="elevation-1"
       :search="search"
     >
+      <template v-slot:[`item.image`]="{ value }">
+          <a target="_blank" :href="'http://localhost:3000/'+value">
+            {{ value }}
+          </a>
+      </template>
+      <template v-slot:[`item.icon`]="{ value }">
+        <v-icon>{{value}}</v-icon>
+      </template>
+
       <template v-slot:top>
         <v-toolbar flat>
-          <v-toolbar-title>My CRUD</v-toolbar-title>
+          <v-toolbar-title>Expertises</v-toolbar-title>
           <v-divider class="mx-4" inset vertical></v-divider>
           <v-spacer></v-spacer>
-          <!-- <v-btn color="accent" dark rounded class="mb-2" @click="showAlert">
-            New Item
-            <v-icon right dark> mdi-plus-circle-outline </v-icon>
-          </v-btn> -->
           <v-dialog persistent v-model="dialog" max-width="500px">
             <template v-slot:activator="{ on, attrs }">
               <v-btn color="primary" dark rounded class="mb-2" v-bind="attrs" v-on="on">
@@ -39,46 +42,41 @@
               <v-card-title>
                 <span class="text-h5">{{ formTitle }}</span>
               </v-card-title>
-
               <v-card-text>
                 <v-container>
                   <v-row>
-                    <v-col cols="12" sm="6" md="4">
+                    <v-col cols="12" sm="6" md="12">
                       <v-text-field
                         v-model="editedItem.name"
-                        label="Dessert name"
+                        label="Nama Program Keahlian"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="8">
+                      <v-text-field
+                        v-model="editedItem.icon"
+                        label="Icon"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
                       <v-text-field
-                        v-model="editedItem.calories"
-                        label="Calories"
+                        v-model="editedItem.abbr"
+                        label="Kode"
                       ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="8">
+                      <v-file-input
+                        v-model="filename"
+                        @change="onSelectedImage"
+                        label="Image" />
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
-                      <v-text-field
-                        v-model="editedItem.fat"
-                        label="Fat (g)"
-                      ></v-text-field>
+                      <div class="text-caption">Active</div>
+                      <v-switch
+                        class="ma-0"
+                        v-model="editedItem.active"
+                        :label="`${editedItem.active.toString()}`"
+                      ></v-switch>
                     </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field
-                        v-model="editedItem.carbs"
-                        label="Carbs (g)"
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field
-                        v-model="editedItem.protein"
-                        label="Protein (g)"
-                      ></v-text-field>
-                    </v-col>
-                    <!-- <v-col cols="12" sm="6" md="4">
-                      <v-text-field
-                        v-model="editedItem._id"
-                        label="_id"
-                      ></v-text-field>
-                    </v-col> -->
                   </v-row>
                 </v-container>
               </v-card-text>
@@ -92,6 +90,7 @@
                   Save <v-icon right dark> mdi-content-save-outline </v-icon></v-btn
                 >
               </v-card-actions>
+
             </v-card>
           </v-dialog>
           <v-dialog persistent v-model="dialogDelete" max-width="500px">
@@ -115,6 +114,16 @@
           </v-dialog>
         </v-toolbar>
       </template>
+      <template v-slot:[`item.active`]="{ item }">
+        <v-chip
+          :color="item.active===true?'success':'error'"
+          dark
+          small
+          class="ma-1"
+        >
+          {{ item.active }}
+        </v-chip>
+    </template>
       <template v-slot:[`item.actions`]="{ item }">
         <v-btn @click="editItem(item)" class="ma-1" fab x-small dark color="warning">
           <v-icon> mdi-pencil </v-icon>
@@ -149,7 +158,12 @@ const Toast = Swal.mixin({
 
 export default {
   name: "Home",
+
+  components: {
+  },
   data: () => ({
+    filename: null,
+    file: "",
     search: "",
     // url: "http://103.14.20.210:18081/api/v1",
     url: "http://localhost:3000/api/v1",
@@ -157,30 +171,30 @@ export default {
     dialogDelete: false,
     headers: [
       {
-        text: "Dessert (100g serving)",
+        text: "Program Keahlian",
         value: "name",
       },
-      { text: "Calories", value: "calories" },
-      { text: "Fat (g)", value: "fat" },
-      { text: "Carbs (g)", value: "carbs" },
-      { text: "Protein (g)", value: "protein" },
+      { text: "Icon", value: "icon" },
+      { text: "Kode", value: "abbr" },
+      { text: "Image", value: "image" },
+      { text: "Active", value: "active" },
       { text: "Actions", value: "actions", sortable: false },
     ],
-    desserts: [],
+    expertises: [],
     editedIndex: -1,
     editedItem: {
       name: "",
-      calories: 0,
-      fat: 0,
-      carbs: 0,
-      protein: 0,
+      icon: "",
+      abbr: "",
+      active: false,
+      image: "",
     },
     defaultItem: {
       name: "",
-      calories: 0,
-      fat: 0,
-      carbs: 0,
-      protein: 0,
+      icon: "",
+      abbr: "",
+      active: false,
+      image: "",
     },
   }),
 
@@ -204,15 +218,21 @@ export default {
   },
 
   methods: {
+    onSelectedImage(e) {
+      this.file = e
+    },
+
     initialize() {
+      
+
       axios
-        .get(`${this.url}/desserts`, {
+        .get(`${this.url}/expertises`, {
           headers: {
             Authorization: token,
           },
         })
         .then((response) => {
-          this.desserts = response.data.data;
+          this.expertises = response.data.data;
         })
         .catch((error) => {
           console.error(error);
@@ -220,20 +240,20 @@ export default {
     },
 
     editItem(item) {
-      this.editedIndex = this.desserts.indexOf(item);
+      this.editedIndex = this.expertises.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialog = true;
     },
 
     deleteItem(item) {
-      this.editedIndex = this.desserts.indexOf(item);
+      this.editedIndex = this.expertises.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialogDelete = true;
     },
 
     deleteItemConfirm() {
       axios
-        .delete(`${this.url}/desserts/${this.editedItem._id}`, {
+        .delete(`${this.url}/expertises/${this.editedItem._id}`, {
           headers: {
             Authorization: token,
           },
@@ -267,9 +287,19 @@ export default {
 
     save() {
       if (this.editedIndex > -1) {
+        const formData = new FormData()
+        formData.append('name', this.editedItem.name)
+        formData.append('icon', this.editedItem.icon)
+        formData.append('abbr', this.editedItem.abbr)
+        formData.append('active', this.editedItem.active)
+        
+        if (this.file !== "") {
+          formData.append('image', this.file)
+        }
         axios
-          .put(`${this.url}/desserts/${this.editedItem._id}`, this.editedItem, {
+          .put(`${this.url}/expertises/${this.editedItem._id}`, formData, {
             headers: {
+              'content-type': 'multipart/form-data',
               Authorization: token,
             },
           })
@@ -282,9 +312,17 @@ export default {
           })
           .catch((error) => console.log(error));
       } else {
+        const formData = new FormData()
+        formData.append('name', this.editedItem.name)
+        formData.append('icon', this.editedItem.icon)
+        formData.append('abbr', this.editedItem.abbr)
+        formData.append('active', this.editedItem.active)
+        formData.append('image', this.file)
+
         axios
-          .post(`${this.url}/desserts`, this.editedItem, {
+          .post(`${this.url}/expertises`, formData, {
             headers: {
+              'content-type': 'multipart/form-data',
               Authorization: token,
             },
           })
@@ -294,6 +332,7 @@ export default {
               title: response.data.message
             })
             this.initialize()
+            this.filename = null
           })
           .catch((error) => console.error(error));
       }
@@ -302,3 +341,8 @@ export default {
   },
 };
 </script>
+<style>
+/* .test {
+  zoom:0.8
+} */
+</style>

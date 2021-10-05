@@ -13,13 +13,15 @@
         >
           <div class="d-flex flex-wrap justify-md-start justify-center justify-md-none">
             <v-btn
-            v-for="icon in social"
-            :key="icon"
+            v-for="(socialmedia, i) in socialmedias"
+            :key="i"
             dark
             icon
+            :href="socialmedia.link"
+            target="_blank"
             >
             <v-icon size="24px">
-                {{ icon }}
+                {{ socialmedia.icon }}
             </v-icon>
             </v-btn>
           </div>
@@ -30,7 +32,7 @@
           cols="12"
           md="6"
         >
-        <p class="mt-1">
+        <p class="ma-0 text-caption">
           Copyright &copy; {{ new Date().getFullYear() }} 
           <a href="https://www.smkn11bdg.sch.id" class="text-decoration-none white--text font-weight-bold">ICT SMKN 11 BDG</a>.
             All rights reserved.
@@ -42,18 +44,29 @@
 </template>
 
 <script>
+import axios from "axios";
+
   export default {
     name: 'HomeFooter',
 
     data: () => ({
-      social: [
-        'mdi-web',
-        'mdi-facebook',
-        'mdi-twitter',
-        'mdi-instagram',
-        'mdi-linkedin',
-      ],
+      url: "http://localhost:3000/api/v1",
+      socialmedias: [],
     }),
+    created() {
+      this.initialize()
+    },
+    methods : {
+      initialize() {
+        axios.get(`${this.url}/all-socialmedias`)
+          .then((response) => {
+            this.socialmedias = response.data.data;
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      }
+    }
   }
 </script>
 

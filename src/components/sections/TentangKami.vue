@@ -8,13 +8,8 @@
         md="12"
       >
         <v-container class="py-16">
-          
-          <!-- <v-img class="d-none d-lg-block" 
-            max-width="250"
-            :src="require('../../assets/001-drawkit-content-man-colour.svg')"/> -->
           <v-responsive
             class="d-flex align-center mx-auto"
-            max-width="1000"
             height="100%"
             width="100%"
           >
@@ -37,9 +32,9 @@
             </v-col>
 
             <v-col cols="12" sm="12" md="7">
-              <v-list-item v-for="(feature, i) in features"
+              <v-list-item v-for="(contact, i) in contacts"
                   :key="i"
-                  :href="feature.link"
+                  :href="contact.link"
                   target="_blank"
                   >
                 <v-list-item-avatar>
@@ -51,11 +46,11 @@
                     bottom
                     left
                   >
-                    <v-icon color="secondary">{{feature.icon}}</v-icon>
+                    <v-icon color="secondary">{{contact.icon}}</v-icon>
                   </v-btn>
                 </v-list-item-avatar>
-                <v-list-item-content class="pa-0 white--text text-subtitle-1">
-                  {{feature.title}}
+                <v-list-item-content class="pa-0 white--text font-weight caption">
+                  {{contact.value}}
                 </v-list-item-content>
 
               </v-list-item>
@@ -63,89 +58,35 @@
           
           </v-row>
 
-          <!-- <h1 class="text-h6 font-weight-regular mb-4 text-left secondary--text">Jl. Budi Jl. Raya Cilember, Sukaraja, <br> Kec. Cicendo, Kota Bandung, Jawa Barat 40153</h1> -->
-          <!-- <p class="text-body-1 grey--text">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae nobis neque aspernatur in quas iure id aliquid, esse debitis, quibusdam mollitia! Quia ea expedita magnam totam, earum omnis et perspiciatis?
-          </p> -->
-          <!-- <v-btn
-            color="secondary"
-            depressed
-            rounded
-            min-width="164"
-            class="font-weight-bold white--text py-1 mt-1"
-          >
-          Discover More
-          </v-btn>
-            <span class="font-weight-bold grey--text ma-4">or</span>
-          <v-btn
-            outlined
-            rounded
-            color="accent"
-            depressed
-            min-width="164"
-            class="font-weight-bold white--text py-1 mt-1"
-          >
-          Get Started Now
-          </v-btn> -->
-            <!-- tile -->
           </v-responsive>
           
         </v-container>
       </v-col>
     </v-row>
-    <!-- <v-row no-gutters>
-      <v-col
-        md="12"
-      >
-        <v-img
-          height="100vh"
-        >
-        <v-container>
-          <v-responsive
-            class="d-flex align-center mx-auto"
-            height="100%"
-            max-width="1185"
-            width="100%"
-          >
-          
-          </v-responsive>
-        </v-container>
-        </v-img>
-      </v-col>
-    </v-row> -->
   </section>
 </template>
 <script>
-  export default {
+import axios from "axios";
 
-    data: () => ({
-      features: [
-        {
-          title: 'Jl. Budi Cilember, Sukaraja, Kec. Cicendo, Bandung, Jawa Barat 40153',
-          icon: 'mdi-google-maps',
-        },
-        {
-          title: '+62226652442',
-          icon: 'mdi-phone',
-        },
-        {
-          title: 'smkn11bdg@gmail.com',
-          icon: 'mdi-email-multiple-outline',
-        },
-        {
-          title: 'smkn11bdg',
-          icon: 'mdi-skype-business',
-        },
-        {
-          title: 'Senin - Jumat (08.00 - 16.00 WIB), Weekend & Tanggal Merah Tutup',
-          icon: 'mdi-calendar-clock',
-        },
-        {
-          title: "SMKN11BANDUNG",
-          link: "https://www.youtube.com/c/SMKN11BANDUNG",
-          icon: 'mdi-youtube',
-        },
-      ],
-    }),
+export default {
+
+  data: () => ({
+    url: "http://localhost:3000/api/v1",
+    contacts: [],
+  }),
+  created() {
+    this.initialize()
+  },
+  methods : {
+    initialize() {
+      axios.get(`${this.url}/all-contacts`)
+        .then((response) => {
+          this.contacts = response.data.data;
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
   }
+}
 </script>

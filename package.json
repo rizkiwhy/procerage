@@ -10,6 +10,7 @@
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
     "jquery": "^3.6.0",
+    "tiptap-vuetify": "^2.24.0",
     "toastr": "^2.1.4",
     "vue": "^2.6.11",
     "vue-carousel-3d": "^1.0.1",

@@ -1,24 +1,9 @@
 <template>
   <section
     id="testimonial">
-    <!-- <template>
-  <v-parallax
-    dark
-    src="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg"
-  > -->
     <v-img
         class="fill-height"
         height="100vh">
-
-    <!-- <v-img
-        class="fill-height bottom-gradient"> -->
-    
-        <!-- :src="require('../../assets/wave.svg')" -->
-<!-- <v-row no-gutters>
-      <v-col
-        md="12"
-      > -->
-         <!-- <v-col cols="12" sm="12"> -->
         <v-container 
       class="mb-16"
         >
@@ -42,16 +27,6 @@
                     dark
                     max-width="400"
                   >
-                    <!-- <v-card-title>
-                      <v-icon
-                        large
-                        left
-                      >
-                        mdi-twitter
-                      </v-icon>
-                      <span class="text-h6 font-weight-light">Twitter</span>
-                    </v-card-title> -->
-
                     <v-card-text class="text-h5 font-weight-bold">
                       <sup>
                       <v-icon>mdi-format-quote-open-outline</v-icon>
@@ -96,20 +71,8 @@
               </div>
             </v-col>
           </v-row>
-          <!-- <v-card class="px-2">
-                <carousel-3d :height="280" :width="400" :border="1" :autoplay="true" :autoplay-timeout='3000'>
-
-                    <slide v-for="(slide, i) in slides" :index="i" :key="i">
-                        <img v-bind:src="slide.src" />
-                    </slide>
-                </carousel-3d>
-          </v-card> -->
         </v-container>
-        <!-- </v-col> -->
-    <!-- </v-img> -->
     </v-img>
-  <!-- </v-parallax>
-    </template> -->
   </section>
 </template>
 <script>

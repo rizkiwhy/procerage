@@ -1,8 +1,7 @@
 <template>
-
   <v-container>
     <v-card-title>
-      Nutrition
+      Master Data
       <v-spacer></v-spacer>
       <v-text-field
         v-model="search"
@@ -14,20 +13,25 @@
     </v-card-title>
     <v-data-table
       :headers="headers"
-      :items="desserts"
+      :items="assesors"
       
       class="elevation-1"
       :search="search"
     >
+      <template v-slot:[`item.image`]="{ value }">
+          <a target="_blank" :href="'http://localhost:3000/'+value">
+            {{ value }}
+          </a>
+      </template>
+      <template v-slot:[`item.icon`]="{ value }">
+        <v-icon>{{value}}</v-icon>
+      </template>
+
       <template v-slot:top>
         <v-toolbar flat>
-          <v-toolbar-title>My CRUD</v-toolbar-title>
+          <v-toolbar-title>Assesors</v-toolbar-title>
           <v-divider class="mx-4" inset vertical></v-divider>
           <v-spacer></v-spacer>
-          <!-- <v-btn color="accent" dark rounded class="mb-2" @click="showAlert">
-            New Item
-            <v-icon right dark> mdi-plus-circle-outline </v-icon>
-          </v-btn> -->
           <v-dialog persistent v-model="dialog" max-width="500px">
             <template v-slot:activator="{ on, attrs }">
               <v-btn color="primary" dark rounded class="mb-2" v-bind="attrs" v-on="on">
@@ -39,46 +43,61 @@
               <v-card-title>
                 <span class="text-h5">{{ formTitle }}</span>
               </v-card-title>
-
               <v-card-text>
                 <v-container>
                   <v-row>
-                    <v-col cols="12" sm="6" md="4">
+                    <v-col cols="12" sm="6" md="12">
                       <v-text-field
                         v-model="editedItem.name"
-                        label="Dessert name"
+                        label="Nama Lengkap"
                       ></v-text-field>
                     </v-col>
-                    <v-col cols="12" sm="6" md="4">
+                    <v-col cols="12" sm="6" md="12">
                       <v-text-field
-                        v-model="editedItem.calories"
-                        label="Calories"
+                        v-model="editedItem.degree"
+                        label="Gelar"
                       ></v-text-field>
                     </v-col>
-                    <v-col cols="12" sm="6" md="4">
+                    <v-col cols="12" sm="6" md="12">
                       <v-text-field
-                        v-model="editedItem.fat"
-                        label="Fat (g)"
+                        v-model="editedItem.graduateOf"
+                        label="Lulusan (Perguruan Tinggi)"
                       ></v-text-field>
                     </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field
-                        v-model="editedItem.carbs"
-                        label="Carbs (g)"
-                      ></v-text-field>
+                    <v-col cols="12" sm="6" md="12">
+                      <v-autocomplete
+                        :items="tags"
+                        v-model="editedItem.tags"
+                        label="Keahlian"
+                        clearable
+                        deletable-chips
+                        multiple
+                        small-chips
+                      ></v-autocomplete>
                     </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field
-                        v-model="editedItem.protein"
-                        label="Protein (g)"
-                      ></v-text-field>
+                    <v-col cols="12" sm="6" md="12">
+                      <v-textarea
+                        counter=256
+                        rows=2
+                        clear-icon="mdi-close-circle"
+                        label="Quote"
+                        v-model="editedItem.quote"
+                      ></v-textarea>
                     </v-col>
-                    <!-- <v-col cols="12" sm="6" md="4">
-                      <v-text-field
-                        v-model="editedItem._id"
-                        label="_id"
-                      ></v-text-field>
-                    </v-col> -->
+                    <v-col cols="12" sm="6" md="9">
+                      <v-file-input
+                        v-model="filename"
+                        @change="onSelectedImage"
+                        label="Image" />
+                    </v-col>
+                    <v-col cols="12" sm="6" md="2">
+                      <div class="text-caption">Active</div>
+                      <v-switch
+                        class="ma-0"
+                        v-model="editedItem.active"
+                        :label="`${editedItem.active.toString()}`"
+                      ></v-switch>
+                    </v-col>
                   </v-row>
                 </v-container>
               </v-card-text>
@@ -92,6 +111,8 @@
                   Save <v-icon right dark> mdi-content-save-outline </v-icon></v-btn
                 >
               </v-card-actions>
+            <!-- </v-form> -->
+
             </v-card>
           </v-dialog>
           <v-dialog persistent v-model="dialogDelete" max-width="500px">
@@ -115,6 +136,33 @@
           </v-dialog>
         </v-toolbar>
       </template>
+      <template v-slot:[`item.tags`]="{ item }">
+        <v-chip
+          :color="tag==='Akuntansi dan Keuangan Lembaga'?'yellow darken-2'
+          :tag==='Otomatisasi dan Tata Kelola Perkantoran'?'indigo'
+          :tag==='Bisnis Daring dan Pemasaran'?'red'
+          :tag==='Manajemen Logistik'?'lime'
+          :tag==='Rekayasa Perangkat Lunak'?'green'
+          :tag==='Teknik Komputer dan Jaringan'?'blue-grey'
+          :'purple'"
+          v-for="tag in item.tags" :key="tag"
+          dark
+          x-small
+          class="ma-1"
+        >
+          {{ tag }}
+        </v-chip>
+      </template>
+      <template v-slot:[`item.active`]="{ item }">
+        <v-chip
+          :color="item.active===true?'success':'error'"
+          dark
+          small
+          class="ma-1"
+        >
+          {{ item.active }}
+        </v-chip>
+      </template>
       <template v-slot:[`item.actions`]="{ item }">
         <v-btn @click="editItem(item)" class="ma-1" fab x-small dark color="warning">
           <v-icon> mdi-pencil </v-icon>
@@ -127,6 +175,8 @@
         <v-btn color="primary" @click="initialize" dark> Reset </v-btn>
       </template>
     </v-data-table>
+    <template>
+    </template>
   </v-container>
 </template>
 
@@ -149,7 +199,12 @@ const Toast = Swal.mixin({
 
 export default {
   name: "Home",
+
+  components: {
+  },
   data: () => ({
+    filename: null,
+    file: "",
     search: "",
     // url: "http://103.14.20.210:18081/api/v1",
     url: "http://localhost:3000/api/v1",
@@ -157,30 +212,36 @@ export default {
     dialogDelete: false,
     headers: [
       {
-        text: "Dessert (100g serving)",
+        text: "Nama Lengkap",
         value: "name",
       },
-      { text: "Calories", value: "calories" },
-      { text: "Fat (g)", value: "fat" },
-      { text: "Carbs (g)", value: "carbs" },
-      { text: "Protein (g)", value: "protein" },
+      { text: "Gelar", value: "degree" },
+      { text: "Lulusan (Perguruan Tinggi)", value: "graduateOf" },
+      { text: "Keahlian", value: "tags" },
+      { text: "Image", value: "image" },
+      { text: "Active", value: "active" },
       { text: "Actions", value: "actions", sortable: false },
     ],
-    desserts: [],
+    tags: [],
+    assesors: [],
     editedIndex: -1,
     editedItem: {
       name: "",
-      calories: 0,
-      fat: 0,
-      carbs: 0,
-      protein: 0,
+      degree: "",
+      graduateOf: "",
+      image: "",
+      tags: [],
+      quote: "",
+      active: false,
     },
     defaultItem: {
       name: "",
-      calories: 0,
-      fat: 0,
-      carbs: 0,
-      protein: 0,
+      degree: "",
+      graduateOf: "",
+      image: "",
+      tags: "",
+      quote: "",
+      active: false,
     },
   }),
 
@@ -204,15 +265,34 @@ export default {
   },
 
   methods: {
+    onSelectedImage(e) {
+      this.file = e
+    },
+
     initialize() {
+      axios.get(`${this.url}/expertises`, {
+        headers: {
+          Authorization: token,
+        }
+      }).then((response) => {
+        const arrayExpertises = response.data.data
+        
+        for (let index = 0; index < arrayExpertises.length; index++) {
+          this.tags.push(arrayExpertises[index].name)
+        }
+
+      }).catch(error => {
+        console.error(error)
+      })
+
       axios
-        .get(`${this.url}/desserts`, {
+        .get(`${this.url}/assesors`, {
           headers: {
             Authorization: token,
           },
         })
         .then((response) => {
-          this.desserts = response.data.data;
+          this.assesors = response.data.data;
         })
         .catch((error) => {
           console.error(error);
@@ -220,20 +300,20 @@ export default {
     },
 
     editItem(item) {
-      this.editedIndex = this.desserts.indexOf(item);
+      this.editedIndex = this.assesors.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialog = true;
     },
 
     deleteItem(item) {
-      this.editedIndex = this.desserts.indexOf(item);
+      this.editedIndex = this.assesors.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialogDelete = true;
     },
 
     deleteItemConfirm() {
       axios
-        .delete(`${this.url}/desserts/${this.editedItem._id}`, {
+        .delete(`${this.url}/assesors/${this.editedItem._id}`, {
           headers: {
             Authorization: token,
           },
@@ -267,9 +347,24 @@ export default {
 
     save() {
       if (this.editedIndex > -1) {
+        const tempTags = this.editedItem.tags
+        const formData = new FormData()
+        formData.append('name', this.editedItem.name)
+        formData.append('degree', this.editedItem.degree)
+        formData.append('graduateOf', this.editedItem.graduateOf)
+        formData.append('active', this.editedItem.active)
+        for (var i = 0; i < tempTags.length; i++) {
+          formData.append('tags[]', tempTags[i]);
+        }
+        formData.append('quote', this.editedItem.quote)
+        
+        if (this.file !== "") {
+          formData.append('image', this.file)
+        }
         axios
-          .put(`${this.url}/desserts/${this.editedItem._id}`, this.editedItem, {
+          .put(`${this.url}/assesors/${this.editedItem._id}`, formData, {
             headers: {
+              'content-type': 'multipart/form-data',
               Authorization: token,
             },
           })
@@ -282,9 +377,22 @@ export default {
           })
           .catch((error) => console.log(error));
       } else {
+        const tempTags = this.editedItem.tags
+        const formData = new FormData()
+        formData.append('name', this.editedItem.name)
+        formData.append('degree', this.editedItem.degree)
+        formData.append('graduateOf', this.editedItem.graduateOf)
+        formData.append('active', this.editedItem.active)
+        for (var i = 0; i < tempTags.length; i++) {
+          formData.append('tags[]', tempTags[i]);
+        }
+        formData.append('quote', this.editedItem.quote)
+        formData.append('image', this.file)
+
         axios
-          .post(`${this.url}/desserts`, this.editedItem, {
+          .post(`${this.url}/assesors`, formData, {
             headers: {
+              'content-type': 'multipart/form-data',
               Authorization: token,
             },
           })
@@ -294,6 +402,7 @@ export default {
               title: response.data.message
             })
             this.initialize()
+            this.filename = null
           })
           .catch((error) => console.error(error));
       }

@@ -1,8 +1,7 @@
 <template>
-
   <v-container>
     <v-card-title>
-      Nutrition
+      Content
       <v-spacer></v-spacer>
       <v-text-field
         v-model="search"
@@ -14,21 +13,25 @@
     </v-card-title>
     <v-data-table
       :headers="headers"
-      :items="desserts"
-      
+      :items="blogs"
       class="elevation-1"
       :search="search"
     >
+      <template v-slot:[`item.image`]="{ value }">
+          <a target="_blank" :href="'http://localhost:3000/'+value">
+            {{ value }}
+          </a>
+      </template>
+      <template v-slot:[`item.icon`]="{ value }">
+        <v-icon>{{value}}</v-icon>
+      </template>
+
       <template v-slot:top>
         <v-toolbar flat>
-          <v-toolbar-title>My CRUD</v-toolbar-title>
+          <v-toolbar-title>Blogs</v-toolbar-title>
           <v-divider class="mx-4" inset vertical></v-divider>
           <v-spacer></v-spacer>
-          <!-- <v-btn color="accent" dark rounded class="mb-2" @click="showAlert">
-            New Item
-            <v-icon right dark> mdi-plus-circle-outline </v-icon>
-          </v-btn> -->
-          <v-dialog persistent v-model="dialog" max-width="500px">
+          <v-dialog persistent v-model="dialog" max-width="1000px">
             <template v-slot:activator="{ on, attrs }">
               <v-btn color="primary" dark rounded class="mb-2" v-bind="attrs" v-on="on">
                 New Item
@@ -39,46 +42,68 @@
               <v-card-title>
                 <span class="text-h5">{{ formTitle }}</span>
               </v-card-title>
-
               <v-card-text>
                 <v-container>
                   <v-row>
-                    <v-col cols="12" sm="6" md="4">
+                    <v-col cols="12">
                       <v-text-field
-                        v-model="editedItem.name"
-                        label="Dessert name"
-                      ></v-text-field>
+                        append-icon="mdi-format-title"
+                        label="Title"
+                        v-model="editedItem.title"/>
+                    </v-col>
+                  </v-row>
+                  <v-row>
+                    <v-col cols="12">
+                      <v-text-field
+                        append-icon="mdi-subtitles-outline"
+                        label="Subtitle"
+                        v-model="editedItem.subtitle"/>
+                    </v-col>
+                  </v-row>
+                  <!-- <v-row>
+                    <v-col cols="12">
+                      <v-text-field
+                        append-icon="mdi-subtitles-outline"
+                        label="Oneliner"
+                        v-model="editedItem.oneliner"/>
+                    </v-col>
+                  </v-row> -->
+                  <v-row>
+                    <v-col cols="12">
+                      <v-textarea
+                        append-icon="mdi-card-text-outline"
+                        label="Description"
+                        v-model="editedItem.description"/>
+                    </v-col>
+                  </v-row>
+                  <v-row>
+                    <v-col cols="12" sm="6" md="6">
+                      <v-file-input
+                        v-model="filename"
+                        @change="onSelectedImage"
+                        label="Image" />
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
-                      <v-text-field
-                        v-model="editedItem.calories"
-                        label="Calories"
-                      ></v-text-field>
+                      <v-autocomplete
+                        :items="tags"
+                        v-model="editedItem.tags"
+                        label="Tags"
+                        clearable
+                        deletable-chips
+                        multiple
+                        small-chips
+                      ></v-autocomplete>
                     </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field
-                        v-model="editedItem.fat"
-                        label="Fat (g)"
-                      ></v-text-field>
+                    <v-col cols="12" sm="6" md="2">
+                      <div class="text-caption">Active</div>
+                      <v-switch
+                        class="ma-0"
+                        v-model="editedItem.active"
+                        :label="`${editedItem.active.toString()}`"
+                      ></v-switch>
                     </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field
-                        v-model="editedItem.carbs"
-                        label="Carbs (g)"
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field
-                        v-model="editedItem.protein"
-                        label="Protein (g)"
-                      ></v-text-field>
-                    </v-col>
-                    <!-- <v-col cols="12" sm="6" md="4">
-                      <v-text-field
-                        v-model="editedItem._id"
-                        label="_id"
-                      ></v-text-field>
-                    </v-col> -->
+                  </v-row>
+                  <v-row>
                   </v-row>
                 </v-container>
               </v-card-text>
@@ -92,6 +117,7 @@
                   Save <v-icon right dark> mdi-content-save-outline </v-icon></v-btn
                 >
               </v-card-actions>
+
             </v-card>
           </v-dialog>
           <v-dialog persistent v-model="dialogDelete" max-width="500px">
@@ -126,6 +152,16 @@
       <template v-slot:no-data>
         <v-btn color="primary" @click="initialize" dark> Reset </v-btn>
       </template>
+      <template v-slot:[`item.active`]="{ item }">
+        <v-chip
+          :color="item.active===true?'success':'error'"
+          dark
+          small
+          class="ma-1"
+        >
+          {{ item.active }}
+        </v-chip>
+      </template>
     </v-data-table>
   </v-container>
 </template>
@@ -150,37 +186,43 @@ const Toast = Swal.mixin({
 export default {
   name: "Home",
   data: () => ({
+    filename: null,
+    file: "",
     search: "",
     // url: "http://103.14.20.210:18081/api/v1",
     url: "http://localhost:3000/api/v1",
     dialog: false,
     dialogDelete: false,
     headers: [
-      {
-        text: "Dessert (100g serving)",
-        value: "name",
-      },
-      { text: "Calories", value: "calories" },
-      { text: "Fat (g)", value: "fat" },
-      { text: "Carbs (g)", value: "carbs" },
-      { text: "Protein (g)", value: "protein" },
+      { text: "Title", value: "title" },
+      // { text: "Subtitle", value: "subtitle" },
+      { text: "Publisher", value: "publisher" },
+      // { text: "Description", value: "description" },
+      { text: "Image", value: "image" },
+      { text: "Tags", value: "tags" },
+      { text: "Active", value: "active" },
       { text: "Actions", value: "actions", sortable: false },
     ],
-    desserts: [],
+    tags: ["Beranda", "Berita", "Kegiatan"],
+    blogs: [],
     editedIndex: -1,
     editedItem: {
-      name: "",
-      calories: 0,
-      fat: 0,
-      carbs: 0,
-      protein: 0,
+      title: "",
+      subtitle: "",
+      publisher: "",
+      description: "",
+      tags: "",
+      active: false,
+      image: "",
     },
     defaultItem: {
-      name: "",
-      calories: 0,
-      fat: 0,
-      carbs: 0,
-      protein: 0,
+      title: "",
+      subtitle: "",
+      publisher: "",
+      description: "",
+      tags: "",
+      active: false,
+      image: "",
     },
   }),
 
@@ -204,15 +246,21 @@ export default {
   },
 
   methods: {
+    onSelectedImage(e) {
+      this.file = e
+    },
+
     initialize() {
+      
+
       axios
-        .get(`${this.url}/desserts`, {
+        .get(`${this.url}/blogs`, {
           headers: {
             Authorization: token,
           },
         })
         .then((response) => {
-          this.desserts = response.data.data;
+          this.blogs = response.data.data;
         })
         .catch((error) => {
           console.error(error);
@@ -220,20 +268,20 @@ export default {
     },
 
     editItem(item) {
-      this.editedIndex = this.desserts.indexOf(item);
+      this.editedIndex = this.blogs.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialog = true;
     },
 
     deleteItem(item) {
-      this.editedIndex = this.desserts.indexOf(item);
+      this.editedIndex = this.blogs.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialogDelete = true;
     },
 
     deleteItemConfirm() {
       axios
-        .delete(`${this.url}/desserts/${this.editedItem._id}`, {
+        .delete(`${this.url}/blogs/${this.editedItem._id}`, {
           headers: {
             Authorization: token,
           },
@@ -267,9 +315,24 @@ export default {
 
     save() {
       if (this.editedIndex > -1) {
+        const tempTags = this.editedItem.tags
+        const formData = new FormData()
+        formData.append('title', this.editedItem.title)
+        formData.append('subtitle', this.editedItem.subtitle)
+        // formData.append('oneliner', this.editedItem.oneliner)
+        formData.append('description', this.editedItem.description)
+        formData.append('active', this.editedItem.active)
+        for (var i = 0; i < tempTags.length; i++) {
+          formData.append('tags[]', tempTags[i]);
+        }
+      
+        if (this.file !== "") {
+          formData.append('image', this.file)
+        }
         axios
-          .put(`${this.url}/desserts/${this.editedItem._id}`, this.editedItem, {
+          .put(`${this.url}/blogs/${this.editedItem._id}`, formData, {
             headers: {
+              'content-type': 'multipart/form-data',
               Authorization: token,
             },
           })
@@ -282,9 +345,22 @@ export default {
           })
           .catch((error) => console.log(error));
       } else {
+        const tempTags = this.editedItem.tags
+        const formData = new FormData()
+        formData.append('title', this.editedItem.title)
+        formData.append('subtitle', this.editedItem.subtitle)
+        // formData.append('oneliner', this.editedItem.oneliner)
+        formData.append('description', this.editedItem.description)
+        formData.append('active', this.editedItem.active)
+        formData.append('image', this.file)
+        for (var i = 0; i < tempTags.length; i++) {
+          formData.append('tags[]', tempTags[i]);
+        }
+
         axios
-          .post(`${this.url}/desserts`, this.editedItem, {
+          .post(`${this.url}/blogs`, formData, {
             headers: {
+              'content-type': 'multipart/form-data',
               Authorization: token,
             },
           })
@@ -294,6 +370,7 @@ export default {
               title: response.data.message
             })
             this.initialize()
+            this.filename = null
           })
           .catch((error) => console.error(error));
       }

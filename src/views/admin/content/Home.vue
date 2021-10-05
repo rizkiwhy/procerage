@@ -13,38 +13,22 @@
             height="100%"
             width="100%"
           >
-          <h1 class="text-h4 font-weight-medium mb-16 text-center primary--text">Hubungi Kami</h1>
+          <h1 class="text-h4 font-weight-medium mb-16 text-center primary--text">Beranda</h1>
           
           <v-row>
-            <v-col cols="12" sm="6" md="6" lg="6">
+            <v-col cols="12">
               <v-text-field
-                append-icon="mdi-identifier"
-                label="Nama Lengkap"
-                outlined
-                rounded />
-            </v-col>
-
-            <v-col cols="12" sm="6" md="6" lg="6">
-              <v-text-field
-                append-icon="mdi-email"
-                label="Email"
+                append-icon="mdi-subtitles-outline"
+                label="Subtitle"
                 outlined
                 rounded />
             </v-col>
           </v-row>
             <v-row>
-            <v-col cols="12" sm="6" md="6" lg="6">
+            <v-col cols="12">
               <v-text-field
-                append-icon="mdi-phone"
-                label="No. Telepon"
-                outlined
-                rounded />
-            </v-col>
-
-            <v-col cols="12" sm="6" md="6" lg="6">
-              <v-text-field
-                append-icon="mdi-text-subject"
-                label="Subjek"
+                append-icon="mdi-format-title"
+                label="Title"
                 outlined
                 rounded />
             </v-col>
@@ -52,10 +36,10 @@
             <v-row>
               <v-col cols="12">
                 <v-textarea
-                  append-icon="mdi-comment-text-multiple-outline"
+                  append-icon="mdi-card-text-outline"
                   outlined
                   rounded
-                  label="Pesan"
+                  label="Description"
                 />
               </v-col>
             </v-row>

@@ -4,11 +4,10 @@
         fixed
         flat 
         dark
-        class="d-none d-md-block"
         v-scroll="onScroll"
         :color="isScrolling?'primary':'transparent'">
         <v-app-bar-nav-icon 
-            class="d-none d-sm-flex d-md-none "
+            class="d-none d-sm-flex d-md-none"
             :class="!isScrolling?'primary--text':'white--text'"
             @click.stop="drawer = !drawer"/>
         <v-toolbar-title>
@@ -23,7 +22,7 @@
         </v-toolbar-title>
         <v-spacer></v-spacer>
         <template v-for="item in items">
-          <div id="nav" :key="item.text">
+          <div id="nav" :key="item.text" class="d-none d-md-block">
           <router-link :to="item.route" @click="topFunction" >
             <span id="test">
               {{item.text}}
@@ -196,7 +195,6 @@ export default {
   name: "App",
 
   data: () => ({
-    toggle_exclusive: undefined,
     items: [
         { icon: 'mdi-home-outline', text: 'Beranda', route:'/' },
         { icon: 'mdi-office-building-marker-outline', text: 'Tentang Kami' , route:'/tentang-kami'},
@@ -291,5 +289,8 @@ export default {
 
 #nav a.router-link-exact-active {
   color: #E91E63;
+  padding: 10px;
+  border-radius: 50px;
+  background-color: #FFC107;
 }
 </style>

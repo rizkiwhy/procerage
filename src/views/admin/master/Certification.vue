@@ -41,8 +41,8 @@
     </v-card-title>
     <v-data-table
       :headers="headers"
-      :items="expertises"
-      sort-by="calories"
+      :items="certifications"
+      
       class="elevation-1"
       :search="search"
     >
@@ -60,14 +60,14 @@
 
       <template v-slot:top>
         <v-toolbar flat>
-          <v-toolbar-title>Expertises</v-toolbar-title>
+          <v-toolbar-title>Certifications</v-toolbar-title>
           <v-divider class="mx-4" inset vertical></v-divider>
           <v-spacer></v-spacer>
           <!-- <v-btn color="accent" dark rounded class="mb-2" @click="showAlert">
             New Item
             <v-icon right dark> mdi-plus-circle-outline </v-icon>
           </v-btn> -->
-          <v-dialog persistent v-model="dialog" max-width="500px">
+          <v-dialog persistent v-model="dialog" max-width="1000">
             <template v-slot:activator="{ on, attrs }">
               <v-btn color="primary" dark rounded class="mb-2" v-bind="attrs" v-on="on">
                 New Item
@@ -82,35 +82,65 @@
               <v-card-text>
                 <v-container>
                   <v-row>
-                    <v-col cols="12" sm="6" md="12">
+                    <v-col cols="12">
                       <v-text-field
                         v-model="editedItem.name"
-                        label="Nama Program Keahlian"
+                        label="Sertifikasi"
                       ></v-text-field>
                     </v-col>
-                    <v-col cols="12" sm="6" md="8">
+                    <v-col cols="12">
+                        <!-- clearable -->
+                      <v-textarea
+                        counter=256
+                        rows=3
+                        clear-icon="mdi-close-circle"
+                        label="Deskripsi"
+                        v-model="editedItem.description"
+                      ></v-textarea>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="3">
                       <v-text-field
-                        v-model="editedItem.icon"
-                        label="Icon"
+                        v-model="editedItem.numberOfMeetings"
+                        label="Jumlah Pertemuan"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="4">
-                      <v-text-field
-                        v-model="editedItem.abbr"
-                        label="Kode"
-                      ></v-text-field>
+                      <!-- <v-text-field
+                        v-model="editedItem.tags"
+                        label="Tags"
+                      ></v-text-field> -->
+                      <v-autocomplete
+                        :items="tags"
+                        v-model="editedItem.tags"
+                        label="Tags"
+                        clearable
+                        deletable-chips
+                        multiple
+                        small-chips
+                      ></v-autocomplete>
                     </v-col>
-                    <v-col cols="12" sm="6" md="12">
-                      <v-file-input
-                        v-model="filename"
-                        @change="onSelectedImage"
-                        label="Image" />
-                      <!-- :value="current" -->
-                      <!-- v-model="editedItem.image" -->
-                      <!-- <v-file-input
-                        @change="onSelectedImage"
-                        label="Image"
-                      ></v-file-input> -->
+                    <v-col cols="12" sm="6" md="3">
+                      <div class="text-caption">Tingkatan</div>
+                      <v-radio-group
+                        v-model="editedItem.level"
+                        row
+                        class="mt-0"
+                      >
+                        <v-radio
+                          v-for="l in level"
+                          :key="l"
+                          :label="l"
+                          :value="l"
+                        ></v-radio>
+                      </v-radio-group>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="2">
+                      <div class="text-caption">Active</div>
+                      <v-switch
+                        class="ma-0"
+                        v-model="editedItem.active"
+                        :label="`${editedItem.active.toString()}`"
+                      ></v-switch>
                     </v-col>
                   </v-row>
                 </v-container>
@@ -150,11 +180,41 @@
           </v-dialog>
         </v-toolbar>
       </template>
+      <template v-slot:[`item.level`]="{ item }">        
+          {{ item.level }}
+      </template>
+      <template v-slot:[`item.tags`]="{ item }">
+        <v-chip
+          :color="tag==='AKL'?'yellow darken-2'
+          :tag==='OTKP'?'indigo'
+          :tag==='BDP'?'red'
+          :tag==='MLOG'?'lime'
+          :tag==='RPL'?'green'
+          :tag==='TKJ'?'blue-grey'
+          :'purple'"
+          v-for="tag in item.tags" :key="tag"
+          dark
+          x-small
+          class="ma-1"
+        >
+          {{ tag }}
+        </v-chip>
+    </template>
+    <template v-slot:[`item.active`]="{ item }">
+        <v-chip
+          :color="item.active===true?'success':'error'"
+          dark
+          small
+          class="ma-1"
+        >
+          {{ item.active }}
+        </v-chip>
+    </template>
       <template v-slot:[`item.actions`]="{ item }">
-        <v-btn @click="editItem(item)" class="mx-1" fab x-small dark color="warning">
+        <v-btn @click="editItem(item)" class="ma-1" fab x-small dark color="warning">
           <v-icon> mdi-pencil </v-icon>
         </v-btn>
-        <v-btn @click="deleteItem(item)" class="mx-1" fab x-small dark color="error">
+        <v-btn @click="deleteItem(item)" class="ma-1" fab x-small dark color="error">
           <v-icon> mdi-delete </v-icon>
         </v-btn>
       </template>
@@ -235,36 +295,44 @@ export default {
   data: () => ({
     // snackbar: false,
     // text: `Hello, I'm a snackbar`,
-    filename: null,
-    file: "",
+    radios: 'Duckduckgo',
     search: "",
     // url: "http://103.14.20.210:18081/api/v1",
     url: "http://localhost:3000/api/v1",
     dialog: false,
     dialogDelete: false,
+    row: null,
     headers: [
       {
-        text: "Program Keahlian",
+        text: "Sertifikasi",
         value: "name",
       },
-      { text: "Icon", value: "icon" },
-      { text: "Kode", value: "abbr" },
-      { text: "Image", value: "image" },
+      // { text: "Deskripsi", value: "description" },
+      { text: "Jumlah Pertemuan", value: "numberOfMeetings" },
+      { text: "Tags", value: "tags" },
+      { text: "Tingkatan", value: "level" },
+      { text: "Active", value: "active" },
       { text: "Actions", value: "actions", sortable: false },
     ],
-    expertises: [],
+    level: [ "Dasar", "Lanjutan" ],
+    tags: [],
+    certifications: [],
     editedIndex: -1,
     editedItem: {
       name: "",
-      icon: "",
-      abbr: "",
-      image: "",
+      description: "",
+      numberOfMeetings: "",
+      tags: "",
+      level: "",
+      active: false,
     },
     defaultItem: {
       name: "",
-      icon: "",
-      abbr: "",
-      image: "",
+      description: "",
+      numberOfMeetings: "",
+      tags: "",
+      level: "",
+      active: false,
     },
     // snackbar: {
     //   active: false,
@@ -294,36 +362,45 @@ export default {
   },
 
   methods: {
-    onSelectedImage(e) {
-      // const formData = new FormData()
-      this.file = e
-      // console.log(this.file)
-      // formData.append('file', this.file)
-      // console.log(formData)
-    },
 
     initialize() {
-      
-
       axios
-        .get(`${this.url}/expertises`, {
+        .get(`${this.url}/certifications`, {
           headers: {
             Authorization: token,
           },
         })
         .then((response) => {
-          this.expertises = response.data.data;
+          this.certifications = response.data.data;
         })
         .catch((error) => {
           console.error(error);
         });
+
+      axios.get(`${this.url}/expertises`, {
+        headers: {
+          Authorization: token,
+        }
+      }).then((response) => {
+        const arrayExpertises = response.data.data
+        // let arrayKode = new Array();
+        
+        for (let index = 0; index < arrayExpertises.length; index++) {
+          this.tags.push(arrayExpertises[index].abbr)
+        }
+        // console.log(this.tags)
+
+      }).catch(error => {
+        console.error(error)
+      })
     },
 
     editItem(item) {
       // this.current
-      this.editedIndex = this.expertises.indexOf(item);
+      this.editedIndex = this.certifications.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialog = true;
+      // console.log(this.editedItem.level)
       // fetch('http://localhost:3000/images/1631760176974Opera%20Snapshot_2021-09-14_145538_app.jadiasn.id.png')
       //   .then(res => res.blob()) // Gets the response and returns it as a blob
       //   .then(blob => {
@@ -341,40 +418,23 @@ export default {
     },
 
     deleteItem(item) {
-      this.editedIndex = this.expertises.indexOf(item);
+      this.editedIndex = this.certifications.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialogDelete = true;
     },
 
     deleteItemConfirm() {
       axios
-        .delete(`${this.url}/expertises/${this.editedItem._id}`, {
+        .delete(`${this.url}/certifications/${this.editedItem._id}`, {
           headers: {
             Authorization: token,
           },
         })
         .then((response) => {
-          if (response.data.status === "success") {
-            Toast.fire({
-              icon: response.data.status,
-              title: response.data.message
-            })
-            // this.snackbar = {
-            //   active: true,
-            //   text: response.data.message,
-            //   color: "success",
-            // };
-          } else if (response.data.status === "error") {
-            Toast.fire({
-              icon: response.data.status,
-              title: response.data.message
-            })
-            // this.snackbar = {
-            //   active: true,
-            //   text: response.data.message,
-            //   color: "error",
-            // };
-          }
+          Toast.fire({
+            icon: response.data.status,
+            title: response.data.message,
+          })
           this.initialize();
         })
         .catch((error) => console.log(error));
@@ -399,87 +459,47 @@ export default {
 
     save() {
       if (this.editedIndex > -1) {
-        const formData = new FormData()
-        formData.append('name', this.editedItem.name)
-        formData.append('icon', this.editedItem.icon)
-        formData.append('abbr', this.editedItem.abbr)
-        
-        if (this.file !== "") {
-          formData.append('image', this.file)
-        }
+      //   const formData = new FormData()
+      //   formData.append('name', this.editedItem.name)
+      //   formData.append('description', this.editedItem.description)
+      //   formData.append('numberOfMeetings', this.editedItem.numberOfMeetings)
+      //   formData.append('tags', this.editedItem.tags)
+      //   formData.append('level', this.editedItem.level)
+
+      //   if (this.file !== "") {
+      //     formData.append('image', this.file)
+      //   }
         // console.log(this.file === "")
         // console.log(this.file !== "")
+
         axios
-          .put(`${this.url}/expertises/${this.editedItem._id}`, formData, {
+          .put(`${this.url}/certifications/${this.editedItem._id}`, this.editedItem, {
             headers: {
-              'content-type': 'multipart/form-data',
               Authorization: token,
             },
           })
           .then((response) => {
-            if (response.data.status === "success") {
-              Toast.fire({
-                icon: response.data.status,
-                title: response.data.message
-              })
-              // this.snackbar = {
-              //   active: true,
-              //   text: response.data.message,
-              //   color: "success",
-              // }
-            } else if (response.data.status === "error") {
-              Toast.fire({
-                icon: response.data.status,
-                title: response.data.message
-              })
-              // this.snackbar = {
-              //   active: true,
-              //   text: response.data.message,
-              //   color: "error",
-              // }
-            }
+            Toast.fire({
+              icon: response.data.status,
+              title: response.data.message
+            })
             this.initialize()
           })
           .catch((error) => console.log(error));
       } else {
-        const formData = new FormData()
-        formData.append('name', this.editedItem.name)
-        formData.append('icon', this.editedItem.icon)
-        formData.append('abbr', this.editedItem.abbr)
-        formData.append('image', this.file)
-        // console.log(formData)
-
+        // console.log(this.editedItem.tags)
         axios
-          .post(`${this.url}/expertises`, formData, {
+          .post(`${this.url}/certifications`, this.editedItem, {
             headers: {
-              'content-type': 'multipart/form-data',
               Authorization: token,
             },
           })
           .then((response) => {
-            if (response.data.status === "success") {
-              Toast.fire({
-                icon: response.data.status,
-                title: response.data.message
-              })
-              // this.snackbar = {
-              //   active: true,
-              //   text: response.data.message,
-              //   color: "success",
-              // }
-            } else if (response.data.status === "error") {
-              Toast.fire({
-                icon: response.data.status,
-                title: response.data.message
-              })
-              // this.snackbar = {
-              //   active: true,
-              //   text: response.data.message,
-              //   color: "error",
-              // }
-            }
+            Toast.fire({
+              icon: response.data.status,
+              title: response.data.message
+            })
             this.initialize()
-            this.filename = null
           })
           .catch((error) => console.error(error));
       }

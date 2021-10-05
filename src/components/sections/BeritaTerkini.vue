@@ -1,20 +1,16 @@
 <template>
   <section
     id="beritaterkini"
-    class="senary"
-  >
+    class="senary">
     <v-row no-gutters>
       <v-col
-        md="12"
-      >
-          <!-- :src="require('../../assets/wave(21).svg')" -->
+        md="12">
         <v-container class="py-16">
           <h1 class="text-h4 font-weight-medium mb-16 text-center primary--text">Berita Terkini</h1>
           <v-responsive
             class="d-flex align-center mx-auto"
-            max-width="1000"
-            max-height="500"
             width="100%"
+            height="100%"
           >
           <v-carousel
             :show-arrows="false"
@@ -23,46 +19,29 @@
             hide-delimiter-background
             interval="5000"
             show-arrows-on-hover
-            max-width="1000"
           >
-            <!-- <template v-slot:prev="{ on, attrs }">
-              <v-btn
-              rounded
-                color="secondary"
-                v-bind="attrs"
-                v-on="on"
-              >Prev</v-btn>
-            </template>
-            <template v-slot:next="{ on, attrs }">
-              <v-btn
-              rounded
-
-                color="primary"
-                v-bind="attrs"
-                v-on="on"
-              >Next</v-btn>
-            </template> -->
             <v-carousel-item
-              v-for="(slide, i) in cards"
+              v-for="(slide, i) in blogs"
               :key="i"
             >
               <v-sheet
                 color="transparent"
               >
               <v-row>
-                <v-col cols="12" md="6" class="transparent">
+                <v-col cols="12" md="5" class="transparent">
                   <template>
                     <v-hover v-slot="{ hover }">
                       <v-card
                         class="mx-auto"
                         color="grey lighten-4"
-                        max-width="600"
+                        max-width="470"
                       >
                         <v-img
-                          :aspect-ratio="16/9"
-                          src="https://cdn.vuetifyjs.com/images/cards/kitchen.png"
+                          max-width="470"
+                          max-height="350"
+                          :src="'http://localhost:3000/'+slide.image"
                         >
-                          <v-expand-transition class="">
+                          <v-expand-transition>
                             <div
                               v-if="hover"
                               class="d-flex d-md-none transition-fast-in-fast-out primary darken-2 opacity-09 v-card--reveal text-h6 white--text"
@@ -81,53 +60,100 @@
                           </v-expand-transition>
                         </v-img>
                         <v-card-text
-                        class="d-flex d-md-none pa-0 primary white--text"
+                        class="d-flex d-md-none pa-0 primary white--text text-left"
                         >
-                        <!-- style="height: 38.4%;" -->
-                          <span class="text-h6 pa-5">
-                            AS cooking utensils
+                          <span class="text-subtitle-1 font-weight-bold pa-4">
                             {{ slide.title }}
                           </span>
                             <v-expand-transition>
                             <div
                               v-if="hover"
-                              class="d-flex d-md-none transition-fast-in-fast-out white opacity-1 v-card--reveal text-h6 accent--text"
+                              class="d-flex d-md-none transition-fast-in-fast-out white opacity-1 v-card--reveal accent--text"
                             >
-                            <span class="text-h6 pa-5">
-                            {{ slide.text }}
-                          </span>
+                            <span class="text-subtitle-1 pa-4">
+                            {{ slide.title }}
+                            </span>
                             </div>
                           </v-expand-transition>
                         </v-card-text>
                       </v-card>
                     </v-hover>
                   </template>
+
+                  <v-row class="ma-2 d-flex d-sm-none px-2">
+                    <div 
+                      class="text-caption accent--text font-weight-bold">
+                      <v-icon color="accent">mdi-clock</v-icon>
+                        {{slide.updatedAt}}
+                    </div>
+                  </v-row>
+                  <v-row class="ma-2 d-flex d-sm-none px-2">
+                    <div 
+                      class="text-caption accent--text font-weight-bold">
+                      <v-icon color="accent">mdi-bookmark-multiple-outline</v-icon>
+                        {{slide.tags}}
+                    </div>
+                  </v-row>
+                  <v-row class="ma-2 d-flex d-sm-none px-2">
+                    <div 
+                      class="text-caption accent--text font-weight-bold">
+                      <v-icon color="accent">mdi-account-outline</v-icon>
+                        {{slide.publisher}}
+                    </div>
+                  </v-row>
+                  <v-row class="ma-2 d-none d-sm-flex d-md-none justify-center">
+                    <div 
+                      class="text-caption accent--text font-weight-bold">
+                      <v-icon color="accent">mdi-clock</v-icon>
+                        {{slide.updatedAt}}
+                    </div>
+                    <div 
+                      class="text-caption accent--text font-weight-bold">
+                      <v-icon color="accent">mdi-bookmark-multiple-outline</v-icon>
+                        {{slide.tags}}
+                    </div>
+                    <div 
+                      class="text-caption accent--text font-weight-bold">
+                      <v-icon color="accent">mdi-account-outline</v-icon>
+                        {{slide.publisher}}
+                    </div>
+                  </v-row>
                 </v-col>
-                <v-col cols="12" md="5" class="transparent ma-2 d-none d-md-block">
+                <v-col cols="12" md="6" class="transparent ma-1 d-none d-md-block">
                   <v-row>
-
-                  <span class="text-h5 accent--text">
-                    QW cooking utensils
-                    {{ slide.title }}
-                  </span>
+                    <span class="text-h5 mt-1 font-weight-bold accent--text text-left">
+                      {{ slide.title }}
+                    </span>
                   </v-row>
                   <v-row>
-
-                  <span class="text-h6">
-                    {{ slide.text }}
-                    <v-btn
-                      outlined
-                      rounded
-                      x-small
-                      color="accent">
-                    Selengkapnya
-                <v-icon>
-                  mdi-chevron-right
-                </v-icon>
-                </v-btn>
-                  </span>
+                    <span class="text-h6 text-justify blue-grey--text">
+                      {{ slide.description }}
+                      <v-btn
+                        outlined
+                        rounded
+                        x-small
+                        color="accent">
+                        Selengkapnya
+                        <v-icon>
+                          mdi-chevron-right
+                        </v-icon>
+                      </v-btn>
+                    </span>
                   </v-row>
-
+                  <v-row align="center">
+                    <v-col
+                      class="py-1 px-0">
+                        <div 
+                        class="text-subtitle-1 accent--text font-weight-bold">
+                        <v-icon color="accent">mdi-clock</v-icon>
+                        {{slide.updatedAt}}
+                        <v-icon color="accent">mdi-bookmark-multiple-outline</v-icon>
+                        {{slide.tags}}
+                        <v-icon color="accent">mdi-account-outline</v-icon>
+                        {{slide.publisher}}
+                        </div>
+                    </v-col>
+                  </v-row>
                 </v-col>
               </v-row>
               </v-sheet>
@@ -140,33 +166,29 @@
   </section>
 </template>
 <script>
+import axios from "axios";
+
 export default {
   data: () => ({
     length: 3,
     window: 0,
-    cards: [
-        {
-          icon: 'mdi-keyboard-outline',
-          title: 'Efficiently unleash media information without cross-media value',
-          text: 'Efficiently unleash media information without cross-media value. Quickly maximize value timely deliverables schemas.',
-        },
-        {
-          icon: 'mdi-camera-outline',
-          title: 'Efficiently unleash media information without cross-media value',
-          text: 'Efficiently unleash media information without cross-media value. Quickly maximize value timely deliverables schemas.',
-        },
-        {
-          icon: 'mdi-pencil-outline',
-          title: 'Efficiently unleash media information without cross-media value',
-          text: 'Efficiently unleash media information without cross-media value. Quickly maximize value timely deliverables schemas.',
-        },
-        {
-          icon: 'mdi-puzzle-outline',
-          title: 'Efficiently unleash media information without cross-media value',
-          text: 'Efficiently unleash media information without cross-media value. Quickly maximize value timely deliverables schemas.',
-        },
-      ],
-  })
+    url: "http://localhost:3000/api/v1",
+    blogs: [],
+  }),
+  created() {
+    this.initialize()
+  },
+  methods : {
+    initialize() {
+      axios.get(`${this.url}/all-blogs`)
+        .then((response) => {
+          this.blogs = response.data.data
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  }
 }
 </script>
 <style>

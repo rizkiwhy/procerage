@@ -2,7 +2,7 @@
 
   <v-container>
     <v-card-title>
-      Nutrition
+      Content
       <v-spacer></v-spacer>
       <v-text-field
         v-model="search"
@@ -14,20 +14,19 @@
     </v-card-title>
     <v-data-table
       :headers="headers"
-      :items="desserts"
+      :items="privileges"
       
       class="elevation-1"
       :search="search"
     >
+      <template v-slot:[`item.icon`]="{ value }">
+        <v-icon>{{value}}</v-icon>
+      </template>
       <template v-slot:top>
         <v-toolbar flat>
-          <v-toolbar-title>My CRUD</v-toolbar-title>
+          <v-toolbar-title>Privileges</v-toolbar-title>
           <v-divider class="mx-4" inset vertical></v-divider>
           <v-spacer></v-spacer>
-          <!-- <v-btn color="accent" dark rounded class="mb-2" @click="showAlert">
-            New Item
-            <v-icon right dark> mdi-plus-circle-outline </v-icon>
-          </v-btn> -->
           <v-dialog persistent v-model="dialog" max-width="500px">
             <template v-slot:activator="{ on, attrs }">
               <v-btn color="primary" dark rounded class="mb-2" v-bind="attrs" v-on="on">
@@ -43,42 +42,31 @@
               <v-card-text>
                 <v-container>
                   <v-row>
-                    <v-col cols="12" sm="6" md="4">
+                    <v-col cols="12" sm="6" md="12">
                       <v-text-field
-                        v-model="editedItem.name"
-                        label="Dessert name"
+                        v-model="editedItem.title"
+                        label="Privilege Title"
                       ></v-text-field>
                     </v-col>
-                    <v-col cols="12" sm="6" md="4">
+                    <v-col cols="12" sm="6" md="12">
                       <v-text-field
-                        v-model="editedItem.calories"
-                        label="Calories"
+                        v-model="editedItem.description"
+                        label="Description"
                       ></v-text-field>
                     </v-col>
-                    <v-col cols="12" sm="6" md="4">
+                    <v-col cols="12" sm="6" md="9">
                       <v-text-field
-                        v-model="editedItem.fat"
-                        label="Fat (g)"
+                        v-model="editedItem.icon"
+                        label="Icon"
                       ></v-text-field>
                     </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field
-                        v-model="editedItem.carbs"
-                        label="Carbs (g)"
-                      ></v-text-field>
+                    <v-col cols="12" sm="6" md="3">
+                      <div class="text-caption">Active</div>
+                      <v-switch
+                        v-model="editedItem.active"
+                        :label="`${editedItem.active.toString()}`"
+                      ></v-switch>
                     </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field
-                        v-model="editedItem.protein"
-                        label="Protein (g)"
-                      ></v-text-field>
-                    </v-col>
-                    <!-- <v-col cols="12" sm="6" md="4">
-                      <v-text-field
-                        v-model="editedItem._id"
-                        label="_id"
-                      ></v-text-field>
-                    </v-col> -->
                   </v-row>
                 </v-container>
               </v-card-text>
@@ -126,6 +114,16 @@
       <template v-slot:no-data>
         <v-btn color="primary" @click="initialize" dark> Reset </v-btn>
       </template>
+      <template v-slot:[`item.active`]="{ item }">
+        <v-chip
+          :color="item.active===true?'success':'error'"
+          dark
+          small
+          class="ma-1"
+        >
+          {{ item.active }}
+        </v-chip>
+    </template>
     </v-data-table>
   </v-container>
 </template>
@@ -157,30 +155,28 @@ export default {
     dialogDelete: false,
     headers: [
       {
-        text: "Dessert (100g serving)",
-        value: "name",
+        text: "Title",
+        value: "title",
       },
-      { text: "Calories", value: "calories" },
-      { text: "Fat (g)", value: "fat" },
-      { text: "Carbs (g)", value: "carbs" },
-      { text: "Protein (g)", value: "protein" },
+      { text: "Description", value: "description" },
+      { text: "Icon", value: "icon" },
+      { text: "Active", value: "active" },
       { text: "Actions", value: "actions", sortable: false },
     ],
-    desserts: [],
+    privileges: [],
     editedIndex: -1,
     editedItem: {
-      name: "",
-      calories: 0,
-      fat: 0,
-      carbs: 0,
-      protein: 0,
+      title: "",
+      description: "",
+      icon: "",
+      active: false,
+
     },
     defaultItem: {
-      name: "",
-      calories: 0,
-      fat: 0,
-      carbs: 0,
-      protein: 0,
+      title: "",
+      description: "",
+      icon: "",
+      active: false,
     },
   }),
 
@@ -206,13 +202,13 @@ export default {
   methods: {
     initialize() {
       axios
-        .get(`${this.url}/desserts`, {
+        .get(`${this.url}/privileges`, {
           headers: {
             Authorization: token,
           },
         })
         .then((response) => {
-          this.desserts = response.data.data;
+          this.privileges = response.data.data;
         })
         .catch((error) => {
           console.error(error);
@@ -220,20 +216,20 @@ export default {
     },
 
     editItem(item) {
-      this.editedIndex = this.desserts.indexOf(item);
+      this.editedIndex = this.privileges.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialog = true;
     },
 
     deleteItem(item) {
-      this.editedIndex = this.desserts.indexOf(item);
+      this.editedIndex = this.privileges.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialogDelete = true;
     },
 
     deleteItemConfirm() {
       axios
-        .delete(`${this.url}/desserts/${this.editedItem._id}`, {
+        .delete(`${this.url}/privileges/${this.editedItem._id}`, {
           headers: {
             Authorization: token,
           },
@@ -268,7 +264,7 @@ export default {
     save() {
       if (this.editedIndex > -1) {
         axios
-          .put(`${this.url}/desserts/${this.editedItem._id}`, this.editedItem, {
+          .put(`${this.url}/privileges/${this.editedItem._id}`, this.editedItem, {
             headers: {
               Authorization: token,
             },
@@ -283,7 +279,7 @@ export default {
           .catch((error) => console.log(error));
       } else {
         axios
-          .post(`${this.url}/desserts`, this.editedItem, {
+          .post(`${this.url}/privileges`, this.editedItem, {
             headers: {
               Authorization: token,
             },

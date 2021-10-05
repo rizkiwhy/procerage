@@ -80,11 +80,11 @@
         </v-flex>
       </v-layout>
       <v-list shaped>
-        <template v-for="item in items">
+        <template v-for="(item) in items">
           <v-list-group
             v-if="item.children"
             :key="item.text"
-            v-model="item.model"
+            v-model="item.active"
             :prepend-icon="item['icon-ctr']"
             :append-icon="item.model ? item.icon : item['icon-alt']"
             active-class="white--text"
@@ -102,14 +102,14 @@
               route :to="child.route"
               active-class="white--text"
             >
-              <v-list-item-action v-if="child.icon">
-                <v-icon>{{ child.icon }}</v-icon>
-              </v-list-item-action>
-              <v-list-item-content>
-                <v-list-item-title>
-                  {{ child.text }}
-                </v-list-item-title>
-              </v-list-item-content>
+                <v-list-item-action>
+                  <v-icon>{{ child.icon }}</v-icon>
+                </v-list-item-action>
+                <v-list-item-content>
+                  <v-list-item-title>
+                    {{ child.text }}
+                  </v-list-item-title>
+                </v-list-item-content>
             </v-list-item>
           </v-list-group>
           <v-list-item
@@ -132,20 +132,6 @@
     </v-navigation-drawer>
 
     <v-main>
-      <!-- <v-snackbar
-        :color="snackbar.color"
-        v-model="snackbar.active"
-        :timeout="snackbar.timeout"
-        right
-        top
-      >
-        {{ snackbar.text }}
-        <template v-slot:action="{ attrs }">
-          <v-btn small color="white" text v-bind="attrs" @click="snackbar.active = false">
-            <v-icon>mdi-close</v-icon>
-          </v-btn>
-        </template>
-      </v-snackbar> -->
       <router-view />
     </v-main>
     
@@ -177,32 +163,46 @@ export default {
   data: () => ({
     url: "http://localhost:3000/api/v1",
     items: [
-            { icon: 'mdi-home', text: 'Dashboard' , route:'/dashboard'},
+      { icon: 'mdi-view-dashboard-variant', text: 'Dashboard' , route:'/admin/dashboard'},
             {
-                icon: 'mdi-chevron-up',
-                'icon-alt': 'mdi-chevron-down',
-                'icon-ctr': 'mdi-database-settings',
-                text: 'Master Data',
-                model: false,
-                children: [
-            { icon: 'mdi-view-dashboard', text: 'Expertise', route:'/expertise' },
-            { icon: 'mdi-certificate-outline', text: 'Certification', route:'/certification' },
-                ],
+              active: false,
+              icon: 'mdi-chevron-up',
+              'icon-alt': 'mdi-chevron-down',
+              'icon-ctr': 'mdi-database-settings',
+              text: 'Master Data',
+              children: [
+                { icon: 'mdi-view-dashboard', text: 'Expertise', route:'/admin/expertise' },
+                { icon: 'mdi-certificate-outline', text: 'Certification', route:'/admin/certification' },
+                { icon: 'mdi-card-account-details-star-outline', text: 'Assesor', route:'/admin/assesor' },
+              ],
             },
             {
-                icon: 'mdi-chevron-up',
-                'icon-alt': 'mdi-chevron-down',
-                'icon-ctr': 'mdi-google-maps',
-                text: 'Tracking',
-                model: false,
-                children: [
-            { icon: 'mdi-tooltip-account', text: 'Locate', route:'/locate'},
-            { icon: 'mdi-printer', text: 'Print', route:'/print' },
-                ],
+              icon: 'mdi-chevron-up',
+              'icon-alt': 'mdi-chevron-down',
+              'icon-ctr': 'mdi-clipboard-file',
+              text: 'Content',
+              children: [
+                { icon: 'mdi-folder-home-outline', text: 'Home', route:'/admin/home'},
+                { icon: 'mdi-chart-box-plus-outline', text: 'Privilege', route:'/admin/privilege' },
+                { icon: 'mdi-chat-outline', text: 'Testimonial', route:'/admin/testimonial' },
+                { icon: 'mdi-contacts', text: 'Contact', route:'/admin/contact' },
+                { icon: 'mdi-web', text: 'Social Media', route:'/admin/social-media' },
+                { icon: 'mdi-newspaper', text: 'Blog', route:'/admin/blog' },
+              ],
             },
-            { icon: 'mdi-finance', text: 'Revenue', route:'/revenue' },
-            { icon: 'mdi-chart-pie', text: 'Analytics', route:'/chart' },
-            { icon: 'mdi-magnify', text: 'Search', route:'/recherches' },
+            {
+              icon: 'mdi-chevron-up',
+              'icon-alt': 'mdi-chevron-down',
+              'icon-ctr': 'mdi-office-building-marker',
+              text: 'About',
+              children: [
+                { icon: 'mdi-image-album', text: 'Gallery', route:'/admin/gallery'},
+                { icon: 'mdi-card-bulleted-settings-outline', text: 'Vision', route:'/admin/vision' },
+                { icon: 'mdi-format-list-checks', text: 'Mission', route:'/admin/mission' },
+                { icon: 'mdi-account-tie-outline', text: 'Client', route:'/admin/client' },
+                { icon: 'mdi-email-newsletter', text: 'Inbox', route:'/admin/inbox' },
+              ],
+            },
         ],
         drawer: true,
         group: null,
@@ -296,3 +296,9 @@ export default {
   }
 };
 </script>
+<style>
+.v-navigation-drawer__content {
+  zoom: 84%;
+}
+
+</style>

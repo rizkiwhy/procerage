@@ -18,7 +18,7 @@
                 active-class="accent--text secondary"
               >
                 <v-chip
-                class="white--text"
+                class="white--textv primary"
                   v-for="tag in tags"
                   :key="tag"
                 >
@@ -193,13 +193,6 @@
                           >
                           <template>
                             <div class="text-center">
-                              <!-- <v-rating
-                                v-model="slide.rating"
-                                background-color="accent"
-                                color="secondary"
-                                small
-                                dense
-                              /> -->
                               <v-rating
                                 v-model="slide.rating"
                                 background-color="accent"
@@ -354,12 +347,6 @@
   export default {
     data: () => ({
       items: ['Foo', 'Bar', 'Fizz', 'Buzz'],
-      // items: [
-      //   { title: 'Click Me', link: '#' },
-      //   { title: 'Click Me', link: '#' },
-      //   { title: 'Click Me', link: '#' },
-      //   { title: 'Click Me', link: '#' },
-      // ],
       tags: [
         'Semua',
         'AKL',

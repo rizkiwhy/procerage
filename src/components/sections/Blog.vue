@@ -18,7 +18,7 @@
                 active-class="accent--text secondary"
               >
                 <v-chip
-                class="primary--text"
+                class="primary white--text "
                   v-for="tag in tags"
                   :key="tag"
                 >

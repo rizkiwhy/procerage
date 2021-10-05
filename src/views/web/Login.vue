@@ -278,7 +278,7 @@ export default {
             title: response.data.message
           })
           // console.log(localStorage.getItem("token"))
-          if (response.data.status === "success") {
+          // if (response.data.status === "success") {
             // console.log(response.data)
             let newToken = response.data.token
             window.token = newToken
@@ -287,9 +287,9 @@ export default {
             // localStorage.setItem("name", response.data.user.name)
             // localStorage.setItem("email", response.data.user.email)
             // localStorage.setItem("password", "");
-            this.$router.push("/dashboard")
+            this.$router.push("/admin/dashboard")
             // console.log(localStorage.getItem("_id"))
-          }
+          // }
           // location.reload()
         })
         .catch((error) => console.error(error));
@@ -306,9 +306,9 @@ export default {
           if (response.data.status === "success") {
             this.step = --this.step;
             this.registerForm = {
-              name: "",
-              email: "",
-              password: "",
+              name: null,
+              email: null,
+              password: null,
             };
           }
         })

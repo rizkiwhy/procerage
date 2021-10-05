@@ -8,17 +8,15 @@
             max-width="1000"
             width="100%"
           >
-          <!-- <h1 class="text-h4 font-weight-medium mt-16 mb-10 text-center secondary--text">Tentang Kami</h1> -->
-
           <v-row justify="space-around" class="mt-10">
-            <v-col :cols="slide.width ==='379'?'4':
-                   slide.width === '776'?'8':'6'"
-              v-for="(slide, i) in gambar" :index="i" :key="i">
+            <v-col :cols="slide.width ==='1/3'?'4':
+                   slide.width === '2/3'?'8':'6'"
+              v-for="(slide, i) in photos" :index="i" :key="i">
               <v-card :width="slide.width" height="150" >
                 <v-img
-                  :lazy-src="slide.foto"
+                  :lazy-src="'http://localhost:3000/'+slide.image"
                   :width="slide.width" height="150"
-                  :src="slide.foto"
+                  :src="'http://localhost:3000/'+slide.image"
                 >
                   <template v-slot:placeholder>
                     <v-row
@@ -35,84 +33,61 @@
                 </v-img>
               </v-card>
             </v-col>
-            <!-- <v-col>
-                <v-col >
-                  <v-card width="300" class="ma-1" height="100%">
-                    <v-img
-                      src="https://cdn.pixabay.com/photo/2020/07/12/07/47/bee-5396362_1280.jpg"
-                    />
-                  </v-card>
-                </v-col>
-                <v-col class="ma-1">
-                  <v-card width="300" class="ma-1" height="100%">
-                    <v-img
-                      :src="require('../../assets/avel-chuklanov-DUmFLtMeAbQ-unsplash.jpg')"
-                    />
-                  </v-card>
-                </v-col>
-            </v-col>
-            <v-col>
-              <v-col class="ma-1">
-                <v-card width="300" class="ma-1" height="100%">
-                  <v-img
-                    src="https://cdn.pixabay.com/photo/2020/07/12/07/47/bee-5396362_1280.jpg"
-                  />
-                </v-card>
-              </v-col>
-            </v-col>
-            <v-card width="300" class="ma-1" height="100%">
-              <v-img
-                :src="require('../../assets/campaign-creators-gMsnXqILjp4-unsplash.jpg')"
-              />
-            </v-card>
-            <v-card width="300" class="ma-1">
-              <v-img
-                :src="require('../../assets/annie-spratt-MChSQHxGZrQ-unsplash.jpg')"
-              />
-            </v-card>
-            <v-card width="300" class="ma-1" height="100%">
-              <v-img
-                :src="require('../../assets/christina-wocintechchat-com-faEfWCdOKIg-unsplash.jpg')"
-              />
-            </v-card> -->
           </v-row>
           </v-responsive>
     </v-container>
   </section>
 </template>
 <script>
+import axios from "axios";
+
   export default {
     data: () => ({
-      gambar : [
-        {
-          width: "776",
-          foto: require('../../assets/ezgif.com-gif-maker.webp'),
-        },
-        {
-          width: "379",
-          foto: require('../../assets/ezgif.com-gif-maker.webp'),
-        },
-        {
-          width: "379",
-          foto: require('../../assets/ezgif.com-gif-maker.webp'),
-        },
-        {
-          width: "379",
-          foto: require('../../assets/ezgif.com-gif-maker.webp'),
-        },
-        {
-          width: "379",
-          foto: require('../../assets/ezgif.com-gif-maker.webp'),
-        },
-        {
-          width: "568,5",
-          foto: require('../../assets/ezgif.com-gif-maker.webp'),
-        },
-        {
-          width: "568,5",
-          foto: require('../../assets/ezgif.com-gif-maker.webp'),
-        },
+      url: "http://localhost:3000/api/v1",
+      photos : [
+        // {
+        //   width: "776",
+        //   foto: require('../../assets/ezgif.com-gif-maker.webp'),
+        // },
+        // {
+        //   width: "379",
+        //   foto: require('../../assets/ezgif.com-gif-maker.webp'),
+        // },
+        // {
+        //   width: "379",
+        //   foto: require('../../assets/ezgif.com-gif-maker.webp'),
+        // },
+        // {
+        //   width: "379",
+        //   foto: require('../../assets/ezgif.com-gif-maker.webp'),
+        // },
+        // {
+        //   width: "379",
+        //   foto: require('../../assets/ezgif.com-gif-maker.webp'),
+        // },
+        // {
+        //   width: "568,5",
+        //   foto: require('../../assets/ezgif.com-gif-maker.webp'),
+        // },
+        // {
+        //   width: "568,5",
+        //   foto: require('../../assets/ezgif.com-gif-maker.webp'),
+        // },
       ],
     }),
+    created() {
+      this.initialize()
+    },
+    methods : {
+      initialize() {
+        axios.get(`${this.url}/all-photos`)
+          .then((response) => {
+            this.photos = response.data.data;
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      }
+    }
   }
 </script>
