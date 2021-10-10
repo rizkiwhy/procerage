@@ -30,6 +30,11 @@ const routes = [
         component: () => import('@/views/web/Blog.vue') ,
       },
       {
+        path: 'detail-blog/:title',
+        name: 'DetailBlog',
+        component: () => import('@/views/web/DetailBlog.vue') ,
+      },
+      {
         path: 'hubungi-kami',
         name: 'HubungiKami',
         component: () => import('@/views/web/HubungiKami.vue') ,
@@ -58,9 +63,33 @@ const routes = [
         meta: { requiresAuth: true },
       },
       {
-        path: 'certification',
-        name: 'Certification',
-        component: () => import('@/views/admin/master/Certification.vue') ,
+        path: 'mea',
+        name: 'Mea',
+        component: () => import('@/views/admin/master/Mea.vue') ,
+        meta: { requiresAuth: true },
+      },
+      {
+        path: 'field',
+        name: 'Field',
+        component: () => import('@/views/admin/master/Field.vue') ,
+        meta: { requiresAuth: true },
+      },
+      {
+        path: 'category',
+        name: 'Category',
+        component: () => import('@/views/admin/master/Category.vue') ,
+        meta: { requiresAuth: true },
+      },
+      {
+        path: 'competency-unit',
+        name: 'Competencyunit',
+        component: () => import('@/views/admin/master/Competencyunit.vue') ,
+        meta: { requiresAuth: true },
+      },
+      {
+        path: 'schema',
+        name: 'Schema',
+        component: () => import('@/views/admin/master/Schema.vue') ,
         meta: { requiresAuth: true },
       },
       {

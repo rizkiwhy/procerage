@@ -1,11 +1,10 @@
 <template>
   <section
     id="blog">
-    <v-container class="py-16 px-8">
+    <v-container class="py-16">
           <v-responsive
             class="d-flex align-center mx-auto"
             height="100%"
-            max-width="1000"
             width="100%"
           >
           <v-row class="pt-10">
@@ -18,7 +17,8 @@
                 active-class="accent--text secondary"
               >
                 <v-chip
-                class="primary white--text "
+                  @click="filter(tag)"
+                  class="primary white--text "
                   v-for="tag in tags"
                   :key="tag"
                 >
@@ -31,6 +31,7 @@
               md="3"
               >
               <v-text-field
+                @input="search"
                 dense
                 color="secondary"
                 label="Search"
@@ -41,8 +42,11 @@
               cols="12"
               md="2">
                 <v-select
-                  :items="items"
-                  label="Filter"
+                  :items="sortItem"
+                  :value="sortItem"
+                  @input="setSelectedSortItem"
+                  ref="selectedEl"
+                  label="Sort"
                   dense
                   rounded
                   outlined
@@ -50,19 +54,19 @@
                 />
             </v-col>
           </v-row>
-          <v-row justify="space-between" class="mt-10">
+          <v-row class="mt-10 space-start">
             <v-col cols="12" md="3"
-              v-for="(slide, i) in cards" :index="i" :key="i">
+              v-for="(slide, i) in blogs" :index="i" :key="i">
               <template>
                 <v-hover v-slot="{ hover }">
                   <v-card
                     class="mx-auto"
-                    color="grey lighten-4"
+                    color="senary"
                     max-width="600"
                   >
                     <v-img
                       :aspect-ratio="16/9"
-                      src="https://cdn.vuetifyjs.com/images/cards/kitchen.png"
+                      :src="'http://localhost:3000/'+slide.image"
                     >
                       <v-expand-transition class="">
                         <div
@@ -77,12 +81,14 @@
                             min-width="164"
                             small
                             class="font-weight-bold white--text py-1 mt-1"
+                            @click="detail(slide.title)"
                           >
                           Read More
                           </v-btn>
                         </div>
                       </v-expand-transition>
                     </v-img>
+                    
                     <v-card-text
                     class="d-flex pa-0 primary white--text"
                     style="height: 38.4%;"
@@ -96,7 +102,7 @@
                           class="d-flex transition-fast-in-fast-out senary opacity-1 v-card--reveal text-h6 accent--text"
                         >
                         <span class="text-subtitle-2 pa-3">
-                        {{ slide.text }}
+                        {{ slide.title }}
                       </span>
                         </div>
                       </v-expand-transition>
@@ -106,82 +112,119 @@
               </template>
             </v-col>
           </v-row>
+          <template>
+            <div class="text-center ma-5">
+              <v-pagination
+              class="customPagination"
+                v-model="page"
+                :length="15"
+                :total-visible="7"
+              ></v-pagination>
+            </div>
+          </template>
           </v-responsive>
     </v-container>
   </section>
 </template>
 <script>
+import axios from "axios";
   export default {
     data: () => ({
-      items: ['Foo', 'Bar', 'Fizz', 'Buzz'],
+      page: 1,
+      sortItem: ['Latest', 'Oldest', 'Title, A-Z', 'Title, Z-A'],
+      url: "http://localhost:3000/api/v1",
       tags: [
         'Semua',
         'Berita',
         'Kegiatan',
       ],
-      cards: [
-        {
-          icon: 'mdi-keyboard-outline',
-          title: 'Efficiently unleash media information without cross-media value',
-          text: 'Efficiently unleash media information without cross-media value.',
-        },
-        {
-          icon: 'mdi-camera-outline',
-          title: 'Efficiently unleash media information without cross-media value',
-          text: 'Efficiently unleash media information without cross-media value.',
-        },
-        {
-          icon: 'mdi-pencil-outline',
-          title: 'Efficiently unleash media information without cross-media value',
-          text: 'Efficiently unleash media information without cross-media value.',
-        },
-        {
-          icon: 'mdi-puzzle-outline',
-          title: 'Efficiently unleash media information without cross-media value',
-          text: 'Efficiently unleash media information without cross-media value.',
-        },
-        {
-          icon: 'mdi-keyboard-outline',
-          title: 'Efficiently unleash media information without cross-media value',
-          text: 'Efficiently unleash media information without cross-media value.',
-        },
-        {
-          icon: 'mdi-camera-outline',
-          title: 'Efficiently unleash media information without cross-media value',
-          text: 'Efficiently unleash media information without cross-media value.',
-        },
-        {
-          icon: 'mdi-pencil-outline',
-          title: 'Efficiently unleash media information without cross-media value',
-          text: 'Efficiently unleash media information without cross-media value.',
-        },
-        {
-          icon: 'mdi-puzzle-outline',
-          title: 'Efficiently unleash media information without cross-media value',
-          text: 'Efficiently unleash media information without cross-media value.',
-        },
-        {
-          icon: 'mdi-keyboard-outline',
-          title: 'Efficiently unleash media information without cross-media value',
-          text: 'Efficiently unleash media information without cross-media value.',
-        },
-        {
-          icon: 'mdi-camera-outline',
-          title: 'Efficiently unleash media information without cross-media value',
-          text: 'Efficiently unleash media information without cross-media value.',
-        },
-        {
-          icon: 'mdi-pencil-outline',
-          title: 'Efficiently unleash media information without cross-media value',
-          text: 'Efficiently unleash media information without cross-media value.',
-        },
-        {
-          icon: 'mdi-puzzle-outline',
-          title: 'Efficiently unleash media information without cross-media value',
-          text: 'Efficiently unleash media information without cross-media value.',
-        },
-      ],
+      blogs: [],
+      paramsLength: []
     }),
+    created() {
+        this.initialize()
+      },
+      methods : {
+        search(param) {
+          this.paramsLength.push(param.length)
+          const sekarang =+ this.paramsLength[this.paramsLength.length-1]
+          const sebelumnya =+ this.paramsLength[this.paramsLength.length-2]
+          if (sekarang < sebelumnya) {
+            let newBlogs
+            axios.get(`${this.url}/all-blogs`)
+              .then((response) => {
+                newBlogs = response.data.data
+                const tempBlogs = newBlogs.filter((x) => x.title.includes(param) || x.title.includes(param.charAt(0).toUpperCase() + param.slice(1)) )
+                this.blogs = tempBlogs
+              })
+              .catch((error) => {
+                console.error(error);
+              });
+          } else {
+            const tempBlogs = this.blogs.filter((x) => x.title.includes(param) || x.title.includes(param.charAt(0).toUpperCase() + param.slice(1)) )
+            this.blogs = tempBlogs
+
+          }
+        },
+        setSelectedSortItem(param) {
+          if (param === "Title, Z-A") {
+            this.blogs.sort(function(a,b) {
+              if (a.title > b.title) {
+                return -1
+              }
+            })
+          } else if (param === "Title, A-Z") {
+            this.blogs.sort(function(a,b) {
+              if (a.title < b.title) {
+                return -1
+              }
+            })
+          } else if (param === "Oldest") {
+            this.blogs.sort(function(a,b) {
+              if (a.updatedAt < b.updatedAt) {
+                return -1
+              }
+            })
+          } else if (param === "Latest") {
+            this.blogs.sort(function(a,b) {
+              if (a.updatedAt > b.updatedAt) {
+                return -1
+              }
+            })
+          }
+        },
+        filter(param) {
+          axios.get(`${this.url}/blogs/${param}`)
+            .then((response) => {
+              this.blogs = response.data.data
+              this.$refs["selectedEl"].reset();
+            })
+            .catch((error) => {
+              console.error(error);
+            });
+        },
+        detail(param) {
+          axios.get(`${this.url}/blogs/${param}`)
+            .then((response) => {
+              this.blogs = response.data.data
+              // console.log(this.blogs)
+              this.$router.push(`/detail-blog/${this.blogs[0].title}`)
+            })
+            .catch((error) => {
+              console.error(error);
+            });
+        },
+        initialize() {
+          axios.get(`${this.url}/all-blogs`)
+            .then((response) => {
+              this.blogs = response.data.data
+              // console.log(response.data.data)
+            })
+            .catch((error) => {
+              console.error(error);
+            });
+        }
+      }
   }
 </script>
 <style>

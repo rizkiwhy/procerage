@@ -7,7 +7,7 @@
       <v-col
         md="12"
       >
-        <v-container class="py-16">
+        <v-container class="py-16 px-8">
           <v-responsive
             class="d-flex align-center ma-auto"
             height="100%"
@@ -22,7 +22,7 @@
                 align="center"
                 justify="center"
               >
-                <template v-for="(item, i) in items">
+                <template v-for="(client, i) in clients">
                   <v-col
                     :key="i"
                     cols="12"
@@ -34,32 +34,58 @@
                         :class="{ 'on-hover': hover }"
                       >
                         <v-img
-                          :src="item.img"
+                          :src="'http://localhost:3000/'+client.image"
                           height="175px"
                         >
-                          <v-card-title class="text-h6 white--text ma-2">
+                          <v-card-title class="text-h6 accent--text ma-2">
                             <v-row
                               class="fill-height flex-column"
                               justify="space-between"
                             >
-                              <p class="mt-4 subheading text-left">
-                                {{ item.title }}
+                              <p class="mt-4 subheading secondary text-left">
+                                <!-- {{ client.name }} -->
                               </p>
 
                               <div>
                                 <p class="ma-0 text-body-1 font-weight-bold font-italic text-left">
-                                  {{ item.text }}
+                                  <!-- {{ client.period }} -->
                                 </p>
                                 <p class="text-caption font-weight-medium font-italic text-left">
-                                  {{ item.subtext }}
+                                  <!-- {{ client.numberOfParticipants }} -->
                                 </p>
                               </div>
 
                               <div class="align-self-center">
                                 <v-btn
+                                  :href="client.article"
+                                  :class="{ 'show-btns ma-1': hover }"
+                                  :color="transparent"
+                                  target="_blank"
+                                  icon>
+                                  <v-icon
+                                    :class="{ 'show-btns': hover }"
+                                    :color="transparent"
+                                  >
+                                    mdi-link-variant
+                                  </v-icon>
+                                </v-btn>
+                                <v-btn
+                                  :href="client.instagram"
+                                  :class="{ 'show-btns ma-1': hover }"
+                                  :color="transparent"
+                                  target="_blank"
+                                  icon>
+                                  <v-icon
+                                    :class="{ 'show-btns': hover }"
+                                    :color="transparent"
+                                  >
+                                    mdi-instagram
+                                  </v-icon>
+                                </v-btn>
+                                <!-- <v-btn
                                   v-for="(icon, index) in icons"
                                   :key="index"
-                                  :class="{ 'show-btns': hover }"
+                                  :class="{ 'show-btns ma-1': hover }"
                                   :color="transparent"
                                   icon
                                 >
@@ -69,7 +95,7 @@
                                   >
                                     {{ icon }}
                                   </v-icon>
-                                </v-btn>
+                                </v-btn> -->
                               </div>
                             </v-row>
                           </v-card-title>
@@ -88,68 +114,29 @@
   </section>
 </template>
 <script>
+import axios from "axios";
+
   export default {
 
     data: () => ({
-      icons: ['mdi-rewind', 'mdi-play', 'mdi-fast-forward'],
-      items: [
-        {
-          title: 'New Releases',
-          text: `It's New Release Friday`,
-          subtext: 'Newly released songs. Updated daily.',
-          img: 'https://images.unsplash.com/photo-1429514513361-8fa32282fd5f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3264&q=80',
-        },
-        {
-          title: 'Rock',
-          text: 'Greatest Rock Hits',
-          subtext: 'Lose yourself in rock tunes.',
-          img: 'https://images.unsplash.com/photo-1498038432885-c6f3f1b912ee?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2100&q=80',
-        },
-        {
-          title: 'Mellow Moods',
-          text: 'Ambient Bass',
-          subtext: 'Chill beats to mellow you out.',
-          img: 'https://images.unsplash.com/photo-1542320868-f4d80389e1c4?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=3750&q=80',
-        },
-        {
-          title: 'Mellow Moods',
-          text: 'Ambient Bass',
-          subtext: 'Chill beats to mellow you out.',
-          img: 'https://images.unsplash.com/photo-1542320868-f4d80389e1c4?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=3750&q=80',
-        },
-        {
-          title: 'New Releases',
-          text: `It's New Release Friday`,
-          subtext: 'Newly released songs. Updated daily.',
-          img: 'https://images.unsplash.com/photo-1429514513361-8fa32282fd5f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3264&q=80',
-        },
-        {
-          title: 'Rock',
-          text: 'Greatest Rock Hits',
-          subtext: 'Lose yourself in rock tunes.',
-          img: 'https://images.unsplash.com/photo-1498038432885-c6f3f1b912ee?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2100&q=80',
-        },
-        {
-          title: 'Rock',
-          text: 'Greatest Rock Hits',
-          subtext: 'Lose yourself in rock tunes.',
-          img: 'https://images.unsplash.com/photo-1498038432885-c6f3f1b912ee?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2100&q=80',
-        },
-        {
-          title: 'Mellow Moods',
-          text: 'Ambient Bass',
-          subtext: 'Chill beats to mellow you out.',
-          img: 'https://images.unsplash.com/photo-1542320868-f4d80389e1c4?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=3750&q=80',
-        },
-        {
-          title: 'New Releases',
-          text: `It's New Release Friday`,
-          subtext: 'Newly released songs. Updated daily.',
-          img: 'https://images.unsplash.com/photo-1429514513361-8fa32282fd5f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3264&q=80',
-        },
-      ],
+      url: "http://localhost:3000/api/v1",
+      clients: [],
       transparent: 'rgba(255, 255, 255, 0)',
     }),
+    created() {
+        this.initialize()
+      },
+      methods : {
+        initialize() {
+          axios.get(`${this.url}/all-clients`)
+            .then((response) => {
+              this.clients = response.data.data
+            })
+            .catch((error) => {
+              console.error(error);
+            });
+        }
+      },
   }
 </script>
 <style scoped>
@@ -162,6 +149,7 @@
  }
 
 .show-btns {
-  color: rgba(255, 255, 255, 1) !important;
+  color: #e91e63 !important;
+  background-color: #ffc107 !important;
 }
 </style>

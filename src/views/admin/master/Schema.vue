@@ -1,8 +1,7 @@
 <template>
-
-  <v-container>
+  <v-container class="test">
     <v-card-title>
-      Content
+      Master Data
       <v-spacer></v-spacer>
       <v-text-field
         v-model="search"
@@ -14,17 +13,22 @@
     </v-card-title>
     <v-data-table
       :headers="headers"
-      :items="socialmedias"
-      
+      :items="certifications"
       class="elevation-1"
       :search="search"
     >
+      <template v-slot:[`item.image`]="{ value }">
+          <a target="_blank" :href="'http://localhost:3000/'+value">
+            {{ value }}
+          </a>
+      </template>
       <template v-slot:[`item.icon`]="{ value }">
         <v-icon>{{value}}</v-icon>
       </template>
+
       <template v-slot:top>
         <v-toolbar flat>
-          <v-toolbar-title>Social Media</v-toolbar-title>
+          <v-toolbar-title>certifications</v-toolbar-title>
           <v-divider class="mx-4" inset vertical></v-divider>
           <v-spacer></v-spacer>
           <v-dialog persistent v-model="dialog" max-width="500px">
@@ -38,40 +42,62 @@
               <v-card-title>
                 <span class="text-h5">{{ formTitle }}</span>
               </v-card-title>
-
               <v-card-text>
                 <v-container>
                   <v-row>
-                    <v-col cols="12" sm="6" md="12">
+                    <v-col cols="12">
                       <v-text-field
-                        v-model="editedItem.type"
-                        label="Type"
+                        v-model="editedItem.name"
+                        label="Schema"
                       ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="6">
+                      <v-text-field
+                        label="Code"
+                        v-model="editedItem.code"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="6">
+                      <v-autocomplete
+                        :items="meas"
+                        v-model="editedItem.mea"
+                        label="Mea"
+                      ></v-autocomplete>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="8">
+                      <v-autocomplete
+                        :items="fields"
+                        v-model="editedItem.field"
+                        label="Field"
+                      ></v-autocomplete>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-autocomplete
+                        :items="tags"
+                        v-model="editedItem.tags"
+                        label="Tags"
+                      ></v-autocomplete>
                     </v-col>
                     <v-col cols="12" sm="6" md="12">
-                      <v-text-field
-                        v-model="editedItem.value"
-                        label="Value"
-                      ></v-text-field>
+                      <v-autocomplete
+                        :items="categories"
+                        v-model="editedItem.category"
+                        label="Category"
+                      ></v-autocomplete>
                     </v-col>
-                    <v-col cols="12" sm="6" md="9">
-                      <v-text-field
-                        v-model="editedItem.icon"
-                        label="Icon"
-                      ></v-text-field>
+                    <v-col cols="12" sm="6" md="8">
+                      <v-file-input
+                        v-model="filename"
+                        @change="onSelectedImage"
+                        label="Image" />
                     </v-col>
-                    <v-col cols="12" sm="6" md="3">
+                    <v-col cols="12" sm="6" md="2">
                       <div class="text-caption">Active</div>
                       <v-switch
+                        class="ma-0"
                         v-model="editedItem.active"
                         :label="`${editedItem.active.toString()}`"
                       ></v-switch>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="12">
-                      <v-text-field
-                        v-model="editedItem.link"
-                        label="Link"
-                      ></v-text-field>
                     </v-col>
                   </v-row>
                 </v-container>
@@ -86,6 +112,7 @@
                   Save <v-icon right dark> mdi-content-save-outline </v-icon></v-btn
                 >
               </v-card-actions>
+
             </v-card>
           </v-dialog>
           <v-dialog persistent v-model="dialogDelete" max-width="500px">
@@ -109,6 +136,16 @@
           </v-dialog>
         </v-toolbar>
       </template>
+      <template v-slot:[`item.active`]="{ item }">
+        <v-chip
+          :color="item.active===true?'success':'error'"
+          dark
+          x-small
+          class="ma-1"
+        >
+          {{ item.active }}
+        </v-chip>
+    </template>
       <template v-slot:[`item.actions`]="{ item }">
         <v-btn @click="editItem(item)" class="ma-1" fab x-small dark color="warning">
           <v-icon> mdi-pencil </v-icon>
@@ -120,16 +157,6 @@
       <template v-slot:no-data>
         <v-btn color="primary" @click="initialize" dark> Reset </v-btn>
       </template>
-      <template v-slot:[`item.active`]="{ item }">
-        <v-chip
-          :color="item.active===true?'success':'error'"
-          dark
-          x-small
-          class="ma-1"
-        >
-          {{ item.active }}
-        </v-chip>
-    </template>
     </v-data-table>
   </v-container>
 </template>
@@ -153,39 +180,52 @@ const Toast = Swal.mixin({
 
 export default {
   name: "Home",
+
+  components: {
+  },
   data: () => ({
+    filename: null,
+    file: "",
     search: "",
     // url: "http://103.14.20.210:18081/api/v1",
     url: "http://localhost:3000/api/v1",
     dialog: false,
     dialogDelete: false,
     headers: [
+      { text: "Code", value: "code" },
       {
-        text: "Type",
-        value: "type",
+        text: "Skema",
+        value: "name",
       },
-      { text: "Value", value: "value" },
-      { text: "Icon", value: "icon" },
-      { text: "Link", value: "link" },
+      { text: "Image", value: "image" },
       { text: "Active", value: "active" },
       { text: "Actions", value: "actions", sortable: false },
     ],
-    socialmedias: [],
+    categories: [],
+    fields: [],
+    tags: [],
+    meas: [],
+    certifications: [],
     editedIndex: -1,
     editedItem: {
-      type: "",
-      value: "",
-      icon: "",
-      link: "",
+      code: "",
+      name: "",
+      tags: "",
+      category: "",
+      mea: "",
+      field: "",
       active: false,
-
+      image: "",
     },
     defaultItem: {
-      type: "",
-      value: "",
-      icon: "",
-      link: "",
+      code: "",
+      name: "",
+      tags: "",
+      category: "",
+      mea: "",
+      field: "",
       active: false,
+      image: "",
     },
   }),
 
@@ -209,36 +249,106 @@ export default {
   },
 
   methods: {
+    onSelectedImage(e) {
+      this.file = e
+    },
+
     initialize() {
+      axios.get(`${this.url}/expertises`, {
+        headers: {
+          Authorization: token,
+        }
+      }).then((response) => {
+        const arrayExpertises = response.data.data
+        // let arrayKode = new Array();
+        
+        for (let index = 0; index < arrayExpertises.length; index++) {
+          this.tags.push(arrayExpertises[index].abbr)
+        }
+        // console.log(this.tags)
+
+      }).catch(error => {
+        console.error(error)
+      })
+
       axios
-        .get(`${this.url}/socialmedias`, {
+        .get(`${this.url}/certifications`, {
           headers: {
             Authorization: token,
           },
         })
         .then((response) => {
-          this.socialmedias = response.data.data;
+          this.certifications = response.data.data;
         })
         .catch((error) => {
           console.error(error);
         });
+
+        axios.get(`${this.url}/categories`, {
+        headers: {
+          Authorization: token,
+        }
+      }).then((response) => {
+        const arrayCategories = response.data.data
+        // let arrayKode = new Array();
+        
+        for (let index = 0; index < arrayCategories.length; index++) {
+          this.categories.push(arrayCategories[index].name)
+        }
+        // console.log(this.categories)
+
+      }).catch(error => {
+        console.error(error)
+      })
+
+      axios.get(`${this.url}/fields`, {
+        headers: {
+          Authorization: token,
+        }
+      }).then((response) => {
+        const arrayFields = response.data.data
+        
+        for (let index = 0; index < arrayFields.length; index++) {
+          this.fields.push(arrayFields[index].name)
+        }
+
+      }).catch(error => {
+        console.error(error)
+      })
+
+      axios.get(`${this.url}/meas`, {
+        headers: {
+          Authorization: token,
+        }
+      }).then((response) => {
+        const arrayMeas = response.data.data
+        // let arrayKode = new Array();
+        
+        for (let index = 0; index < arrayMeas.length; index++) {
+          this.meas.push(arrayMeas[index].name)
+        }
+        // console.log(this.tags)
+
+      }).catch(error => {
+        console.error(error)
+      })
     },
 
     editItem(item) {
-      this.editedIndex = this.socialmedias.indexOf(item);
+      this.editedIndex = this.certifications.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialog = true;
     },
 
     deleteItem(item) {
-      this.editedIndex = this.socialmedias.indexOf(item);
+      this.editedIndex = this.certifications.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialogDelete = true;
     },
 
     deleteItemConfirm() {
       axios
-        .delete(`${this.url}/socialmedias/${this.editedItem._id}`, {
+        .delete(`${this.url}/certifications/${this.editedItem._id}`, {
           headers: {
             Authorization: token,
           },
@@ -272,9 +382,22 @@ export default {
 
     save() {
       if (this.editedIndex > -1) {
+        const formData = new FormData()
+        formData.append('code', this.editedItem.code)
+        formData.append('name', this.editedItem.name)
+        formData.append('tags', this.editedItem.tags)
+        formData.append('category', this.editedItem.category)
+        formData.append('mea', this.editedItem.mea)
+        formData.append('field', this.editedItem.field)
+        formData.append('active', this.editedItem.active)
+        
+        if (this.file !== "") {
+          formData.append('image', this.file)
+        }
         axios
-          .put(`${this.url}/socialmedias/${this.editedItem._id}`, this.editedItem, {
+          .put(`${this.url}/certifications/${this.editedItem._id}`, formData, {
             headers: {
+              'content-type': 'multipart/form-data',
               Authorization: token,
             },
           })
@@ -287,9 +410,20 @@ export default {
           })
           .catch((error) => console.log(error));
       } else {
+        const formData = new FormData()
+        formData.append('code', this.editedItem.code)
+        formData.append('name', this.editedItem.name)
+        formData.append('tags', this.editedItem.tags)
+        formData.append('category', this.editedItem.category)
+        formData.append('mea', this.editedItem.mea)
+        formData.append('field', this.editedItem.field)
+        formData.append('active', this.editedItem.active)
+        formData.append('image', this.file)
+
         axios
-          .post(`${this.url}/socialmedias`, this.editedItem, {
+          .post(`${this.url}/certifications`, formData, {
             headers: {
+              'content-type': 'multipart/form-data',
               Authorization: token,
             },
           })
@@ -299,6 +433,7 @@ export default {
               title: response.data.message
             })
             this.initialize()
+            this.filename = null
           })
           .catch((error) => console.error(error));
       }
@@ -307,3 +442,8 @@ export default {
   },
 };
 </script>
+<style>
+/* .test {
+  zoom:0.8
+} */
+</style>

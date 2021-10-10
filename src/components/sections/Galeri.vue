@@ -1,7 +1,7 @@
 <template>
   <section
     id="galeri">
-    <v-container class="py-16">
+    <v-container class="py-16 px-8">
           <v-responsive
             class="d-flex align-center mx-auto"
             height="100%"

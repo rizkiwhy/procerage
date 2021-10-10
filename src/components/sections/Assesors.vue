@@ -1,7 +1,7 @@
 <template>
   <section
     id="asesor"
-    class="primary"
+    class="accent"
   >
     <v-row no-gutters>
       <v-col
@@ -32,7 +32,7 @@
                     :src="'http://localhost:3000/'+slide.image"
                     :lazy-src="'http://localhost:3000/'+slide.image"
                   ></v-img>
-              <v-card-title class="text-h6 primary--text justify-center">{{slide.name}}</v-card-title>
+              <v-card-title class="text-h6 accent--text justify-center">{{slide.name}}</v-card-title>
                 <v-card-text>
                   <v-row
                     align="center"

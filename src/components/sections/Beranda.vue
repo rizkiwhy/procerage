@@ -14,22 +14,23 @@
           height="100vh"
           :src="require('../../assets/wave (16).svg')"
         >
-        <v-container class="fill-height py-16">
+        <v-container class="fill-height py-16 px-6" style="max-width:900px">
           <v-img class="d-none d-md-block" 
             max-width="250"
             :src="'http://localhost:3000/'+blog.image"/>
           <v-responsive
-            class="d-flex align-center mx-auto"
+            class="d-flex align-center"
             height="100%"
             max-width="700"
             width="100%"
           >
-          <h1 class="text-h6 font-weight-regular mb-4 text-left secondary--text">{{blog.subtitle}}</h1>
-          <h1 class="text-h4 font-weight-medium mb-4 text-left primary--text">{{blog.title}}</h1>
+          <h1 class="text-subtitle-2 font-weight-regular mb-4 text-left secondary--text">{{blog.subtitle}}</h1>
+          <h1 class="text-h6 font-weight-medium mb-4 text-left primary--text">{{blog.title}}</h1>
           <p class="text-body-1 grey--text">
             {{blog.description}}
           </p>
           <v-btn
+            href="#sertifikasi"
             color="primary"
             depressed
             rounded
@@ -83,3 +84,8 @@ import axios from "axios";
     }
   }
 </script>
+<style>
+html {
+  scroll-behavior: smooth;
+}
+</style>

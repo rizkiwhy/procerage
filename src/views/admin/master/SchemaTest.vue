@@ -13,7 +13,7 @@
     </v-card-title>
     <v-data-table
       :headers="headers"
-      :items="inbox"
+      :items="certifications"
       
       class="elevation-1"
       :search="search"
@@ -29,10 +29,10 @@
 
       <template v-slot:top>
         <v-toolbar flat>
-          <v-toolbar-title>inbox</v-toolbar-title>
+          <v-toolbar-title>Schemas</v-toolbar-title>
           <v-divider class="mx-4" inset vertical></v-divider>
           <v-spacer></v-spacer>
-          <v-dialog persistent v-model="dialog" max-width="500">
+          <v-dialog persistent v-model="dialog" max-width="600">
             <template v-slot:activator="{ on, attrs }">
               <v-btn color="primary" dark rounded class="mb-2" v-bind="attrs" v-on="on">
                 New Item
@@ -46,37 +46,59 @@
               <v-card-text>
                 <v-container>
                   <v-row>
-                    <v-col cols="12" sm="6" md="6">
+                    <v-col cols="12">
                       <v-text-field
                         v-model="editedItem.name"
-                        label="name"
+                        label="Schema"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
-                        v-model="editedItem.email"
-                        label="email"
+                        label="Code"
+                        v-model="editedItem.code"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
-                      <v-text-field
-                        v-model="editedItem.notelp"
-                        label="notelp"
-                      ></v-text-field>
+                      <v-autocomplete
+                        :items="meas"
+                        v-model="editedItem.mea"
+                        label="Mea"
+                      ></v-autocomplete>
                     </v-col>
-                    <v-col cols="12" sm="6" md="6">
-                      <v-text-field
-                        v-model="editedItem.subject"
-                        label="subject"
-                      ></v-text-field>
+                    <v-col cols="12" sm="6" md="8">
+                      <v-autocomplete
+                        :items="fields"
+                        v-model="editedItem.field"
+                        label="Field"
+                      ></v-autocomplete>
                     </v-col>
-                    <v-col cols="12">
-                      <v-textarea
-                        rows=3
-                        clear-icon="mdi-close-circle"
-                        label="message"
-                        v-model="editedItem.message"
-                      ></v-textarea>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-autocomplete
+                        :items="tags"
+                        v-model="editedItem.tags"
+                        label="Tags"
+                      ></v-autocomplete>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="12">
+                      <v-autocomplete
+                        :items="categories"
+                        v-model="editedItem.category"
+                        label="Category"
+                      ></v-autocomplete>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="8">
+                      <v-file-input
+                        v-model="filename"
+                        @change="onSelectedImage"
+                        label="Image" />
+                    </v-col>
+                    <v-col cols="12" sm="6" md="2">
+                      <div class="text-caption">Active</div>
+                      <v-switch
+                        class="ma-0"
+                        v-model="editedItem.active"
+                        :label="`${editedItem.active.toString()}`"
+                      ></v-switch>
                     </v-col>
                   </v-row>
                 </v-container>
@@ -121,19 +143,18 @@
       </template>
       <template v-slot:[`item.tags`]="{ item }">
         <v-chip
-          :color="tag==='AKL'?'yellow darken-2'
-          :tag==='OTKP'?'indigo'
-          :tag==='BDP'?'red'
-          :tag==='MLOG'?'lime'
-          :tag==='RPL'?'green'
-          :tag==='TKJ'?'blue-grey'
+          :color="item.tags==='AKL'?'yellow darken-2'
+          :item.tags==='OTKP'?'indigo'
+          :item.tags==='BDP'?'red'
+          :item.tags==='MLOG'?'lime'
+          :item.tags==='RPL'?'green'
+          :item.tags==='TKJ'?'blue-grey'
           :'purple'"
-          v-for="tag in item.tags" :key="tag"
           dark
           x-small
           class="ma-1"
         >
-          {{ tag }}
+          {{ item.tags }}
         </v-chip>
     </template>
     <template v-slot:[`item.active`]="{ item }">
@@ -158,50 +179,6 @@
         <v-btn color="primary" @click="initialize" dark> Reset </v-btn>
       </template>
     </v-data-table>
-    <template>
-
-    <!-- <v-snackbar
-      :color="snackbar.color"
-      v-model="snackbar.active"
-      :timeout="snackbar.timeout"
-      right
-      top
-    >
-      {{ snackbar.text }}
-
-      <template v-slot:action="{ attrs }">
-        <v-btn small color="white" text v-bind="attrs" @click="snackbar.active = false">
-          <v-icon>mdi-close</v-icon>
-        </v-btn>
-      </template>
-    </v-snackbar> -->
-    </template>
-    <!-- <template>
-      <div class="text-center ma-2">
-        <v-btn
-          dark
-          @click="snackbar = true"
-        >
-          Open Snackbar
-        </v-btn>
-        <v-snackbar
-          v-model="snackbar"
-        >
-          {{ text }}
-
-          <template v-slot:action="{ attrs }">
-            <v-btn
-              color="pink"
-              text
-              v-bind="attrs"
-              @click="snackbar = false"
-            >
-              Close
-            </v-btn>
-          </template>
-        </v-snackbar>
-      </div>
-    </template> -->
   </v-container>
 </template>
 
@@ -229,38 +206,51 @@ export default {
     // HelloWorld,
   },
   data: () => ({
-    // snackbar: false,
-    // text: `Hello, I'm a snackbar`,
+    filename: null,
     search: "",
+    file: "",
     // url: "http://103.14.20.210:18081/api/v1",
     url: "http://localhost:3000/api/v1",
     dialog: false,
     dialogDelete: false,
     row: null,
     headers: [
-      { text: "Name", value: "name" },
-      { text: "Email", value: "email" },
-      { text: "Notelp", value: "notelp" },
-      { text: "Subject", value: "subject" },
-      // { text: "Message", value: "message" },
+      { text: "Code", value: "code" },
+      { text: "Schema", value: "name" },
+      { text: "Tags", value: "tags" },
+      { text: "Category", value: "category" },
+      { text: "Field", value: "field" },
+      { text: "Mea", value: "mea" },
+      { text: "Image", value: "image" },
+      { text: "Active", value: "active" },
       { text: "Actions", value: "actions", sortable: false },
     ],
-    category: [ "Vision", "Mission", "Sejarah" ],
-    inbox: [],
+    level: [ "Dasar", "Lanjutan" ],
+    tags: [],
+    categories: [],
+    fields: [],
+    meas: [],
+    certifications: [],
     editedIndex: -1,
     editedItem: {
+      code: "",
       name: "",
-      email: "",
-      notelp: "",
-      subject: "",
-      message: "",
+      tags: "",
+      category: "",
+      field: "",
+      mea: "",
+      image: "",
+      active: false,
     },
     defaultItem: {
+      code: "",
       name: "",
-      email: "",
-      notelp: "",
-      subject: "",
-      message: "",
+      tags: "",
+      category: "",
+      field: "",
+      mea: "",
+      image: "",
+      active: false,
     },
   }),
 
@@ -284,38 +274,107 @@ export default {
   },
 
   methods: {
-
+    onSelectedImage(e) {
+      this.file = e
+    },
+    
     initialize() {
       axios
-        .get(`${this.url}/inbox`, {
+        .get(`${this.url}/certifications`, {
           headers: {
             Authorization: token,
           },
         })
         .then((response) => {
-          this.inbox = response.data.data;
+          this.certifications = response.data.data;
         })
         .catch((error) => {
           console.error(error);
         });
+
+      axios.get(`${this.url}/expertises`, {
+        headers: {
+          Authorization: token,
+        }
+      }).then((response) => {
+        const arrayExpertises = response.data.data
+        // let arrayKode = new Array();
+        
+        for (let index = 0; index < arrayExpertises.length; index++) {
+          this.tags.push(arrayExpertises[index].abbr)
+        }
+        // console.log(this.tags)
+
+      }).catch(error => {
+        console.error(error)
+      })
+
+      axios.get(`${this.url}/categories`, {
+        headers: {
+          Authorization: token,
+        }
+      }).then((response) => {
+        const arrayCategories = response.data.data
+        // let arrayKode = new Array();
+        
+        for (let index = 0; index < arrayCategories.length; index++) {
+          this.categories.push(arrayCategories[index].name)
+        }
+        // console.log(this.categories)
+
+      }).catch(error => {
+        console.error(error)
+      })
+
+      axios.get(`${this.url}/fields`, {
+        headers: {
+          Authorization: token,
+        }
+      }).then((response) => {
+        const arrayFields = response.data.data
+        
+        for (let index = 0; index < arrayFields.length; index++) {
+          this.fields.push(arrayFields[index].name)
+        }
+
+      }).catch(error => {
+        console.error(error)
+      })
+
+      axios.get(`${this.url}/meas`, {
+        headers: {
+          Authorization: token,
+        }
+      }).then((response) => {
+        const arrayMeas = response.data.data
+        // let arrayKode = new Array();
+        
+        for (let index = 0; index < arrayMeas.length; index++) {
+          this.meas.push(arrayMeas[index].name)
+        }
+        // console.log(this.tags)
+
+      }).catch(error => {
+        console.error(error)
+      })
     },
 
     editItem(item) {
-      this.editedIndex = this.inbox.indexOf(item);
+      // this.current
+      this.editedIndex = this.certifications.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialog = true;
-      console.log(this.editedItem)
     },
 
     deleteItem(item) {
-      this.editedIndex = this.inbox.indexOf(item);
+      this.editedIndex = this.certifications.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialogDelete = true;
     },
 
     deleteItemConfirm() {
       axios
-        .delete(`${this.url}/inbox/${this.editedItem._id}`, {
+        .delete(`${this.url}/certifications/${this.editedItem._id}`, {
           headers: {
             Authorization: token,
           },
@@ -350,9 +409,26 @@ export default {
     save() {
       if (this.editedIndex > -1) {
 
+        const formData = new FormData()
+        formData.append('code', this.editedItem.code)
+        formData.append('name', this.editedItem.name)
+        formData.append('tags', this.editedItem.tags)
+        formData.append('category', this.editedItem.category)
+        formData.append('field', this.editedItem.field)
+        formData.append('mea', this.editedItem.mea)
+        formData.append('active', this.editedItem.active)
+        
+        if (this.file !== "") {
+          formData.append('image', this.file)
+        }
+        
+        for (var pair of formData.entries()) {
+          console.log(pair[0]+ ', ' + pair[1]); 
+        }
         axios
-          .put(`${this.url}/inbox/${this.editedItem._id}`, this.editedItem, {
+          .put(`${this.url}/certifications/${this.editedItem._id}`, formData, {
             headers: {
+              'content-type': 'multipart/form-data',
               Authorization: token,
             },
           })
@@ -362,12 +438,24 @@ export default {
               title: response.data.message
             })
             this.initialize()
+            this.filename = null
           })
           .catch((error) => console.log(error));
       } else {
+        const formData = new FormData()
+        formData.append('code', this.editedItem.code)
+        formData.append('name', this.editedItem.name)
+        formData.append('tags', this.editedItem.tags)
+        formData.append('category', this.editedItem.category)
+        formData.append('field', this.editedItem.field)
+        formData.append('mea', this.editedItem.mea)
+        formData.append('image', this.file)
+        formData.append('active', this.editedItem.active)
+
         axios
-          .post(`${this.url}/inbox`, this.editedItem, {
+          .post(`${this.url}/certifications`, formData, {
             headers: {
+              'content-type': 'multipart/form-data',
               Authorization: token,
             },
           })
@@ -377,6 +465,8 @@ export default {
               title: response.data.message
             })
             this.initialize()
+            this.filename = null
+            // console.log(this.editedItem)
           })
           .catch((error) => console.error(error));
       }

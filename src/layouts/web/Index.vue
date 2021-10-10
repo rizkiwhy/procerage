@@ -165,7 +165,7 @@
         dark
         app
         shift
-        class="d-flex d-sm-none"
+        class="d-flex d-sm-none mx-auto my-auto"
     >
     <template v-for="item in items">
         <v-btn :key="item.text" :href="item.route">
@@ -279,6 +279,7 @@ export default {
 
 #nav {
   padding: 30px;
+  zoom: 0.8;
 }
 
 #nav a {

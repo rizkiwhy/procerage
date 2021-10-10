@@ -1,8 +1,35 @@
 <template>
+  <!-- <hello-world /> -->
 
   <v-container>
+    <!-- <template>
+      <div class="text-center ma-2">
+        <v-btn
+          dark
+          @click="snackbar = true"
+        >
+          Open Snackbar
+        </v-btn>
+        <v-snackbar
+          v-model="snackbar"
+        >
+          {{ text }}
+
+          <template v-slot:action="{ attrs }">
+            <v-btn
+              color="pink"
+              text
+              v-bind="attrs"
+              @click="snackbar = false"
+            >
+              Close
+            </v-btn>
+          </template>
+        </v-snackbar>
+      </div>
+    </template> -->
     <v-card-title>
-      Content
+      Master Data
       <v-spacer></v-spacer>
       <v-text-field
         v-model="search"
@@ -14,20 +41,33 @@
     </v-card-title>
     <v-data-table
       :headers="headers"
-      :items="socialmedias"
+      :items="meas"
       
       class="elevation-1"
       :search="search"
     >
+      <template v-slot:[`item.image`]="{ value }">
+          <a target="_blank" :href="'http://localhost:3000/'+value">
+            {{ value }}
+          </a>
+      </template>
       <template v-slot:[`item.icon`]="{ value }">
         <v-icon>{{value}}</v-icon>
+          <!-- <a target="_blank" :href="'http://localhost:3000/'+value">
+            {{ value }}
+          </a> -->
       </template>
+
       <template v-slot:top>
         <v-toolbar flat>
-          <v-toolbar-title>Social Media</v-toolbar-title>
+          <v-toolbar-title>Mea</v-toolbar-title>
           <v-divider class="mx-4" inset vertical></v-divider>
           <v-spacer></v-spacer>
-          <v-dialog persistent v-model="dialog" max-width="500px">
+          <!-- <v-btn color="accent" dark rounded class="mb-2" @click="showAlert">
+            New Item
+            <v-icon right dark> mdi-plus-circle-outline </v-icon>
+          </v-btn> -->
+          <v-dialog persistent v-model="dialog" max-width="500">
             <template v-slot:activator="{ on, attrs }">
               <v-btn color="primary" dark rounded class="mb-2" v-bind="attrs" v-on="on">
                 New Item
@@ -38,40 +78,24 @@
               <v-card-title>
                 <span class="text-h5">{{ formTitle }}</span>
               </v-card-title>
-
+            <!-- <v-form enctype=multipart/form-data> -->
               <v-card-text>
                 <v-container>
                   <v-row>
-                    <v-col cols="12" sm="6" md="12">
+                    <v-col cols="10">
                       <v-text-field
-                        v-model="editedItem.type"
-                        label="Type"
+                        v-model="editedItem.name"
+                        label="Mea"
                       ></v-text-field>
                     </v-col>
-                    <v-col cols="12" sm="6" md="12">
-                      <v-text-field
-                        v-model="editedItem.value"
-                        label="Value"
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="9">
-                      <v-text-field
-                        v-model="editedItem.icon"
-                        label="Icon"
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="3">
+                    
+                    <v-col cols="12" sm="6" md="2">
                       <div class="text-caption">Active</div>
                       <v-switch
+                        class="ma-0"
                         v-model="editedItem.active"
                         :label="`${editedItem.active.toString()}`"
                       ></v-switch>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="12">
-                      <v-text-field
-                        v-model="editedItem.link"
-                        label="Link"
-                      ></v-text-field>
                     </v-col>
                   </v-row>
                 </v-container>
@@ -86,6 +110,8 @@
                   Save <v-icon right dark> mdi-content-save-outline </v-icon></v-btn
                 >
               </v-card-actions>
+            <!-- </v-form> -->
+
             </v-card>
           </v-dialog>
           <v-dialog persistent v-model="dialogDelete" max-width="500px">
@@ -109,6 +135,36 @@
           </v-dialog>
         </v-toolbar>
       </template>
+      <template v-slot:[`item.level`]="{ item }">        
+          {{ item.level }}
+      </template>
+      <template v-slot:[`item.tags`]="{ item }">
+        <v-chip
+          :color="tag==='AKL'?'yellow darken-2'
+          :tag==='OTKP'?'indigo'
+          :tag==='BDP'?'red'
+          :tag==='MLOG'?'lime'
+          :tag==='RPL'?'green'
+          :tag==='TKJ'?'blue-grey'
+          :'purple'"
+          v-for="tag in item.tags" :key="tag"
+          dark
+          x-small
+          class="ma-1"
+        >
+          {{ tag }}
+        </v-chip>
+    </template>
+    <template v-slot:[`item.active`]="{ item }">
+        <v-chip
+          :color="item.active===true?'success':'error'"
+          dark
+          x-small
+          class="ma-1"
+        >
+          {{ item.active }}
+        </v-chip>
+    </template>
       <template v-slot:[`item.actions`]="{ item }">
         <v-btn @click="editItem(item)" class="ma-1" fab x-small dark color="warning">
           <v-icon> mdi-pencil </v-icon>
@@ -120,17 +176,51 @@
       <template v-slot:no-data>
         <v-btn color="primary" @click="initialize" dark> Reset </v-btn>
       </template>
-      <template v-slot:[`item.active`]="{ item }">
-        <v-chip
-          :color="item.active===true?'success':'error'"
-          dark
-          x-small
-          class="ma-1"
-        >
-          {{ item.active }}
-        </v-chip>
-    </template>
     </v-data-table>
+    <template>
+
+    <!-- <v-snackbar
+      :color="snackbar.color"
+      v-model="snackbar.active"
+      :timeout="snackbar.timeout"
+      right
+      top
+    >
+      {{ snackbar.text }}
+
+      <template v-slot:action="{ attrs }">
+        <v-btn small color="white" text v-bind="attrs" @click="snackbar.active = false">
+          <v-icon>mdi-close</v-icon>
+        </v-btn>
+      </template>
+    </v-snackbar> -->
+    </template>
+    <!-- <template>
+      <div class="text-center ma-2">
+        <v-btn
+          dark
+          @click="snackbar = true"
+        >
+          Open Snackbar
+        </v-btn>
+        <v-snackbar
+          v-model="snackbar"
+        >
+          {{ text }}
+
+          <template v-slot:action="{ attrs }">
+            <v-btn
+              color="pink"
+              text
+              v-bind="attrs"
+              @click="snackbar = false"
+            >
+              Close
+            </v-btn>
+          </template>
+        </v-snackbar>
+      </div>
+    </template> -->
   </v-container>
 </template>
 
@@ -153,40 +243,46 @@ const Toast = Swal.mixin({
 
 export default {
   name: "Home",
+
+  components: {
+    // HelloWorld,
+  },
   data: () => ({
+    // snackbar: false,
+    // text: `Hello, I'm a snackbar`,
+    radios: 'Duckduckgo',
     search: "",
     // url: "http://103.14.20.210:18081/api/v1",
     url: "http://localhost:3000/api/v1",
     dialog: false,
     dialogDelete: false,
+    row: null,
     headers: [
       {
-        text: "Type",
-        value: "type",
+        text: "Mea",
+        value: "name",
       },
-      { text: "Value", value: "value" },
-      { text: "Icon", value: "icon" },
-      { text: "Link", value: "link" },
       { text: "Active", value: "active" },
       { text: "Actions", value: "actions", sortable: false },
     ],
-    socialmedias: [],
+    level: [ "Dasar", "Lanjutan" ],
+    tags: [],
+    meas: [],
     editedIndex: -1,
     editedItem: {
-      type: "",
-      value: "",
-      icon: "",
-      link: "",
+      name: "",
       active: false,
-
     },
     defaultItem: {
-      type: "",
-      value: "",
-      icon: "",
-      link: "",
+      name: "",
       active: false,
     },
+    // snackbar: {
+    //   active: false,
+    //   text: "",
+    //   timeout: 5000,
+    //   color: "",
+    // },
   }),
 
   computed: {
@@ -209,36 +305,70 @@ export default {
   },
 
   methods: {
+
     initialize() {
       axios
-        .get(`${this.url}/socialmedias`, {
+        .get(`${this.url}/meas`, {
           headers: {
             Authorization: token,
           },
         })
         .then((response) => {
-          this.socialmedias = response.data.data;
+          this.meas = response.data.data;
         })
         .catch((error) => {
           console.error(error);
         });
+
+      axios.get(`${this.url}/expertises`, {
+        headers: {
+          Authorization: token,
+        }
+      }).then((response) => {
+        const arrayExpertises = response.data.data
+        // let arrayKode = new Array();
+        
+        for (let index = 0; index < arrayExpertises.length; index++) {
+          this.tags.push(arrayExpertises[index].abbr)
+        }
+        // console.log(this.tags)
+
+      }).catch(error => {
+        console.error(error)
+      })
     },
 
     editItem(item) {
-      this.editedIndex = this.socialmedias.indexOf(item);
+      // this.current
+      this.editedIndex = this.meas.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialog = true;
+      // console.log(this.editedItem.level)
+      // fetch('http://localhost:3000/images/1631760176974Opera%20Snapshot_2021-09-14_145538_app.jadiasn.id.png')
+      //   .then(res => res.blob()) // Gets the response and returns it as a blob
+      //   .then(blob => {
+      //     // Here's where you get access to the blob
+      //     // And you can use it for whatever you want
+      //     // Like calling ref().put(blob)
+
+      //     // Here, I use it to make an image appear on the page
+      //     let objectURL = URL.createObjectURL(blob);
+      //     let myImage = new Image();
+      //     myImage.src = objectURL;
+      //     console.log(blob)
+      //     // document.getElementById('myImg').appendChild(myImage)
+      // });
     },
 
     deleteItem(item) {
-      this.editedIndex = this.socialmedias.indexOf(item);
+      this.editedIndex = this.meas.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialogDelete = true;
     },
 
     deleteItemConfirm() {
       axios
-        .delete(`${this.url}/socialmedias/${this.editedItem._id}`, {
+        .delete(`${this.url}/meas/${this.editedItem._id}`, {
           headers: {
             Authorization: token,
           },
@@ -246,7 +376,7 @@ export default {
         .then((response) => {
           Toast.fire({
             icon: response.data.status,
-            title: response.data.message
+            title: response.data.message,
           })
           this.initialize();
         })
@@ -272,8 +402,21 @@ export default {
 
     save() {
       if (this.editedIndex > -1) {
+      //   const formData = new FormData()
+      //   formData.append('name', this.editedItem.name)
+      //   formData.append('description', this.editedItem.description)
+      //   formData.append('numberOfMeetings', this.editedItem.numberOfMeetings)
+      //   formData.append('tags', this.editedItem.tags)
+      //   formData.append('level', this.editedItem.level)
+
+      //   if (this.file !== "") {
+      //     formData.append('image', this.file)
+      //   }
+        // console.log(this.file === "")
+        // console.log(this.file !== "")
+
         axios
-          .put(`${this.url}/socialmedias/${this.editedItem._id}`, this.editedItem, {
+          .put(`${this.url}/meas/${this.editedItem._id}`, this.editedItem, {
             headers: {
               Authorization: token,
             },
@@ -287,8 +430,9 @@ export default {
           })
           .catch((error) => console.log(error));
       } else {
+        // console.log(this.editedItem.tags)
         axios
-          .post(`${this.url}/socialmedias`, this.editedItem, {
+          .post(`${this.url}/meas`, this.editedItem, {
             headers: {
               Authorization: token,
             },

@@ -27,7 +27,7 @@
                 </v-tab>
 
 
-                <v-tab-item v-for="(expertise, index) in expertises" :key="expertise._id">
+                <v-tab-item v-for="(expertise) in expertises" :key="expertise._id">
                   <v-card flat
                   >
                     <v-row 
@@ -48,27 +48,94 @@
                         md="8"
                       >
                       <template>
-                          <v-expansion-panels accordion class="mt-4">
+                          <v-expansion-panels accordion class="pt-5">
+                              <!-- v-for="(item,i) in expertise[index]"
+                              :key="i" -->
                             <v-expansion-panel
-                              v-for="(item,i) in expertises[index].item"
-                              :key="i"
                               class="senary"
                             >
-                              <v-expansion-panel-header>
-                                  {{item.name}}
-                                <span class="d-none d-sm-flex">
-                                  <v-chip
-                                    :color="item.level!=='Dasar'?'red':'green'"
-                                    dark
-                                    x-small
-                                    class="ma-1"
-                                  >
-                                    {{ item.level }}
-                                  </v-chip>
-                                </span>
+                                  <!-- {{item.name}} -->
+                              <v-expansion-panel-header class="text-caption">
+                                <v-simple-table dense class="senary">
+                                  <template v-slot:default>
+                                    <tbody>
+                                      <tr>
+                                        <td>Nama</td>
+                                        <td class="text-uppercase">{{expertise.schema.name}}</td>
+                                      </tr>
+                                      <tr>
+                                        <td>Kode</td>
+                                        <td>{{expertise.schema.code}}</td>
+                                      </tr>
+                                      <tr>
+                                        <td>Kategori</td>
+                                        <td>{{expertise.schema.category}}</td>
+                                      </tr>
+                                      <tr>
+                                        <td>Bidang</td>
+                                        <td>{{expertise.schema.field}}</td>
+                                      </tr>
+                                      <tr>
+                                        <td>Jurusan</td>
+                                        <td>{{expertise.name}} ({{expertise.schema.tags}})</td>
+                                      </tr>
+                                      <tr>
+                                        <td>Mea</td>
+                                        <td>{{expertise.schema.mea}}</td>
+                                      </tr>
+                                    </tbody>
+                                  </template>
+                                </v-simple-table>
                               </v-expansion-panel-header>
                               <v-expansion-panel-content>
-                                {{item.description}}
+                                <h6 class="text-h6 text-center font-weight-bold accent--text mt-2">
+                                  Unit Kompetensi
+                                </h6>
+                                <v-simple-table dense class="senary">
+                                  <template v-slot:default>
+                                    <thead>
+                                      <tr>
+                                        <th class="text-left">
+                                          Kode
+                                        </th>
+                                        <th class="text-left">
+                                          Nama
+                                        </th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr
+                                        v-for="(item) in expertise.unit"
+                                        :key="item.code"
+                                      >
+                                        <td>{{ item.code }}</td>
+                                        <td>{{ item.name }}</td>
+                                      </tr>
+                                    </tbody>
+                                  </template>
+                                </v-simple-table>
+                                <!-- <v-card class="senary">
+                                  <v-card-title>
+                                    Unit Kompetensi
+                                    <v-spacer></v-spacer>
+                                    <v-text-field
+                                      v-model="search"
+                                      class="accent--text"
+                                      append-icon="mdi-magnify"
+                                      label="Search"
+                                      single-line
+                                      hide-details
+                                    ></v-text-field>
+                                  </v-card-title>
+                                  <v-data-table
+                                    v-for="(u,i) in expertise.unit"
+                                    :key="i"
+                                    :headers="headers"
+                                    class="senary"
+                                    :items="u"
+                                    :search="search"
+                                  ></v-data-table>
+                                </v-card> -->
                               </v-expansion-panel-content>
                             </v-expansion-panel>
                           </v-expansion-panels>
@@ -92,28 +159,50 @@ export default {
     url: "http://localhost:3000/api/v1",
     expertises: [],
     certifications: [],
+    search: '',
+    headers: [
+      {
+        text: 'Kode',
+        align: 'start',
+        filterable: false,
+        value: 'code',
+      },
+      { text: 'Nama', value: 'name' },
+    ],
+    competencyunits: [],
   }),
   created() {
     this.initialize()
   },
   methods : {
-    initialize() {
-      axios.get(`${this.url}/all-expertises`)
+    async initialize() {
+      await axios.get(`${this.url}/all-expertises`)
         .then((response) => {
-          this.expertises = response.data.data;
+          this.expertises = response.data.dataExpertises;
+          for (let index = 0; index < this.expertises.length; index++) {
+            this.expertises[index].unit = this.expertises[index].schema.competencyunits 
+          }
         })
         .catch((error) => {
           console.error(error);
         });
 
-      axios.get(`${this.url}/all-certifications`)
-        .then((response) => {
-          this.certifications = response.data.data
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    }
+      // axios.get(`${this.url}/all-certifications`)
+      //   .then((response) => {
+      //     this.certifications = response.data.data
+      //   })
+      //   .catch((error) => {
+      //     console.error(error);
+      //   });
+
+      // axios.get(`${this.url}/all-competency-units`)
+      //   .then((response) => {
+      //     this.competencyunits = response.data.data;
+      //   })
+      //   .catch((error) => {
+      //     console.error(error);
+      //   });
+      }
   }
 }
 </script>

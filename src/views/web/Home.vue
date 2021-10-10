@@ -1,11 +1,12 @@
 <template>
     <div>
         <Beranda />
+        <Sertifikasi />
         <!-- <v-img
             gradient="to top, white, transparent"
             :src="require('../../assets/wave(22).svg')"
             height="34vh" /> -->
-        <KategoriSertifikasi />
+        <!-- <KategoriSertifikasi /> -->
         <!-- <v-img
             gradient="to bottom, white, transparent"
             :src="require('../../assets/wave(23).svg')"
@@ -43,7 +44,8 @@
 <script>
 import Beranda from "@/components/sections/Beranda.vue";
 import Keunggulan from "@/components/sections/Keunggulan.vue";
-import KategoriSertifikasi from "@/components/sections/KategoriSertifikasi.vue";
+import Sertifikasi from "@/components/sections/Sertifikasi.vue";
+// import KategoriSertifikasi from "@/components/sections/KategoriSertifikasi.vue";
 import Asesor from "@/components/sections/Asesor.vue";
 import Testimonial from "@/components/sections/Testimonial.vue";
 import Galeri from "@/components/sections/Galeri.vue";
@@ -55,7 +57,8 @@ export default {
     components: {
         Beranda,
         Keunggulan,
-        KategoriSertifikasi,
+        Sertifikasi,
+        // KategoriSertifikasi,
         Asesor,
         Testimonial,
         Galeri,

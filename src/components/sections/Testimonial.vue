@@ -7,27 +7,30 @@
       <v-col
         md="12"
       >
-        <v-container class="py-16">
+        <v-container class="py-16 px-8">
           <v-responsive
             class="d-flex align-center mx-auto"
             height="100%"
             width="100%"
           >
           <h1 class="text-h4 font-weight-medium mb-16 text-center secondary--text">Testimonial</h1>
-          <carousel-3d :height="217" :width="350" :border="1" :autoplay="true" :autoplay-timeout='2000' :count="testimonials.length">
-            <slide v-for="(slide, i) in testimonials" :index="i" :key="slide._id">
+          <carousel-3d :height="246" :width="350" :border="1" :autoplay="true" :autoplay-timeout='2000' :count="testimonials.length">
+            <slide v-for="(slide, i) in testimonials" :index="i" :key="slide._id" class="primary">
               <template>
                 <v-card
-                  class="mx-auto"
+                  class="mx-auto mt-3"
                   color="senary"
                   dark
                   max-width="400"
+                  width="100%"
                 >
                   <v-card-text class="text-subtitle-1 blue-grey--text text-justify">
                     <sup>
                     <v-icon color="accent">mdi-format-quote-open-outline</v-icon>
                     </sup>
+                    <span class="ma-1">
                     {{slide.testimonial}}
+                    </span>
                     <sup>
                     <v-icon color="accent">mdi-format-quote-close-outline</v-icon>
                     </sup>

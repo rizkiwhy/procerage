@@ -4,11 +4,11 @@
     <v-container class="py-16 px-8">
           <v-responsive
             class="d-flex align-center mx-auto"
-            max-width="1000"
             height="100%"
             width="100%"
           >
-          <v-row class="pt-10">
+          <h1 class="text-h4 font-weight-medium mb-16 text-center primary--text">Skema</h1>
+          <!-- <v-row class="pt-10">
             <v-col
               cols="12"
               md="7"
@@ -49,26 +49,25 @@
                   color="secondary"
                 />
             </v-col>
-          </v-row>
-          <v-row justify="space-between" class="mt-10">
+          </v-row> -->
+          <v-row class="mt-10 space-start">
             <v-col cols="12" md="4"
-              v-for="(slide, i) in cards" :index="i" :key="i"
+              v-for="(slide, i) in certifications" :index="i" :key="i"
               >
               <template>
                 <v-hover v-slot="{ hover }">
                   <v-card
                     class="mx-auto"
                     color="grey lighten-4"
-                    max-width="600"
                   >
                     <v-img
                       :aspect-ratio="16/9"
-                      :src="slide.foto"
+                      :src="'http://localhost:3000/'+slide.image"
                     >
                       <v-expand-transition class="">
                         <div
                           v-if="hover"
-                          class="d-flex transition-fast-in-fast-out primary opacity-09 v-card--reveal text-h6 white--text"
+                          class="d-flex transition-fast-in-fast-out primary opacity-09 v-card--reveal text- white--text"
                           style="height: 100%;"
                         >
                           <v-btn
@@ -78,6 +77,7 @@
                             min-width="164"
                             small
                             class="font-weight-bold white--text py-1 mt-1"
+                            to="/sertifikasi"
                           >
                           Read More
                           </v-btn>
@@ -87,7 +87,7 @@
                     <v-card-text
                       class="d-flex pa-0 ma-0 primary white--text"
                       style="height: 38.4%;">
-                      <v-card-text >
+                      <v-card-text>
                         <v-row
                           align="center"
                           class="mx-0"
@@ -96,115 +96,12 @@
                           cols="12"
                           class="ma-0 py-0"
                         >
-                          <div class="text-body-1 py-2 font-weight-bold">
-                            {{slide.text}}
+                          <div class="text-button py-2 font-weight-bold">
+                            {{slide.name}}
                           </div>
                         </v-col>
                         </v-row>
-                        <v-row
-                          align="center"
-                          class="mx-0"
-                        >
-                        <v-col
-                          class="ma-0 pa-0 align-self-baseline"
-                          cols="1"
-                        >
-                            <v-icon color="accent">mdi-teach</v-icon>
-                        </v-col>
-                        <v-col
-                          cols="5"
-                          class="ma-0 py-0"
-                        >
-                          <div class="text-caption font-weight-bold">
-                            {{slide.pertemuan}}
-                          </div>
-                        </v-col>
-                        <v-col
-                          class="ma-0 pa-0 align-self-baseline"
-                          cols="1"
-                        >
-                            <v-icon color="accent">mdi-notebook-multiple</v-icon>
-                        </v-col>
-                        <v-col
-                          cols="5"
-                          class="ma-0 py-0"
-                        >
-                          <div class="text-caption font-weight-bold">
-                            {{slide.modul}}
-                          </div>
-                        </v-col>
-                        </v-row>
-                        <v-row
-                          align="center"
-                          class="mx-0"
-                        >
-                        <v-col
-                          class="ma-0 pa-0 align-self-baseline"
-                          cols="1"
-                        >
-                            <v-icon color="accent">mdi-bookmark-outline</v-icon>
-                        </v-col>
-                        <v-col
-                          cols="5"
-                          class="ma-0 py-0"
-                        >
-                          <div class="text-caption font-weight-bold">
-                            {{slide.jenis}}
-                          </div>
-                        </v-col>
-                          <v-col 
-                          class="ma-0 pa-0 align-self-baseline"
-                          cols="1"
-                          >
-                          <v-icon color="accent">mdi-account-tie</v-icon>
-
-                          </v-col>
-                          <v-col
-                          cols="5"
-                          class="ma-0 py-0"
-                          >
-
-                        <div class="text-caption font-weight-bold">
-                          {{slide.nama}}
-                        </div>
-                          </v-col>
-                        </v-row>
-                        <v-row
-                          align="center"
-                          class="mx-0 mb-1"
-                        >
-                        <v-col
-                          class="ma-0 pa-0 align-self-baseline"
-                          cols="1"
-                        >
-                            <v-icon color="accent">mdi-cash-usd-outline</v-icon>
-                        </v-col>
-                        <v-col
-                          cols="5"
-                          class="ma-0 py-0"
-                        >
-                          <div class="text-caption font-weight-bold">
-                            {{slide.harga}}
-                          </div>
-                        </v-col>
-                          <v-col 
-                          class="ma-0 pa-0 align-self-baseline"
-                          cols="1"
-                          >
-                          <template>
-                            <div class="text-center">
-                              <v-rating
-                                v-model="slide.rating"
-                                background-color="accent"
-                                color="secondary"
-                                dense
-                                half-increments
-                                hover
-                                size="18"/>
-                            </div>
-                          </template>
-                          </v-col>
-                        </v-row>
+                        
                       </v-card-text>
                         <v-expand-transition>
                         <div
@@ -220,115 +117,11 @@
                               cols="12"
                               class="ma-0 py-0"
                             >
-                              <div class="text-body-1 py-2 font-weight-bold">
-                                {{slide.text}}
+                              <div class="text-button py-2 font-weight-bold">
+                                {{slide.name}}
                               </div>
                             </v-col>
-                            </v-row>
-                            <v-row
-                              align="center"
-                              class="mx-0"
-                            >
-                            <v-col
-                              class="ma-0 pa-0 align-self-baseline"
-                              cols="1"
-                            >
-                                <v-icon color="accent">mdi-teach</v-icon>
-                            </v-col>
-                            <v-col
-                              cols="5"
-                              class="ma-0 py-0"
-                            >
-                              <div class="text-caption font-weight-bold">
-                                {{slide.pertemuan}}
-                              </div>
-                            </v-col>
-                            <v-col
-                              class="ma-0 pa-0 align-self-baseline"
-                              cols="1"
-                            >
-                                <v-icon color="accent">mdi-notebook-multiple</v-icon>
-                            </v-col>
-                            <v-col
-                              cols="5"
-                              class="ma-0 py-0"
-                            >
-                              <div class="text-caption font-weight-bold">
-                                {{slide.modul}}
-                              </div>
-                            </v-col>
-                            </v-row>
-                            <v-row
-                              align="center"
-                              class="mx-0"
-                            >
-                            <v-col
-                              class="ma-0 pa-0 align-self-baseline"
-                              cols="1"
-                            >
-                                <v-icon color="accent">mdi-bookmark-outline</v-icon>
-                            </v-col>
-                            <v-col
-                              cols="5"
-                              class="ma-0 py-0"
-                            >
-                              <div class="text-caption font-weight-bold">
-                                {{slide.jenis}}
-                              </div>
-                            </v-col>
-                              <v-col 
-                              class="ma-0 pa-0 align-self-baseline"
-                              cols="1"
-                              >
-                              <v-icon color="accent">mdi-account-tie</v-icon>
-
-                              </v-col>
-                              <v-col
-                              cols="5"
-                              class="ma-0 py-0"
-                              >
-
-                            <div class="text-caption font-weight-bold">
-                              {{slide.nama}}
-                            </div>
-                              </v-col>
-                            </v-row>
-                            <v-row
-                              align="center"
-                              class="mx-0 mb-1"
-                            >
-                            <v-col
-                              class="ma-0 pa-0 align-self-baseline"
-                              cols="1"
-                            >
-                                <v-icon color="accent">mdi-cash-usd-outline</v-icon>
-                            </v-col>
-                            <v-col
-                              cols="5"
-                              class="ma-0 py-0"
-                            >
-                              <div class="text-caption font-weight-bold">
-                                {{slide.harga}}
-                              </div>
-                            </v-col>
-                              <v-col 
-                              class="ma-0 pa-0 align-self-baseline"
-                              cols="1"
-                              >
-                              <template>
-                                <div class="text-center">
-                                  <v-rating
-                                    v-model="slide.rating"
-                                    background-color="accent"
-                                    color="primary"
-                                    dense
-                                    half-increments
-                                    hover
-                                    size="18"
-                                  ></v-rating>
-                                </div>
-                              </template>
-                              </v-col>
+                              
                             </v-row>
                           </v-card-text>
                         </div>
@@ -344,8 +137,11 @@
   </section>
 </template>
 <script>
+import axios from "axios";
+
   export default {
     data: () => ({
+      url: "http://localhost:3000/api/v1",
       items: ['Foo', 'Bar', 'Fizz', 'Buzz'],
       tags: [
         'Semua',
@@ -357,156 +153,28 @@
         'MM',
         'TKJ',
       ],
-      cards: [
-        {
-          nama: 'John Doe 1',
-          harga: '250000',
-          rating: 1,
-          pertemuan: '15x Pertemuan',
-          modul: '7 Modul',
-          foto: 'https://cdn.vuetifyjs.com/images/cards/kitchen.png',
-          jenis: 'TKJ',
-          icon: 'mdi-keyboard-outline',
-          title: 'Efficiently unleash media information without cross-media value',
-          text: 'Efficiently unleash media information without cross-media value.',
-        },
-        {
-          nama: 'John Doe 1',
-          harga: '250000',
-          rating: 1,
-          pertemuan: '15x Pertemuan',
-          modul: '7 Modul',
-          foto: 'https://cdn.vuetifyjs.com/images/cards/kitchen.png',
-          jenis: 'TKJ',
-          icon: 'mdi-keyboard-outline',
-          title: 'Efficiently unleash media information without cross-media value',
-          text: 'Efficiently unleash media information without cross-media value.',
-        },
-        {
-          nama: 'John Doe 1',
-          harga: '250000',
-          rating: 1,
-          pertemuan: '15x Pertemuan',
-          modul: '7 Modul',
-          foto: 'https://cdn.vuetifyjs.com/images/cards/kitchen.png',
-          jenis: 'TKJ',
-          icon: 'mdi-keyboard-outline',
-          title: 'Efficiently unleash media information without cross-media value',
-          text: 'Efficiently unleash media information without cross-media value.',
-        },
-        {
-          nama: 'John Doe 1',
-          harga: '250000',
-          rating: 1,
-          pertemuan: '15x Pertemuan',
-          modul: '7 Modul',
-          foto: 'https://cdn.vuetifyjs.com/images/cards/kitchen.png',
-          jenis: 'TKJ',
-          icon: 'mdi-keyboard-outline',
-          title: 'Efficiently unleash media information without cross-media value',
-          text: 'Efficiently unleash media information without cross-media value.',
-        },
-        {
-          nama: 'John Doe 1',
-          harga: '250000',
-          rating: 1,
-          pertemuan: '15x Pertemuan',
-          modul: '7 Modul',
-          foto: 'https://cdn.vuetifyjs.com/images/cards/kitchen.png',
-          jenis: 'TKJ',
-          icon: 'mdi-keyboard-outline',
-          title: 'Efficiently unleash media information without cross-media value',
-          text: 'Efficiently unleash media information without cross-media value.',
-        },
-        {
-          nama: 'John Doe 1',
-          harga: '250000',
-          rating: 1,
-          pertemuan: '15x Pertemuan',
-          modul: '7 Modul',
-          foto: 'https://cdn.vuetifyjs.com/images/cards/kitchen.png',
-          jenis: 'TKJ',
-          icon: 'mdi-keyboard-outline',
-          title: 'Efficiently unleash media information without cross-media value',
-          text: 'Efficiently unleash media information without cross-media value.',
-        },
-        {
-          nama: 'John Doe 1',
-          harga: '250000',
-          rating: 1,
-          pertemuan: '15x Pertemuan',
-          modul: '7 Modul',
-          foto: 'https://cdn.vuetifyjs.com/images/cards/kitchen.png',
-          jenis: 'TKJ',
-          icon: 'mdi-keyboard-outline',
-          title: 'Efficiently unleash media information without cross-media value',
-          text: 'Efficiently unleash media information without cross-media value.',
-        },
-        {
-          nama: 'John Doe 1',
-          harga: '250000',
-          rating: 1,
-          pertemuan: '15x Pertemuan',
-          modul: '7 Modul',
-          foto: 'https://cdn.vuetifyjs.com/images/cards/kitchen.png',
-          jenis: 'TKJ',
-          icon: 'mdi-keyboard-outline',
-          title: 'Efficiently unleash media information without cross-media value',
-          text: 'Efficiently unleash media information without cross-media value.',
-        },
-        {
-          nama: 'John Doe 1',
-          harga: '250000',
-          rating: 1,
-          pertemuan: '15x Pertemuan',
-          modul: '7 Modul',
-          foto: 'https://cdn.vuetifyjs.com/images/cards/kitchen.png',
-          jenis: 'TKJ',
-          icon: 'mdi-keyboard-outline',
-          title: 'Efficiently unleash media information without cross-media value',
-          text: 'Efficiently unleash media information without cross-media value.',
-        },
-        {
-          nama: 'John Doe 1',
-          harga: '250000',
-          rating: 1,
-          pertemuan: '15x Pertemuan',
-          modul: '7 Modul',
-          foto: 'https://cdn.vuetifyjs.com/images/cards/kitchen.png',
-          jenis: 'TKJ',
-          icon: 'mdi-keyboard-outline',
-          title: 'Efficiently unleash media information without cross-media value',
-          text: 'Efficiently unleash media information without cross-media value.',
-        },
-        {
-          nama: 'John Doe 1',
-          harga: '250000',
-          rating: 1,
-          pertemuan: '15x Pertemuan',
-          modul: '7 Modul',
-          foto: 'https://cdn.vuetifyjs.com/images/cards/kitchen.png',
-          jenis: 'TKJ',
-          icon: 'mdi-keyboard-outline',
-          title: 'Efficiently unleash media information without cross-media value',
-          text: 'Efficiently unleash media information without cross-media value.',
-        },
-        {
-          nama: 'John Doe 1',
-          harga: '250000',
-          rating: 3.1,
-          pertemuan: '15x Pertemuan',
-          modul: '7 Modul',
-          foto: 'https://cdn.vuetifyjs.com/images/cards/kitchen.png',
-          jenis: 'TKJ',
-          icon: 'mdi-keyboard-outline',
-          title: 'Efficiently unleash media information without cross-media value',
-          text: 'Efficiently unleash media information without cross-media value.',
-        },
-      ],
+      certifications: [],
     }),
+    created() {
+      this.initialize()
+    },
+    methods : {
+      initialize() {
+        axios.get(`${this.url}/all-certifications`)
+          .then((response) => {
+            this.certifications = response.data.data
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      }
+    }
   }
 </script>
 <style>
+/* .container {
+  max-width: 1300px;
+} */
 .v-card--reveal {
   align-items: center;
   bottom: 0;
@@ -519,5 +187,8 @@
 }
 .opacity-09 {
   opacity: .9;
+}
+#sertifikasi{
+  zoom: 0.9;
 }
 </style>

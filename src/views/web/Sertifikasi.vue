@@ -1,21 +1,24 @@
 <template>
   <div class="sertifikasi">
     <!-- <Beranda /> -->
-    <Sertifikasi />
+    <KategoriSertifikasi /> 
+    <Assesors />
     <TentangKami />
     <Footer />
   </div>
 </template>
 <script>
-import Beranda from "@/components/sections/Beranda.vue";
-import Sertifikasi from "@/components/sections/Sertifikasi.vue";
+// import Beranda from "@/components/sections/Beranda.vue";
+import KategoriSertifikasi from "@/components/sections/KategoriSertifikasi.vue";
+import Assesors from "@/components/sections/Assesors.vue";
 import TentangKami from "@/components/sections/TentangKami.vue";
 import Footer from '@/components/Footer.vue';
 
 export default {
     components: {
-        Beranda,
-        Sertifikasi,
+        // Beranda,
+        KategoriSertifikasi,
+        Assesors,
         TentangKami,
         Footer
     }

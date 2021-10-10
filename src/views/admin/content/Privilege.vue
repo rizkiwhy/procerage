@@ -118,7 +118,7 @@
         <v-chip
           :color="item.active===true?'success':'error'"
           dark
-          small
+          x-small
           class="ma-1"
         >
           {{ item.active }}

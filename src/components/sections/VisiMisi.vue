@@ -7,7 +7,7 @@
       <v-col
         md="12"
       >
-        <v-container class="py-16">
+        <v-container class="py-16 px-8">
           <v-responsive
             class="d-flex align-center ma-auto"
             height="100%"
@@ -17,21 +17,20 @@
           <h1 class="text-h4 font-weight-medium mb-5 text-center primary--text">Visi</h1>
           <h1 class="text-subtitle-1 font-weight-medium text-center accent--text">{{visi}}</h1>
           <h1 class="text-h4 font-weight-medium mt-16 mb-5 text-center primary--text">Misi</h1>
-            <v-list class="transparent">
-              <v-list-item v-for="(misi, i) in misi"
-                  class=" pa-0"
-                  :key="i"
-                  >
-              <v-list-item-avatar class="align-self-start">
-                  <v-icon color="accent">mdi-arrow-right-circle-outline</v-icon>
-              </v-list-item-avatar>
-              <v-list-item-content class="white--text pa-0">
-                  <h1 class="text-subtitle-1 font-weight-medium text-justify accent--text">
-                      {{misi.content}}
-                  </h1>
-              </v-list-item-content>
-              </v-list-item>
-            </v-list>
+          <v-list class="transparent">
+            <v-list-item v-for="(misi, i) in misi"
+                :key="i"
+                >
+            <v-list-item-avatar class="align-self-start">
+                <v-icon color="accent">mdi-arrow-right-circle-outline</v-icon>
+            </v-list-item-avatar>
+            <v-list-item-content class="white--text pa-0">
+                <h1 class="text-subtitle-1 font-weight-medium text-justify accent--text">
+                    {{misi.content}}
+                </h1>
+            </v-list-item-content>
+            </v-list-item>
+          </v-list>
           <h1 class="text-h4 font-weight-medium mt-16 mb-5 text-center primary--text">Sejarah</h1>
             <v-list class="transparent">
                 <v-list-item v-for="(sejarah, i) in sejarah" :key="i">

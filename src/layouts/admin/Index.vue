@@ -171,8 +171,12 @@ export default {
               'icon-ctr': 'mdi-database-settings',
               text: 'Master Data',
               children: [
-                { icon: 'mdi-view-dashboard', text: 'Expertise', route:'/admin/expertise' },
-                { icon: 'mdi-certificate-outline', text: 'Certification', route:'/admin/certification' },
+                { icon: 'mdi-database', text: 'Mea', route:'/admin/mea' },
+                { icon: 'mdi-database', text: 'Field', route:'/admin/field' },
+                { icon: 'mdi-database', text: 'Category', route:'/admin/category' },
+                { icon: 'mdi-database', text: 'Expertise', route:'/admin/expertise' },
+                { icon: 'mdi-certificate-outline', text: 'Schema', route:'/admin/schema' },
+                { icon: 'mdi-format-list-checks', text: 'Competency Unit', route:'/admin/competency-unit' },
                 { icon: 'mdi-card-account-details-star-outline', text: 'Assesor', route:'/admin/assesor' },
               ],
             },
@@ -198,7 +202,7 @@ export default {
               children: [
                 { icon: 'mdi-image-album', text: 'Gallery', route:'/admin/gallery'},
                 { icon: 'mdi-card-bulleted-settings-outline', text: 'Vision', route:'/admin/vision' },
-                { icon: 'mdi-format-list-checks', text: 'Mission', route:'/admin/mission' },
+                // { icon: 'mdi-format-list-checks', text: 'Mission', route:'/admin/mission' },
                 { icon: 'mdi-account-tie-outline', text: 'Client', route:'/admin/client' },
                 { icon: 'mdi-email-newsletter', text: 'Inbox', route:'/admin/inbox' },
               ],

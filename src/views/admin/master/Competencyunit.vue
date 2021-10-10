@@ -2,32 +2,6 @@
   <!-- <hello-world /> -->
 
   <v-container>
-    <!-- <template>
-      <div class="text-center ma-2">
-        <v-btn
-          dark
-          @click="snackbar = true"
-        >
-          Open Snackbar
-        </v-btn>
-        <v-snackbar
-          v-model="snackbar"
-        >
-          {{ text }}
-
-          <template v-slot:action="{ attrs }">
-            <v-btn
-              color="pink"
-              text
-              v-bind="attrs"
-              @click="snackbar = false"
-            >
-              Close
-            </v-btn>
-          </template>
-        </v-snackbar>
-      </div>
-    </template> -->
     <v-card-title>
       Master Data
       <v-spacer></v-spacer>
@@ -41,7 +15,7 @@
     </v-card-title>
     <v-data-table
       :headers="headers"
-      :items="certifications"
+      :items="competencyunits"
       
       class="elevation-1"
       :search="search"
@@ -60,14 +34,14 @@
 
       <template v-slot:top>
         <v-toolbar flat>
-          <v-toolbar-title>Certifications</v-toolbar-title>
+          <v-toolbar-title>Competency Unit</v-toolbar-title>
           <v-divider class="mx-4" inset vertical></v-divider>
           <v-spacer></v-spacer>
           <!-- <v-btn color="accent" dark rounded class="mb-2" @click="showAlert">
             New Item
             <v-icon right dark> mdi-plus-circle-outline </v-icon>
           </v-btn> -->
-          <v-dialog persistent v-model="dialog" max-width="1000">
+          <v-dialog persistent v-model="dialog" max-width="690">
             <template v-slot:activator="{ on, attrs }">
               <v-btn color="primary" dark rounded class="mb-2" v-bind="attrs" v-on="on">
                 New Item
@@ -78,61 +52,28 @@
               <v-card-title>
                 <span class="text-h5">{{ formTitle }}</span>
               </v-card-title>
-            <!-- <v-form enctype=multipart/form-data> -->
               <v-card-text>
                 <v-container>
                   <v-row>
                     <v-col cols="12">
                       <v-text-field
                         v-model="editedItem.name"
-                        label="Sertifikasi"
+                        label="Unit Kompetensi"
                       ></v-text-field>
                     </v-col>
-                    <v-col cols="12">
-                        <!-- clearable -->
-                      <v-textarea
-                        counter=256
-                        rows=3
-                        clear-icon="mdi-close-circle"
-                        label="Deskripsi"
-                        v-model="editedItem.description"
-                      ></v-textarea>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="3">
+                    <v-col cols="12" md="4">
                       <v-text-field
-                        v-model="editedItem.numberOfMeetings"
-                        label="Jumlah Pertemuan"
+                        label="Kode"
+                        v-model="editedItem.code"
                       ></v-text-field>
                     </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <!-- <v-text-field
-                        v-model="editedItem.tags"
-                        label="Tags"
-                      ></v-text-field> -->
+                    <v-col cols="12" sm="6" md="6">
                       <v-autocomplete
-                        :items="tags"
-                        v-model="editedItem.tags"
-                        label="Tags"
-                        clearable
-                        deletable-chips
-                        multiple
-                        small-chips
+                        :items="codeSchema"
+                        v-model="editedItem.codeSchema"
+                        label="codeSchema"
                       ></v-autocomplete>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="3">
-                      <div class="text-caption">Tingkatan</div>
-                      <v-radio-group
-                        v-model="editedItem.level"
-                        row
-                        class="mt-0"
-                      >
-                        <v-radio
-                          v-for="l in level"
-                          :key="l"
-                          :label="l"
-                          :value="l"
-                        ></v-radio>
-                      </v-radio-group>
+                        <!-- small-chips -->
                     </v-col>
                     <v-col cols="12" sm="6" md="2">
                       <div class="text-caption">Active</div>
@@ -183,28 +124,11 @@
       <template v-slot:[`item.level`]="{ item }">        
           {{ item.level }}
       </template>
-      <template v-slot:[`item.tags`]="{ item }">
-        <v-chip
-          :color="tag==='AKL'?'yellow darken-2'
-          :tag==='OTKP'?'indigo'
-          :tag==='BDP'?'red'
-          :tag==='MLOG'?'lime'
-          :tag==='RPL'?'green'
-          :tag==='TKJ'?'blue-grey'
-          :'purple'"
-          v-for="tag in item.tags" :key="tag"
-          dark
-          x-small
-          class="ma-1"
-        >
-          {{ tag }}
-        </v-chip>
-    </template>
     <template v-slot:[`item.active`]="{ item }">
         <v-chip
           :color="item.active===true?'success':'error'"
           dark
-          small
+          x-small
           class="ma-1"
         >
           {{ item.active }}
@@ -222,50 +146,6 @@
         <v-btn color="primary" @click="initialize" dark> Reset </v-btn>
       </template>
     </v-data-table>
-    <template>
-
-    <!-- <v-snackbar
-      :color="snackbar.color"
-      v-model="snackbar.active"
-      :timeout="snackbar.timeout"
-      right
-      top
-    >
-      {{ snackbar.text }}
-
-      <template v-slot:action="{ attrs }">
-        <v-btn small color="white" text v-bind="attrs" @click="snackbar.active = false">
-          <v-icon>mdi-close</v-icon>
-        </v-btn>
-      </template>
-    </v-snackbar> -->
-    </template>
-    <!-- <template>
-      <div class="text-center ma-2">
-        <v-btn
-          dark
-          @click="snackbar = true"
-        >
-          Open Snackbar
-        </v-btn>
-        <v-snackbar
-          v-model="snackbar"
-        >
-          {{ text }}
-
-          <template v-slot:action="{ attrs }">
-            <v-btn
-              color="pink"
-              text
-              v-bind="attrs"
-              @click="snackbar = false"
-            >
-              Close
-            </v-btn>
-          </template>
-        </v-snackbar>
-      </div>
-    </template> -->
   </v-container>
 </template>
 
@@ -303,43 +183,27 @@ export default {
     dialogDelete: false,
     row: null,
     headers: [
-      {
-        text: "Sertifikasi",
-        value: "name",
-      },
-      // { text: "Deskripsi", value: "description" },
-      { text: "Jumlah Pertemuan", value: "numberOfMeetings" },
-      { text: "Tags", value: "tags" },
-      { text: "Tingkatan", value: "level" },
+      { text: "Kode", value: "code" },
+      { text: "Unit Kompetensi", value: "name", },
+      { text: "codeSchema", value: "codeSchema" },
       { text: "Active", value: "active" },
       { text: "Actions", value: "actions", sortable: false },
     ],
-    level: [ "Dasar", "Lanjutan" ],
-    tags: [],
-    certifications: [],
+    codeSchema: [],
+    competencyunits: [],
     editedIndex: -1,
     editedItem: {
+      code: "",
       name: "",
-      description: "",
-      numberOfMeetings: "",
-      tags: "",
-      level: "",
+      codeSchema: "",
       active: false,
     },
     defaultItem: {
+      code: "",
       name: "",
-      description: "",
-      numberOfMeetings: "",
-      tags: "",
-      level: "",
+      codeSchema: "",
       active: false,
     },
-    // snackbar: {
-    //   active: false,
-    //   text: "",
-    //   timeout: 5000,
-    //   color: "",
-    // },
   }),
 
   computed: {
@@ -365,30 +229,30 @@ export default {
 
     initialize() {
       axios
-        .get(`${this.url}/certifications`, {
+        .get(`${this.url}/competency-units`, {
           headers: {
             Authorization: token,
           },
         })
         .then((response) => {
-          this.certifications = response.data.data;
+          this.competencyunits = response.data.data;
         })
         .catch((error) => {
           console.error(error);
         });
 
-      axios.get(`${this.url}/expertises`, {
+      axios.get(`${this.url}/certifications`, {
         headers: {
           Authorization: token,
         }
       }).then((response) => {
-        const arrayExpertises = response.data.data
+        const arraySchemas = response.data.data
         // let arrayKode = new Array();
         
-        for (let index = 0; index < arrayExpertises.length; index++) {
-          this.tags.push(arrayExpertises[index].abbr)
+        for (let index = 0; index < arraySchemas.length; index++) {
+          this.codeSchema.push(arraySchemas[index].code)
         }
-        // console.log(this.tags)
+        // console.log(this.codeSchema)
 
       }).catch(error => {
         console.error(error)
@@ -397,35 +261,20 @@ export default {
 
     editItem(item) {
       // this.current
-      this.editedIndex = this.certifications.indexOf(item);
+      this.editedIndex = this.competencyunits.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialog = true;
-      // console.log(this.editedItem.level)
-      // fetch('http://localhost:3000/images/1631760176974Opera%20Snapshot_2021-09-14_145538_app.jadiasn.id.png')
-      //   .then(res => res.blob()) // Gets the response and returns it as a blob
-      //   .then(blob => {
-      //     // Here's where you get access to the blob
-      //     // And you can use it for whatever you want
-      //     // Like calling ref().put(blob)
-
-      //     // Here, I use it to make an image appear on the page
-      //     let objectURL = URL.createObjectURL(blob);
-      //     let myImage = new Image();
-      //     myImage.src = objectURL;
-      //     console.log(blob)
-      //     // document.getElementById('myImg').appendChild(myImage)
-      // });
     },
 
     deleteItem(item) {
-      this.editedIndex = this.certifications.indexOf(item);
+      this.editedIndex = this.competencyunits.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialogDelete = true;
     },
 
     deleteItemConfirm() {
       axios
-        .delete(`${this.url}/certifications/${this.editedItem._id}`, {
+        .delete(`${this.url}/competency-units/${this.editedItem._id}`, {
           headers: {
             Authorization: token,
           },
@@ -459,21 +308,9 @@ export default {
 
     save() {
       if (this.editedIndex > -1) {
-      //   const formData = new FormData()
-      //   formData.append('name', this.editedItem.name)
-      //   formData.append('description', this.editedItem.description)
-      //   formData.append('numberOfMeetings', this.editedItem.numberOfMeetings)
-      //   formData.append('tags', this.editedItem.tags)
-      //   formData.append('level', this.editedItem.level)
-
-      //   if (this.file !== "") {
-      //     formData.append('image', this.file)
-      //   }
-        // console.log(this.file === "")
-        // console.log(this.file !== "")
 
         axios
-          .put(`${this.url}/certifications/${this.editedItem._id}`, this.editedItem, {
+          .put(`${this.url}/competency-units/${this.editedItem._id}`, this.editedItem, {
             headers: {
               Authorization: token,
             },
@@ -487,9 +324,8 @@ export default {
           })
           .catch((error) => console.log(error));
       } else {
-        // console.log(this.editedItem.tags)
         axios
-          .post(`${this.url}/certifications`, this.editedItem, {
+          .post(`${this.url}/competency-units`, this.editedItem, {
             headers: {
               Authorization: token,
             },

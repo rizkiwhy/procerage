@@ -5,7 +5,7 @@
     <v-row no-gutters>
       <v-col
         md="12">
-        <v-container class="py-16">
+        <v-container class="py-16 px-8">
           <h1 class="text-h4 font-weight-medium mb-16 text-center primary--text">Berita Terkini</h1>
           <v-responsive
             class="d-flex align-center mx-auto"
@@ -53,6 +53,7 @@
                                 depressed
                                 min-width="164"
                                 class="font-weight-bold white--text py-1 mt-1"
+                                @click="detail(slide.title)"
                               >
                               Read More
                               </v-btn>
@@ -132,6 +133,7 @@
                         outlined
                         rounded
                         x-small
+                        @click="detail(slide.title)"
                         color="accent">
                         Selengkapnya
                         <v-icon>
@@ -179,6 +181,17 @@ export default {
     this.initialize()
   },
   methods : {
+    detail(param) {
+      axios.get(`${this.url}/blogs/${param}`)
+        .then((response) => {
+          this.blogs = response.data.data
+          // console.log(this.blogs)
+          this.$router.push(`/detail-blog/${this.blogs[0].title}`)
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
     initialize() {
       axios.get(`${this.url}/all-blogs`)
         .then((response) => {
