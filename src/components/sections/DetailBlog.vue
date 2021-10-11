@@ -19,8 +19,8 @@
             <v-img
                 class="mx-auto"
                 max-width="800"
-                :src="'http://localhost:3000/'+blog.image"
-                :lazy-src="'http://localhost:3000/'+blog.image"
+                :src="'http://103.148.113.86:18081/'+blog.image"
+                :lazy-src="'http://103.148.113.86:18081/'+blog.image"
               >
               </v-img>
               <div 
@@ -74,7 +74,7 @@ import axios from "axios";
   export default {
 
     data: () => ({
-      url: "http://localhost:3000/api/v1",
+      url: "http://103.148.113.86:18081/api/v1",
       detailBlog : []
     }),
     created() {
@@ -85,7 +85,7 @@ import axios from "axios";
         // console.log(`${this.url}/${window.location.pathname}`)
         axios.get(`${this.url}/${window.location.pathname}`)
           .then((response) => {
-            console.log(response.data.data[0].description)
+            // console.log(response.data.data[0].description)
             this.detailBlog = response.data.data
           })
           .catch((error) => {

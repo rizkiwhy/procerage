@@ -217,7 +217,7 @@ const Toast = Swal.mixin({
 export default {
   data: () => ({
     // url: "http://103.14.20.210:18081/api/v1",
-    url: "http://localhost:3000/api/v1",
+    url: "http://103.148.113.86:18081/api/v1",
     step: 1,
     show1: false,
     show2: false,

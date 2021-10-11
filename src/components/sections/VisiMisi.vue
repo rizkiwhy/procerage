@@ -53,7 +53,7 @@ import axios from "axios";
   export default {
 
     data: () => ({
-      url: "http://localhost:3000/api/v1",
+      url: "http://103.148.113.86:18081/api/v1",
         visi: [],
         misi: [
             // "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",

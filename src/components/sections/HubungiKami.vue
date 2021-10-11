@@ -101,7 +101,7 @@ const Toast = Swal.mixin({
 export default {
 
   data: () => ({
-    url: "http://localhost:3000/api/v1",
+    url: "http://103.148.113.86:18081/api/v1",
     editedItem: {
       name: "",
       email: "",

@@ -21,13 +21,13 @@
       :search="search"
     >
       <template v-slot:[`item.image`]="{ value }">
-          <a target="_blank" :href="'http://localhost:3000/'+value">
+          <a target="_blank" :href="'http://103.148.113.86:18081/'+value">
             {{ value }}
           </a>
       </template>
       <template v-slot:[`item.icon`]="{ value }">
         <v-icon>{{value}}</v-icon>
-          <!-- <a target="_blank" :href="'http://localhost:3000/'+value">
+          <!-- <a target="_blank" :href="'http://103.148.113.86:18081/'+value">
             {{ value }}
           </a> -->
       </template>
@@ -178,7 +178,7 @@ export default {
     radios: 'Duckduckgo',
     search: "",
     // url: "http://103.14.20.210:18081/api/v1",
-    url: "http://localhost:3000/api/v1",
+    url: "http://103.148.113.86:18081/api/v1",
     dialog: false,
     dialogDelete: false,
     row: null,
