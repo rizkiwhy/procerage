@@ -40,6 +40,7 @@
                           max-width="470"
                           max-height="350"
                           :src="'https://beprocerage.herokuapp.com/'+slide.image"
+                          :lazy-src="'https://beprocerage.herokuapp.com/'+slide.image"
                         >
                           <v-expand-transition>
                             <div

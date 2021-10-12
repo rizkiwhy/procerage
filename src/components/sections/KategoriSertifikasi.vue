@@ -41,6 +41,7 @@
                           {{expertise.name}}
                         </h6>
                         <v-img
+                        :lazy-src="'https://beprocerage.herokuapp.com/'+expertise.image"
                         :src="'https://beprocerage.herokuapp.com/'+expertise.image"/>
                       </v-col>
                       <v-col

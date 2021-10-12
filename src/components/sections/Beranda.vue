@@ -13,10 +13,12 @@
         <v-img
           height="100vh"
           :src="require('../../assets/wave(33).svg')"
+          :lazy-src="require('../../assets/wave(33).svg')"
         >
         <v-container class="fill-height py-16 px-6" style="max-width:900px">
           <v-img class="d-none d-md-block" 
             max-width="250"
+            :lazy-src="'https://beprocerage.herokuapp.com/'+blog.image"
             :src="'https://beprocerage.herokuapp.com/'+blog.image"/>
           <v-responsive
             class="d-flex align-center"

@@ -35,6 +35,7 @@
                       >
                         <v-img
                           :src="'https://beprocerage.herokuapp.com/'+client.image"
+                          :lazy-src="'https://beprocerage.herokuapp.com/'+client.image"
                           height="175px"
                         >
                           <v-card-title class="text-h6 accent--text ma-2">

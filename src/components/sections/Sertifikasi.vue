@@ -63,6 +63,7 @@
                     <v-img
                       :aspect-ratio="16/9"
                       :src="'https://beprocerage.herokuapp.com/'+slide.image"
+                      :lazy-src="'https://beprocerage.herokuapp.com/'+slide.image"
                     >
                       <v-expand-transition class="">
                         <div

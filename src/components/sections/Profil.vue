@@ -5,6 +5,7 @@
         <v-img
           height="100vh"
           :src="require('../../assets/wave(3).svg')"
+          :lazy-src="require('../../assets/wave(3).svg')"
           class="fill-height bottom-gradient"
         >
         </v-img>

@@ -42,6 +42,7 @@
                           class="elevation-6"
                           alt=""
                           :src="'https://beprocerage.herokuapp.com/'+slide.image"
+                          :lazy-src="'https://beprocerage.herokuapp.com/'+slide.image"
                         ></v-img>
                       </v-list-item-avatar>
 
