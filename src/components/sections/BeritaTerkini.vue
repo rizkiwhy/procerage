@@ -39,7 +39,7 @@
                         <v-img
                           max-width="470"
                           max-height="350"
-                          :src="'http://localhost:3000/'+slide.image"
+                          :src="'https://beprocerage.herokuapp.com/'+slide.image"
                         >
                           <v-expand-transition>
                             <div
@@ -174,7 +174,7 @@ export default {
   data: () => ({
     length: 3,
     window: 0,
-    url: "http://localhost:3000/api/v1",
+    url: "https://beprocerage.herokuapp.com/api/v1",
     blogs: [],
   }),
   created() {

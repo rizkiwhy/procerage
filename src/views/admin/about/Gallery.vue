@@ -18,7 +18,7 @@
       :search="search"
     >
       <template v-slot:[`item.image`]="{ value }">
-          <a target="_blank" :href="'http://localhost:3000/'+value">
+          <a target="_blank" :href="'https://beprocerage.herokuapp.com/'+value">
             {{ value }}
           </a>
       </template>
@@ -174,7 +174,7 @@ export default {
     file: "",
     search: "",
     // url: "http://103.14.20.210:18081/api/v1",
-    url: "http://localhost:3000/api/v1",
+    url: "https://beprocerage.herokuapp.com/api/v1",
     dialog: false,
     dialogDelete: false,
     headers: [

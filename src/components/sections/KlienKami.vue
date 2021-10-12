@@ -34,7 +34,7 @@
                         :class="{ 'on-hover': hover }"
                       >
                         <v-img
-                          :src="'http://localhost:3000/'+client.image"
+                          :src="'https://beprocerage.herokuapp.com/'+client.image"
                           height="175px"
                         >
                           <v-card-title class="text-h6 accent--text ma-2">
@@ -119,7 +119,7 @@ import axios from "axios";
   export default {
 
     data: () => ({
-      url: "http://localhost:3000/api/v1",
+      url: "https://beprocerage.herokuapp.com/api/v1",
       clients: [],
       transparent: 'rgba(255, 255, 255, 0)',
     }),

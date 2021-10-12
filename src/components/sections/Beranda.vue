@@ -17,7 +17,7 @@
         <v-container class="fill-height py-16 px-6" style="max-width:900px">
           <v-img class="d-none d-md-block" 
             max-width="250"
-            :src="'http://localhost:3000/'+blog.image"/>
+            :src="'https://beprocerage.herokuapp.com/'+blog.image"/>
           <v-responsive
             class="d-flex align-center"
             height="100%"
@@ -64,7 +64,7 @@ import axios from "axios";
     name: 'HomeBeranda',
 
     data: () => ({
-      url: "http://localhost:3000/api/v1",
+      url: "https://beprocerage.herokuapp.com/api/v1",
       blogs: [],
     }),
     created() {

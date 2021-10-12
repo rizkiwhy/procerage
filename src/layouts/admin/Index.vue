@@ -161,7 +161,7 @@ export default {
   name: "App",
 
   data: () => ({
-    url: "http://localhost:3000/api/v1",
+    url: "https://beprocerage.herokuapp.com/api/v1",
     items: [
       { icon: 'mdi-view-dashboard-variant', text: 'Dashboard' , route:'/admin/dashboard'},
             {

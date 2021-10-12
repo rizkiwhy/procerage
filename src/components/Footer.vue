@@ -50,7 +50,7 @@ import axios from "axios";
     name: 'HomeFooter',
 
     data: () => ({
-      url: "http://localhost:3000/api/v1",
+      url: "https://beprocerage.herokuapp.com/api/v1",
       socialmedias: [],
     }),
     created() {

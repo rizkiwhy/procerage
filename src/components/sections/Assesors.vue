@@ -29,8 +29,8 @@
                     height="250"
                     width="350"
                     alt=""
-                    :src="'http://localhost:3000/'+slide.image"
-                    :lazy-src="'http://localhost:3000/'+slide.image"
+                    :src="'https://beprocerage.herokuapp.com/'+slide.image"
+                    :lazy-src="'https://beprocerage.herokuapp.com/'+slide.image"
                   ></v-img>
               <v-card-title class="text-h6 accent--text justify-center">{{slide.name}}</v-card-title>
                 <v-card-text>
@@ -112,7 +112,7 @@ import axios from "axios";
 
 export default {
   data: () => ({
-    url: "http://localhost:3000/api/v1",
+    url: "https://beprocerage.herokuapp.com/api/v1",
     assesors: [],
     tempTags: [],
   }),

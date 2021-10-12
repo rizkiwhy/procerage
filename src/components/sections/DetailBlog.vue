@@ -19,8 +19,8 @@
             <v-img
                 class="mx-auto"
                 max-width="800"
-                :src="'http://localhost:3000/'+blog.image"
-                :lazy-src="'http://localhost:3000/'+blog.image"
+                :src="'https://beprocerage.herokuapp.com/'+blog.image"
+                :lazy-src="'https://beprocerage.herokuapp.com/'+blog.image"
               >
               </v-img>
               <div 
@@ -74,7 +74,7 @@ import axios from "axios";
   export default {
 
     data: () => ({
-      url: "http://localhost:3000/api/v1",
+      url: "https://beprocerage.herokuapp.com/api/v1",
       detailBlog : []
     }),
     created() {

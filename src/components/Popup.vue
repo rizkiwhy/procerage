@@ -78,7 +78,7 @@ import axios from "axios";
 
 export default {
   data: () => ({
-    url: "http://localhost:3000/api/v1",
+    url: "https://beprocerage.herokuapp.com/api/v1",
     show: false,
     dialog: false,
     rules: {
