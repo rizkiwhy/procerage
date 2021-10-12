@@ -10,7 +10,9 @@
   "dependencies": {
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
+    "express": "^4.17.1",
     "jquery": "^3.6.0",
+    "serve-static": "^1.14.1",
     "tiptap-vuetify": "^2.24.0",
     "toastr": "^2.1.4",
     "vue": "^2.6.11",
