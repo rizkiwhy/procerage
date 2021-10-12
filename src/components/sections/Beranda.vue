@@ -17,7 +17,7 @@
         <v-container class="fill-height py-16 px-6" style="max-width:900px">
           <v-img class="d-none d-md-block" 
             max-width="250"
-            :src="'http://103.148.113.86:18081/'+blog.image"/>
+            :src="'http://localhost:3000/'+blog.image"/>
           <v-responsive
             class="d-flex align-center"
             height="100%"
@@ -64,7 +64,7 @@ import axios from "axios";
     name: 'HomeBeranda',
 
     data: () => ({
-      url: "http://103.148.113.86:18081/api/v1",
+      url: "http://localhost:3000/api/v1",
       blogs: [],
     }),
     created() {

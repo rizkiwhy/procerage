@@ -66,7 +66,7 @@
                   >
                     <v-img
                       :aspect-ratio="16/9"
-                      :src="'http://103.148.113.86:18081/'+slide.image"
+                      :src="'http://localhost:3000/'+slide.image"
                     >
                       <v-expand-transition class="">
                         <div
@@ -132,7 +132,7 @@ import axios from "axios";
     data: () => ({
       page: 1,
       sortItem: ['Latest', 'Oldest', 'Title, A-Z', 'Title, Z-A'],
-      url: "http://103.148.113.86:18081/api/v1",
+      url: "http://localhost:3000/api/v1",
       tags: [
         'Semua',
         'Berita',

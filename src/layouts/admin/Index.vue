@@ -161,7 +161,7 @@ export default {
   name: "App",
 
   data: () => ({
-    url: "http://103.148.113.86:18081/api/v1",
+    url: "http://localhost:3000/api/v1",
     items: [
       { icon: 'mdi-view-dashboard-variant', text: 'Dashboard' , route:'/admin/dashboard'},
             {

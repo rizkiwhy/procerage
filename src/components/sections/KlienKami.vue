@@ -34,7 +34,7 @@
                         :class="{ 'on-hover': hover }"
                       >
                         <v-img
-                          :src="'http://103.148.113.86:18081/'+client.image"
+                          :src="'http://localhost:3000/'+client.image"
                           height="175px"
                         >
                           <v-card-title class="text-h6 accent--text ma-2">
@@ -119,7 +119,7 @@ import axios from "axios";
   export default {
 
     data: () => ({
-      url: "http://103.148.113.86:18081/api/v1",
+      url: "http://localhost:3000/api/v1",
       clients: [],
       transparent: 'rgba(255, 255, 255, 0)',
     }),

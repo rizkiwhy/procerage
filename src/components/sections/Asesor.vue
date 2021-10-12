@@ -29,8 +29,8 @@
                     height="250"
                     width="350"
                     alt=""
-                    :src="'http://103.148.113.86:18081/'+slide.image"
-                    :lazy-src="'http://103.148.113.86:18081/'+slide.image"
+                    :src="'http://localhost:3000/'+slide.image"
+                    :lazy-src="'http://localhost:3000/'+slide.image"
                   ></v-img>
               <v-card-title class="text-h6 primary--text justify-center">{{slide.name}}</v-card-title>
                 <v-card-text>
@@ -112,7 +112,7 @@ import axios from "axios";
 
 export default {
   data: () => ({
-    url: "http://103.148.113.86:18081/api/v1",
+    url: "http://localhost:3000/api/v1",
     assesors: [],
     tempTags: [],
   }),

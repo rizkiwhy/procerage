@@ -50,7 +50,7 @@ import axios from "axios";
     name: 'HomeFooter',
 
     data: () => ({
-      url: "http://103.148.113.86:18081/api/v1",
+      url: "http://localhost:3000/api/v1",
       socialmedias: [],
     }),
     created() {

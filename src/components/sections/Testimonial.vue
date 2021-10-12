@@ -41,7 +41,7 @@
                         <v-img
                           class="elevation-6"
                           alt=""
-                          :src="'http://103.148.113.86:18081/'+slide.image"
+                          :src="'http://localhost:3000/'+slide.image"
                         ></v-img>
                       </v-list-item-avatar>
 
@@ -65,7 +65,7 @@ import axios from "axios";
 
 export default {
   data: () => ({
-    url: "http://103.148.113.86:18081/api/v1",
+    url: "http://localhost:3000/api/v1",
     testimonials: [
       // "1Turns out semicolon-less style is easier and safer in TS because most gotcha edge cases are type invalid as well asdasd.",
       // "2Turns out semicolon-less style is easier and safer in TS because most gotcha edge cases are type invalid as well asdasd.",

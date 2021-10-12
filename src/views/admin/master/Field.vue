@@ -47,13 +47,13 @@
       :search="search"
     >
       <template v-slot:[`item.image`]="{ value }">
-          <a target="_blank" :href="'http://103.148.113.86:18081/'+value">
+          <a target="_blank" :href="'http://localhost:3000/'+value">
             {{ value }}
           </a>
       </template>
       <template v-slot:[`item.icon`]="{ value }">
         <v-icon>{{value}}</v-icon>
-          <!-- <a target="_blank" :href="'http://103.148.113.86:18081/'+value">
+          <!-- <a target="_blank" :href="'http://localhost:3000/'+value">
             {{ value }}
           </a> -->
       </template>
@@ -253,7 +253,7 @@ export default {
     radios: 'Duckduckgo',
     search: "",
     // url: "http://103.14.20.210:18081/api/v1",
-    url: "http://103.148.113.86:18081/api/v1",
+    url: "http://localhost:3000/api/v1",
     dialog: false,
     dialogDelete: false,
     row: null,
@@ -344,7 +344,7 @@ export default {
       this.editedItem = Object.assign({}, item);
       this.dialog = true;
       // console.log(this.editedItem.level)
-      // fetch('http://103.148.113.86:18081/images/1631760176974Opera%20Snapshot_2021-09-14_145538_app.jadiasn.id.png')
+      // fetch('http://localhost:3000/images/1631760176974Opera%20Snapshot_2021-09-14_145538_app.jadiasn.id.png')
       //   .then(res => res.blob()) // Gets the response and returns it as a blob
       //   .then(blob => {
       //     // Here's where you get access to the blob

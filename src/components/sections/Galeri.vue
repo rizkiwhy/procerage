@@ -14,9 +14,9 @@
               v-for="(slide, i) in photos" :index="i" :key="i">
               <v-card :width="slide.width" height="150" >
                 <v-img
-                  :lazy-src="'http://103.148.113.86:18081/'+slide.image"
+                  :lazy-src="'http://localhost:3000/'+slide.image"
                   :width="slide.width" height="150"
-                  :src="'http://103.148.113.86:18081/'+slide.image"
+                  :src="'http://localhost:3000/'+slide.image"
                 >
                   <template v-slot:placeholder>
                     <v-row
@@ -43,7 +43,7 @@ import axios from "axios";
 
   export default {
     data: () => ({
-      url: "http://103.148.113.86:18081/api/v1",
+      url: "http://localhost:3000/api/v1",
       photos : [
         // {
         //   width: "776",
