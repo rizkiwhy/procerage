@@ -178,20 +178,6 @@
         </v-card>
       </v-col>
     </v-row>
-    <!-- <v-snackbar
-      :color="snackbar.color"
-      v-model="snackbar.active"
-      :timeout="snackbar.timeout"
-      right
-      top
-    >
-      {{ snackbar.text }}
-      <template v-slot:action="{ attrs }">
-        <v-btn small color="white" text v-bind="attrs" @click="snackbar.active = false">
-          <v-icon>mdi-close</v-icon>
-        </v-btn>
-      </template>
-    </v-snackbar> -->
   </v-container>
 
 </template>
@@ -217,7 +203,7 @@ const Toast = Swal.mixin({
 export default {
   data: () => ({
     // url: "http://103.14.20.210:18081/api/v1",
-    url: "http://103.148.113.86:18081/api/v1",
+    url: "https://beprocerage.herokuapp.com/api/v1",
     step: 1,
     show1: false,
     show2: false,
@@ -230,12 +216,6 @@ export default {
       email: "",
       password: "",
     },
-    // snackbar: {
-    //   active: false,
-    //   text: "",
-    //   timeout: 5000,
-    //   color: "",
-    // },
     rules: {
       required: value => !!value || 'Required.',
       min: v => v.length >= 6 || 'Min 6 characters',
@@ -277,20 +257,11 @@ export default {
             icon: response.data.status,
             title: response.data.message
           })
-          // console.log(localStorage.getItem("token"))
-          // if (response.data.status === "success") {
-            // console.log(response.data)
             let newToken = response.data.token
             window.token = newToken
             localStorage.setItem("token", newToken)
             localStorage.setItem("_id", response.data.user._id)
-            // localStorage.setItem("name", response.data.user.name)
-            // localStorage.setItem("email", response.data.user.email)
-            // localStorage.setItem("password", "");
             this.$router.push("/admin/dashboard")
-            // console.log(localStorage.getItem("_id"))
-          // }
-          // location.reload()
         })
         .catch((error) => console.error(error));
     },

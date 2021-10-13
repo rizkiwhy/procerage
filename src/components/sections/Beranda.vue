@@ -16,10 +16,15 @@
           :lazy-src="require('../../assets/wave(33).svg')"
         >
         <v-container class="fill-height py-16 px-6" style="max-width:900px">
+          <div data-aos="fade-right">
+
           <v-img class="d-none d-md-block" 
             max-width="250"
             :lazy-src="'https://beprocerage.herokuapp.com/'+blog.image"
             :src="'https://beprocerage.herokuapp.com/'+blog.image"/>
+          </div>
+          <div data-aos="fade-left">
+
           <v-responsive
             class="d-flex align-center"
             height="100%"
@@ -53,6 +58,8 @@
           Get Started Now
           </v-btn>
           </v-responsive>
+          </div>
+
         </v-container>
         </v-img>
       </v-col>
