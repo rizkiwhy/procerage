@@ -113,7 +113,7 @@
               </template>
             </v-col>
           </v-row>
-          <template>
+          <!-- <template>
             <div class="text-center ma-5">
               <v-pagination
               class="customPagination"
@@ -122,7 +122,7 @@
                 :total-visible="7"
               ></v-pagination>
             </div>
-          </template>
+          </template> -->
           </v-responsive>
     </v-container>
   </section>
