@@ -149,7 +149,7 @@ export default {
   name: "Home",
   data: () => ({
     search: "",
-    // url: "http://103.14.20.210:18081/api/v1",
+    
     url: "https://beprocerage.herokuapp.com/api/v1",
     dialog: false,
     dialogDelete: false,
